@@ -16,7 +16,7 @@ func init() {
 	dbname := beego.AppConfig.String("mysqldb")
 	dburl := dbuser + ":" + dbpassword + "@tcp(" + dbhost + ":" + dbport + ")/" + dbname + "?charset=utf8"
 	orm.RegisterDataBase("default", "mysql", dburl)
-	// orm.RegisterModel(new(User), new(Post), new(Tag), new(Option), new(TagPost), new(Mood), new(Photo), new(Album), new(Link))
+	// orm.RegisterModelWithPrefix()
 	if beego.AppConfig.String("runmode") == "dev" {
 		orm.Debug = true
 	}
