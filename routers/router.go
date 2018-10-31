@@ -1,10 +1,15 @@
 package routers
 
 import (
-	"shop/controllers"
+	"shop/controllers/admin"
+
 	"github.com/astaxie/beego"
 )
 
 func init() {
-    beego.Router("/", &controllers.MainController{})
+	// Dashboard
+	beego.Router("/admin", &admin.DashboardController{})
+
+	// User
+	beego.Router("/admin/user", &admin.UsersController{}, "*:List")
 }
