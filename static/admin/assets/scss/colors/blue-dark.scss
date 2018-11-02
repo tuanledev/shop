@@ -1,5 +1,5 @@
 /*
-Template Name: Material Pro Admin
+Template Name: Monster Admin
 Author: Themedesigner
 Email: niravjoshi87@gmail.com
 File: scss
@@ -169,10 +169,10 @@ a.link {
     > ul > li {
         &.active > a, &.active:hover > a {
             
-            color: $white!important;
-            background: $themecolor-alt!important;
+            color: $white;
+            background: $themecolor-alt;
             i {
-                color: $white!important;
+                color: $white;
             }
             &:after{
                 border-color:$white;

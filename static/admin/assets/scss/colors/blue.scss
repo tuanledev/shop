@@ -1,5 +1,5 @@
 /*
-Template Name: Material Pro Admin
+Template Name: Monster Admin
 Author: Themedesigner
 Email: niravjoshi87@gmail.com
 File: scss
@@ -17,7 +17,7 @@ $themecolor-alt: #26c6da;
 .topbar {
     background: $topbar;
     .navbar-header{
-        background: rgba(0, 0, 0, 0.05);
+       
     }
     
     .top-navbar .navbar-header .navbar-brand .dark-logo{
@@ -142,7 +142,19 @@ a.link {
             }
         }
     }
-    
+    > ul > li {
+        &.active > a, &.active:hover > a {
+            
+            color: $white;
+            background: $themecolor-alt;
+            i {
+                color: $white;
+            }
+            &:after{
+                border-color:$white;
+            }
+        }
+    }
     > ul > li > a {
         
         &.active,
@@ -159,19 +171,6 @@ a.link {
             font-weight: 400;
             background: $white;
             color: $themecolor;
-        }
-    }
-    > ul > li {
-        &.active > a, &.active:hover > a {
-            
-            color: $white;
-            background: $themecolor-alt!important;
-            i {
-                color: $white;
-            }
-            &:after{
-                border-color:$white;
-            }
         }
     }
 }

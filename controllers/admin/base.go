@@ -1,38 +1,43 @@
 package admin
 
 import (
-	"log"
 	"strings"
 
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/session"
 )
 
 type baseController struct {
 	beego.Controller
-	userID         int64
+	userID         int
 	userName       string
 	moduleName     string
 	controllerName string
 	actionName     string
+	Session        session.Store
+	RoleID         int
 }
 
-func (this *baseController) Prepare() {
-	controllerName, actionName := this.GetControllerAndAction()
-	this.moduleName = "admin"
-	this.controllerName = strings.ToLower(controllerName[0 : len(controllerName)-10])
-	this.actionName = strings.ToLower(actionName)
+func (c *baseController) Prepare() {
+	// Check session auth
+	if c.GetSession("username") == nil {
+		c.Redirect("/login", 302)
+	}
+	controllerName, actionName := c.GetControllerAndAction()
+	c.moduleName = "admin"
+	c.controllerName = strings.ToLower(controllerName[0 : len(controllerName)-10])
+	c.actionName = strings.ToLower(actionName)
 }
 
-func (this *baseController) display(tpl ...string) {
+func (c *baseController) display(tpl ...string) {
 	var tplName string
 	if len(tpl) == 1 {
-		tplName = this.moduleName + "/" + tpl[0] + ".html"
+		tplName = c.moduleName + "/" + tpl[0] + ".html"
 	} else {
-		tplName = this.moduleName + "/" + this.controllerName + "/" + this.actionName + ".html"
+		tplName = c.moduleName + "/" + c.controllerName + "/" + c.actionName + ".html"
 	}
-	log.Println("tplName ---------", tplName)
-	this.Data["userID"] = this.userID
-	this.Data["userName"] = this.userName
-	this.Layout = this.moduleName + "/layout.html"
-	this.TplName = tplName
+	c.Data["userId"] = c.GetSession("userId")
+	c.Data["username"] = c.GetSession("username")
+	c.Layout = c.moduleName + "/layout.html"
+	c.TplName = tplName
 }
