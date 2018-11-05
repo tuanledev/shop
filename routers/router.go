@@ -8,15 +8,25 @@ import (
 )
 
 func init() {
-	// Dashboard
-	beego.Router("/admin", &admin.DashboardController{})
-
-	// User
-	beego.Router("/admin/user", &admin.UserController{}, "*:List")
-	beego.Router("/admin/user/create", &admin.UserController{}, "*:Create")
 
 	// Login
 	beego.Router("/login", &controllers.AuthController{}, "*:Login")
 	beego.Router("/logout", &controllers.AuthController{}, "*:Logout")
+
+	//init namespace
+	ns :=
+		beego.NewNamespace("/admin",
+			// Dashboard
+			beego.NSRouter("/", &admin.DashboardController{}),
+			// beego.("/admin/user", &admin.UserController{}, "*:List"),
+			// beego.Router("/admin/user/create", &admin.UserController{}, "*:Create"),
+			beego.NSAutoRouter(
+				// User
+				&admin.UserController{},
+			),
+		)
+
+	//register namespace
+	beego.AddNamespace(ns)
 
 }

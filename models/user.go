@@ -8,17 +8,17 @@ import (
 
 type User struct {
 	Id        int
-	Username  string `orm:"unique;size(50)"`
+	Username  string `orm:"unique;size(50)" form:"username"`
 	Hash      string
-	Email     string
-	RoleID    int `orm:"column(role_id)"`
+	Email     string `form:"email"`
+	RoleID    int    `orm:"column(role_id)" form:"role"`
 	Salt      string
 	Create    time.Time `orm:"auto_now_add;type(datetime)"`
 	LastLogin time.Time `orm:"auto_now;type(datetime);column(last_login)"`
-	Fullname  string
-	Detail    string
-	Address   string
-	Active    int `orm:"default(1)"`
+	Fullname  string    `form:"fullname"`
+	Address   string    `form:"address"`
+	Active    int       `orm:"default(1)" form:"active"`
+	Password  string    `orm:"-" form:"password"`
 }
 
 // func (m *User) TableName() string {

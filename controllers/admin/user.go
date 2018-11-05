@@ -1,6 +1,7 @@
 package admin
 
 import (
+	"html/template"
 	"shop/helper"
 	"shop/models"
 	"time"
@@ -16,14 +17,28 @@ func (c *UserController) List() {
 	c.display()
 }
 
-func (c *UserController) Create() {
-	user := models.User{}
-	if salt, err := helper.HashPassword(time.Now().String() + user.Username); err == nil {
-		user.Salt = salt
+func (c *UserController) Add() {
+	if c.Ctx.Request.Method == "POST" {
+		user := models.User{}
+		err := c.ParseForm(&user)
+		if err == nil {
+			if salt, err := helper.HashPassword(time.Now().String() + user.Username); err == nil {
+				user.Salt = salt
+			}
+			if hash, err := helper.HashPassword(user.Salt + user.Password); err == nil {
+				user.Hash = hash
+			}
+			user.Insert()
+		}
 	}
-	if hash, err := helper.HashPassword(user.Salt); err == nil {
-		user.Hash = hash
+	role := models.Role{}
+	roles := []models.Role{}
+	_, err := role.Query().All(&roles)
+	if err == nil {
+		c.Data["roles"] = roles
 	}
-	user.Insert()
-	c.StopRun()
+	c.LayoutSections = make(map[string]string)
+	c.LayoutSections["Scripts"] = "admin/user/script_add.html"
+	c.Data["xsrfdata"] = template.HTML(c.XSRFFormHTML())
+	c.display()
 }
