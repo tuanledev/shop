@@ -8,9 +8,9 @@ import (
 
 type User struct {
 	Id        int
-	Username  string `orm:"unique;size(50)" form:"username"`
+	Username  string `orm:"unique;size(50)" form:"username" valid:"Required"`
 	Hash      string
-	Email     string `form:"email"`
+	Email     string `form:"email" valid:"Required"`
 	RoleID    int    `orm:"column(role_id)" form:"role"`
 	Salt      string
 	Create    time.Time `orm:"auto_now_add;type(datetime)"`
@@ -18,7 +18,7 @@ type User struct {
 	Fullname  string    `form:"fullname"`
 	Address   string    `form:"address"`
 	Active    int       `orm:"default(1)" form:"active"`
-	Password  string    `orm:"-" form:"password"`
+	Password  string    `orm:"-" form:"password" valid:"Required"`
 }
 
 // func (m *User) TableName() string {

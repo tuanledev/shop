@@ -5,6 +5,8 @@ import (
 	"shop/helper"
 	"shop/models"
 	"time"
+
+	"github.com/astaxie/beego/validation"
 )
 
 type UserController struct {
@@ -20,14 +22,17 @@ func (c *UserController) List() {
 func (c *UserController) Add() {
 	if c.Ctx.Request.Method == "POST" {
 		user := models.User{}
-		err := c.ParseForm(&user)
-		if err == nil {
+		c.ParseForm(&user)
+		valid := validation.Validation{}
+		pass, _ := valid.Valid(&user)
+		if pass {
 			if salt, err := helper.HashPassword(time.Now().String() + user.Username); err == nil {
 				user.Salt = salt
 			}
 			if hash, err := helper.HashPassword(user.Salt + user.Password); err == nil {
 				user.Hash = hash
 			}
+			// validation
 			user.Insert()
 		}
 	}
