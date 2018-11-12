@@ -20,9 +20,9 @@ type baseController struct {
 
 func (c *baseController) Prepare() {
 	// Check session auth
-	if c.GetSession("username") == nil {
-		c.Redirect("/login", 302)
-	}
+	// if c.GetSession("username") == nil {
+	// 	c.Redirect("/login", 302)
+	// }
 	controllerName, actionName := c.GetControllerAndAction()
 	c.moduleName = "admin"
 	c.controllerName = strings.ToLower(controllerName[0 : len(controllerName)-10])

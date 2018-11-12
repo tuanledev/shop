@@ -24,6 +24,10 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    {{if .Css}}
+    {{.Css}}
+    {{end}}
+
 </head>
 
 <body class="fix-header fix-sidebar card-no-border">
@@ -88,9 +92,10 @@
     <!-- End Wrapper -->
     <!-- ============================================================== -->
     <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
+    <!-- Jquery -->
     <script src="{{UrlHost}}/static/admin/assets/plugins/jquery/jquery.min.js"></script>
+    <!-- Jquery plugin cookie -->
+    <script src="{{UrlHost}}/static/js/jquery.cookie.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="{{UrlHost}}/static/admin/assets/plugins/bootstrap/js/popper.min.js"></script>
     <script src="{{UrlHost}}/static/admin/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
@@ -105,10 +110,32 @@
     <script src="{{UrlHost}}/static/admin/assets/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="{{UrlHost}}/static/admin/assets/js/custom.min.js"></script>
-    <!-- ============================================================== -->
+
+    <!--My Custom JavaScript -->
+    <script src="{{UrlHost}}/static/js/customs.js"></script>
+   
+    <!-- Add Scripts tpl -->
     {{if .Scripts}}
     {{.Scripts}}
     {{end}}
+
+    <!-- <script>
+        jQuery.postJSON = function (url, args, callback) {
+            var xsrf, xsrflist;
+            xsrf = $.cookie("_xsrf");
+            xsrflist = xsrf.split("|");
+            args._xsrf = base64_decode(xsrflist[0]);
+            $.ajax({
+                url: url,
+                data: $.param(args),
+                dataType: "text",
+                type: "POST",
+                success: function (response) {
+                    callback(eval("(" + response + ")"));
+                }
+            });
+        };
+    </script> -->
 </body>
 
 </html>

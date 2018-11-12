@@ -10,7 +10,7 @@ type User struct {
 	Id        int
 	Username  string `orm:"unique;size(50)" form:"username" valid:"Required"`
 	Hash      string
-	Email     string `form:"email" valid:"Required"`
+	Email     string `form:"email" valid:"Email"`
 	RoleID    int    `orm:"column(role_id)" form:"role"`
 	Salt      string
 	Create    time.Time `orm:"auto_now_add;type(datetime)"`

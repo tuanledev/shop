@@ -1,90 +1,129 @@
 <div class="row">
     <div class="col-12">
-        <div class="card">
+        <div class="card card-outline-info">
+            <div class="card-header">
+                <h4 class="m-b-0 text-white">Thêm người dùng</h4>
+            </div>
             <div class="card-body">
-                <h4 class="card-title">Thêm người dùng</h4>
-                <form class="m-t-40" novalidate="" method="POST" action="{{urlfor "UserController.Add"}}">
-                    <div class="form-group">
-                        <h5>Tên người dùng <span class="text-danger">*</span></h5>
-                        <div class="controls">
-                            <input type="text" name="username" class="form-control" required=""
-                                data-validation-required-message="Không được để trống">
-                            <div class="help-block"></div>
+                <form class="" novalidate="" method="POST" action="{{urlfor "UserController.Add"}}">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <h5>Tên người dùng <span class="text-danger">*</span></h5>
+                                <div class="controls">
+                                    <input type="text" name="username" id="username" class="form-control" required=""
+                                        data-validation-required-message="Không được để trống"
+                                        >
+                                   <small class="has-danger form-control-label" style="color: red;" id="username_msg">
+                                    {{if .errMsg}} 
+                                        {{ map_get .errMsg "Username"}} 
+                                    {{end}}
+                                    </small> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <h5>Email <span class="text-danger">*</span></h5>
+                                <div class="controls">
+                                    <input type="email" name="email" class="form-control" required=""
+                                        data-validation-required-message="Không được để trống"
+                                        data-validation-email-message="Không phải là định dạng email">
+                                    <div class="help-block"></div>
+                                    {{if .errMsg}} <small class="has-danger form-control-label" style="color: red;">{{ map_get .errMsg "Email"}} </small> {{end}}
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <h5>Email <span class="text-danger">*</span></h5>
-                        <div class="controls">
-                            <input type="email" name="email" class="form-control" required=""
-                                data-validation-required-message="Không được để trống" data-validation-email-message="Không phải là định dạng email">
-                            <div class="help-block"></div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <h5>Mật khẩu <span class="text-danger">*</span></h5>
+                                <div class="controls">
+                                    <input type="password" name="password" class="form-control" required=""
+                                        data-validation-required-message="Không được để trống">
+                                    <div class="help-block"></div>
+                                    {{if .errMsg}} <small class="has-danger form-control-label" style="color: red;">{{ map_get .errMsg "Password"}} </small> {{end}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <h5>Nhập lại mật khẩu <span class="text-danger">*</span></h5>
+                                <div class="controls">
+                                    <input type="password" name="password2" data-validation-match-match="password"
+                                        class="form-control" required="" data-validation-required-message="Không được để trống"
+                                        data-validation-match-message="Mật khẩu không trùng">
+                                    <div class="help-block"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <h5>Mật khẩu <span class="text-danger">*</span></h5>
-                        <div class="controls">
-                            <input type="password" name="password" class="form-control" required=""
-                                data-validation-required-message="Không được để trống">
-                            <div class="help-block"></div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <h5>Quyền <span class="text-danger">*</span></h5>
+                                <div class="controls">
+                                    <select name="role" id="select" required="" class="form-control" aria-invalid="false"
+                                        data-validation-required-message="Không được để trống">
+                                        <option value="">Chọn quyền</option>
+                                        {{range $role := .roles}}
+                                        <option value="{{$role.Id}}">{{$role.Name}}</option>
+                                        {{end}}
+                                    </select>
+                                    <div class="help-block"></div>
+                                    {{if .errMsg}} <small class="has-danger form-control-label" style="color: red;">{{ map_get .errMsg "Role"}} </small> {{end}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <h5>Họ và tên</h5>
+                                <div class="controls">
+                                    <input type="text" name="fullname" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <h5>Địa chỉ</h5>
+                                <div class="controls">
+                                    <input type="text" name="address" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <h5>Hoạt động</h5>
+                                <fieldset class="controls">
+                                    <label class="custom-control custom-radio">
+                                        <input type="radio" value="1" name="active" required="" id="styled_radio1"
+                                            class="custom-control-input" checked>
+                                        <span class="custom-control-indicator"></span>
+                                        <span class="custom-control-description">Có</span> </label>
+                                    <div class="help-block"></div>
+                                </fieldset>
+                                <fieldset>
+                                    <label class="custom-control custom-radio">
+                                        <input type="radio" value="0" name="active" id="styled_radio2" class="custom-control-input">
+                                        <span class="custom-control-indicator"></span> <span class="custom-control-description">Không</span>
+                                    </label>
+                                </fieldset>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <h5>Nhập lại mật khẩu <span class="text-danger">*</span></h5>
-                        <div class="controls">
-                            <input type="password" name="password2" data-validation-match-match="password" class="form-control"
-                                required="" data-validation-required-message="Không được để trống"
-                                data-validation-match-message="Mật khẩu không trùng">
-                            <div class="help-block"></div>
-                        </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>Thêm</button>
+                        <button type="reset" class="btn btn-inverse">Hủy</button>
                     </div>
-                    <div class="form-group">
-                        <h5>Quyền <span class="text-danger">*</span></h5>
-                        <div class="controls">
-                            <select name="role" id="select" required="" class="form-control" aria-invalid="false">
-                                <option value="">Chọn quyền</option>
-                                {{range $role := .roles}}
-                                    <option value="{{$role.Id}}">{{$role.Name}}</option>
-                                {{end}}
-                            </select>
-                            <div class="help-block"></div>
-                        </div>
-                    </div>
-                    <div class="form-group">.
-                        <h5>Họ và tên</h5>
-                        <div class="controls">
-                            <input type="text" name="fullname" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <h5>Địa chỉ</h5>
-                        <div class="controls">
-                            <input type="text" name="address" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <h5>Hoạt động</h5>
-                        <fieldset class="controls">
-                            <label class="custom-control custom-radio">
-                                <input type="radio" value="1" name="active" required="" id="styled_radio1" class="custom-control-input"
-                                    checked>
-                                <span class="custom-control-indicator"></span>
-                                <span class="custom-control-description">Có</span> </label>
-                            <div class="help-block"></div>
-                        </fieldset>
-                        <fieldset>
-                            <label class="custom-control custom-radio">
-                                <input type="radio" value="0" name="active" id="styled_radio2" class="custom-control-input">
-                                <span class="custom-control-indicator"></span> <span class="custom-control-description">Không</span>
-                            </label>
-                        </fieldset>
-                    </div>
+                    <input type="hidden" name="_xsrf" id="_xsrf" value="{{.xsrf_token}}">
+                </form>
             </div>
-            <div class="text-xs-right">
-                <button type="submit" class="btn btn-info">Thêm</button>
-                <button type="reset" class="btn btn-inverse">Hủy</button>
-            </div>
-            {{ .xsrfdata }}
-            </form>
         </div>
     </div>
-</div>
