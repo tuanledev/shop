@@ -41,3 +41,23 @@ func (c *baseController) display(tpl ...string) {
 	c.Layout = c.moduleName + "/layout.html"
 	c.TplName = tplName
 }
+
+func (c *baseController) showmsg(msg ...string) {
+	if len(msg) == 1 {
+		msg = append(msg, c.Ctx.Request.Referer())
+	}
+	// this.Data["userID"] = this.userID
+	// this.Data["userName"] = this.userName
+	// this.Data["levelMsg"] = msg[0]
+	// this.Data["msg"] = msg[1]
+	// this.Data["info"] = msg[2]
+	// this.Data["redirect"] = msg[3]
+	msgJson := make(map[string]string)
+	msgJson["levelMsg"] = msg[0]
+	msgJson["msg"] = msg[1]
+	msgJson["info"] = msg[2]
+	// msgJson["redirect"] = msg[3]
+
+	c.Data["json"] = msgJson
+	c.ServeJSON()
+}

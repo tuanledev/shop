@@ -2,8 +2,18 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Danh sách người dùng</h4>
-                <div class="table-responsive m-t-40">
+                    <div class="row">
+                            <div class="col-6">
+                                <h4 class="card-title">Danh sách người dùng</h4>
+                            </div>
+                            <div class="col-6 text-right">
+                                <h4 class="card-title">
+                                    <button type="button" class="btn btn-success"><i class="mdi mdi-account-multiple-plus"></i> Thêm</button>
+                                    <button type="button" class="btn btn-danger" id="delete_user"><i class="mdi mdi-delete"></i> Xóa</button>
+                                </h4>
+                            </div>
+                    </div>
+                <div class="table-responsive">
                     <div id="" class="dataTables_wrapper">
                         <!--  <div class="dt-buttons"><a class="dt-button buttons-copy buttons-html5" tabindex="0"
                                     aria-controls="user_datatable" href="#"><span>Copy</span></a><a class="dt-button buttons-csv buttons-html5"
@@ -17,20 +27,13 @@
                             cellspacing="0" width="100%" role="grid" aria-describedby="user_datatable_info" style="width: 100%;">
                             <thead>
                                 <tr role="row">
-                                    <th></th>
-                                    <th class="sorting_asc" tabindex="0" aria-controls="user_datatable" rowspan="1"
-                                        colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending"
-                                        style="width: 220px;">Tên người dùng</th>
-                                    <th class="sorting" tabindex="0" aria-controls="user_datatable" rowspan="1" colspan="1"
-                                        aria-label="Position: activate to sort column ascending" style="width: 324px;">Email</th>
-                                    <th class="sorting" tabindex="0" aria-controls="user_datatable" rowspan="1" colspan="1"
-                                        aria-label="Office: activate to sort column ascending" style="width: 168px;">Quyền</th>
-                                    <th class="sorting" tabindex="0" aria-controls="user_datatable" rowspan="1" colspan="1"
-                                        aria-label="Age: activate to sort column ascending" style="width: 81px;">Địa chỉ</th>
-                                    <th class="sorting" tabindex="0" aria-controls="user_datatable" rowspan="1" colspan="1"
-                                        aria-label="Start date: activate to sort column ascending" style="width: 151px;">Ngày đăng nhập</th>
-                                    <th class="sorting" tabindex="0" aria-controls="user_datatable" rowspan="1" colspan="1"
-                                        aria-label="Salary: activate to sort column ascending" style="width: 121px;">Hoạt động</th>
+                                    <th style="color: black"></th>
+                                    <th>Tên người dùng</th>
+                                    <th>Email</th>
+                                    <th>Quyền</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Ngày đăng nhập</th>
+                                    <th>Hoạt động</th>
                                 </tr>
                             </thead>
                             <!-- <tfoot>
@@ -43,7 +46,7 @@
                                     <th rowspan="1" colspan="1">Salary</th>
                                 </tr>
                             </tfoot> -->
-                            <tbody style="font-size: 13px;">
+                            <tbody>
                             </tbody>
                         </table>
                     </div>

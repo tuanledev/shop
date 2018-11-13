@@ -18,12 +18,16 @@
     <link href="{{UrlHost}}/static/admin/assets/css/style.css" rel="stylesheet">
     <!-- You can change the theme colors from here -->
     <link href="{{UrlHost}}/static/admin/assets/css/colors/blue.css" id="theme" rel="stylesheet">
+    <!-- toast CSS -->
+    <link href="{{UrlHost}}/static/admin/assets/plugins/toast-master/css/jquery.toast.css" rel="stylesheet">
+    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+   
     {{if .Css}}
     {{.Css}}
     {{end}}
@@ -110,9 +114,10 @@
     <script src="{{UrlHost}}/static/admin/assets/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="{{UrlHost}}/static/admin/assets/js/custom.min.js"></script>
-
     <!--My Custom JavaScript -->
     <script src="{{UrlHost}}/static/js/customs.js"></script>
+    <!-- Toast js -->
+    <script src="{{UrlHost}}/static/admin/assets/plugins/toast-master/js/jquery.toast.js"></script>
    
     <!-- Add Scripts tpl -->
     {{if .Scripts}}
