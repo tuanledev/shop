@@ -20,6 +20,8 @@
     <link href="{{UrlHost}}/static/admin/assets/css/colors/blue.css" id="theme" rel="stylesheet">
     <!-- toast CSS -->
     <link href="{{UrlHost}}/static/admin/assets/plugins/toast-master/css/jquery.toast.css" rel="stylesheet">
+    <!--alerts CSS -->
+    <link href="{{UrlHost}}/static/admin/assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
     
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,7 +31,7 @@
     <![endif]-->
    
     {{if .Css}}
-    {{.Css}}
+        {{.Css}}
     {{end}}
 
 </head>
@@ -83,6 +85,7 @@
             <!-- ============================================================== -->
             <footer class="footer">
                 {{.Footer}}
+                {{.msgLevel}}
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
@@ -114,33 +117,24 @@
     <script src="{{UrlHost}}/static/admin/assets/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="{{UrlHost}}/static/admin/assets/js/custom.min.js"></script>
-    <!--My Custom JavaScript -->
-    <script src="{{UrlHost}}/static/js/customs.js"></script>
     <!-- Toast js -->
     <script src="{{UrlHost}}/static/admin/assets/plugins/toast-master/js/jquery.toast.js"></script>
-   
+    <!-- Sweet-Alert  -->
+    <script src="{{UrlHost}}/static/admin/assets/plugins/sweetalert/sweetalert.min.js"></script>
+    <!-- <script src="../assets/plugins/sweetalert/jquery.sweet-alert.custom.js"></script> -->
+    
+
+    <!--My Custom JavaScript -->
+    <script src="{{UrlHost}}/static/js/customs.js"></script>
+
+
     <!-- Add Scripts tpl -->
     {{if .Scripts}}
-    {{.Scripts}}
+        {{.Scripts}}
     {{end}}
 
-    <!-- <script>
-        jQuery.postJSON = function (url, args, callback) {
-            var xsrf, xsrflist;
-            xsrf = $.cookie("_xsrf");
-            xsrflist = xsrf.split("|");
-            args._xsrf = base64_decode(xsrflist[0]);
-            $.ajax({
-                url: url,
-                data: $.param(args),
-                dataType: "text",
-                type: "POST",
-                success: function (response) {
-                    callback(eval("(" + response + ")"));
-                }
-            });
-        };
-    </script> -->
+   
+
 </body>
 
 </html>

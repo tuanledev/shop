@@ -4,26 +4,27 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav active">
             <ul id="sidebarnav" class="in">
-                <li class="">
-                    <a class="has-arrow" href="#" aria-expanded="false">
+                <li>
+                    <a class="has-arrow" aria-expanded="false">
                         <span class="hide-menu">
-                                <i class="mdi mdi-account"></i>Người dùng
+                            <i class="mdi mdi-account"></i>Người dùng
                         </span>
                     </a>
                     <ul aria-expanded="true" class="collapse in">
-                        <li><a href="{{urlfor "UserController.List"}}"><i class="mdi mdi-format-list-bulleted"></i> Danh sách</a></li>
-                        <li><a href="{{urlfor "UserController.Add"}}"><i class="mdi mdi-account-multiple-plus"></i> Thêm</a></li>
+                        <li><a href="{{urlfor "UserController.List"}}"><i class="mdi mdi-format-list-bulleted"></i>
+                                Danh sách</a></li>
+                        <li><a href="{{urlfor "UserController.Add"}}"><i class="mdi mdi-account-multiple-plus"></i>
+                                Thêm</a></li>
                     </ul>
                 </li>
-                <li class="">
-                    <a class="has-arrow" href="#" aria-expanded="false">
-                        <span class="hide-menu">
-                                <i class="mdi mdi-account"></i>Quản trị
-                        </span>
-                    </a>
-                    <ul aria-expanded="true" class="collapse in">
-                        <li><a href="#"><i class="mdi mdi-format-list-bulleted"></i> Danh sách</a></li>
-                        <li><a href="#"><i class="mdi mdi-account-multiple-plus"></i> Thêm</a></li>
+                <li>
+                    <a class="has-arrow " aria-expanded="false"><i class="mdi mdi-view-module"></i><span class="hide-menu">Danh
+                            mục menu</span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="{{urlfor "MenuController.List"}}"><i class="mdi mdi-format-list-bulleted"></i>
+                                Danh sách</a></li>
+                        <li><a href="{{urlfor "MenuController.Add"}}"><i class="mdi mdi-playlist-plus"></i>
+                                Thêm</a></li>
                     </ul>
                 </li>
             </ul>

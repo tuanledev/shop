@@ -7,6 +7,23 @@
         });
     }(window, document, jQuery);
 
+    var msg = {{.msg}} ? {{.msg}} : "";
+    var msgInfo = {{.msgInfo}} ? {{.msgInfo}} : "";
+    var redirect = {{.redirect}} ? {{.redirect}} : "";
+    var timer = 1500; // 2s
+    if (msg !== "") {
+        swal({
+            title: msg,
+            text: msgInfo,
+            timer: timer,
+            showConfirmButton: false
+        });
+        if (redirect !== "") {
+            // similar behavior as an HTTP redirect
+            setTimeout(function(){ window.location.replace("{{UrlHost}}"+redirect); }, timer);
+        }
+    }
+
 </script>
 <!-- ============================================================== -->
 <!-- Style switcher -->

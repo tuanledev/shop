@@ -20,7 +20,7 @@ type formAuth struct {
 }
 
 func (c *AuthController) Prepare() {
-
+	c.EnableXSRF = false
 }
 
 // Login Check login user

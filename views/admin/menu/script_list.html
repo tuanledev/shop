@@ -1,0 +1,179 @@
+<!-- This is data table -->
+<!-- <script src="{{UrlHost}}/static/admin/assets/plugins/datatables/jquery.dataTables.min1.10.19.js"></script> -->
+<script src="{{UrlHost}}/static/admin/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<!-- start - This is for export functionality only -->
+<!-- <script src="https://cdn.datatables.net/buttons/1.5.4/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script> -->
+<script src="https://cdn.datatables.net/select/1.2.7/js/dataTables.select.min.js"></script>
+<!-- end - This is for export functionality only -->
+<!-- moment -->
+<script src="{{UrlHost}}/static/js/moment.min.js"></script>
+<script src="{{UrlHost}}/static/js/moment.vi.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var user =  {{.dataUser}};
+        var table = $('#user_datatable').DataTable({
+            // dom: 'Bfrtip',
+            // buttons: [
+            //     {
+            //         text: 'Select all',
+            //         action: function () {
+            //             table.rows().select();
+            //         }
+            //     },
+            //     {
+            //         text: 'Select none',
+            //         action: function () {
+            //             table.rows().deselect();
+            //         }
+            //     }
+            // ],
+            columnDefs: [ 
+                {
+                orderable: false,
+                className: 'select-checkbox',
+                targets:   0,
+                width :'1%',
+                },
+                {
+                orderable: false,
+                targets:   7,
+                width :'1%',
+                }
+            ],
+            select: {
+                style:    'os',
+                selector: 'td:first-child'
+            },
+            "order": [
+                [1, 'asc']
+            ],
+            "language": {
+                "url": "{{UrlHost}}/static/admin/assets/plugins/datatables/lang/vietnamese.json"
+            },
+            data:user,
+            columns: [
+                {
+                    "render": function (dataRow, type, row, meta) {
+                        return "" ;
+                    }
+                },
+                { 
+                    data: 'Username' ,
+                    "render": function (dataRow, type, row, meta) {
+                        return dataRow.substr(0,30)+"..." ;
+                    }, },
+                { data: 'Email' },
+                { 
+                    data: 'RoleID',
+                    "render": function (dataRow, type, row, meta) {
+                        var roles = {{.roles}} ? {{.roles}} : null ;
+                        if (roles !== null) {
+                            for (var role in roles) {
+                                 var roleData = roles[role]; 
+                                 if (roleData.Id === dataRow) {
+                                     return roleData.Name
+                                 }
+                            }
+                        }
+                    },
+                },
+                { data: 'Address' },
+                { 
+                    data: 'LastLogin',
+                    "render": function (dataRow, type, row, meta) {
+                        return moment(dataRow).format('MM/DD/YYYY hh:mm:ss');
+                    },
+                },
+                { 
+                    data: 'Active',
+                    "render": function (data, type, row, meta) {
+                        var div =`<div class="switch" id="active_`+row.Id+`" >`;
+                        var checked = "";
+                        if (data === 1) {
+                            checked = "checked";
+                        } 
+                        div += ` 
+                                <label>
+                                        <input type="checkbox" `+checked+` disabled><span class="lever switch-col-teal"></span>
+                                </label>`
+                        div+= `</div>`;
+                        return div;
+                    },
+                },
+                { 
+                    data: '',
+                    "render": function (data, type, row, meta) {
+                        var urlHost = "{{UrlHost}}"+'{{urlfor "UserController.Edit"}}?id='+row.Id;
+                        var div =`
+                        <a href="`+urlHost+`" class="btn btn-success btn-circle"><i class="mdi mdi-tooltip-edit"></i></a>
+                        `;
+                        return div;
+                    },
+                },
+            ],
+            "displayLength": 10,
+            "lengthMenu": [10, 25, 50, 100],
+        });
+
+        table.on("click", "th.select-checkbox", function() {
+            if ($("th.select-checkbox").hasClass("selected")) {
+                table.rows().deselect();
+                $("th.select-checkbox").removeClass("selected");
+            } else {
+                table.rows().select();
+                $("th.select-checkbox").addClass("selected");
+            }
+        })
+        .on("click","select deselect", function() {
+            if (table.rows({
+                    selected: true
+                }).count() !== table.rows().count()) {
+                $("th.select-checkbox").removeClass("selected");
+            } else {
+                $("th.select-checkbox").addClass("selected");
+            }
+        })
+        .on('click', 'tr', function () {
+            $(this).toggleClass('selected');
+        } );
+
+        // delete users
+        $("#delete_user").click(function () { 
+            var rows = table.rows('tr.selected' );
+            var datas = rows.data();
+            var datasLength = datas.length;
+            if (datasLength > 0) {
+                var ids = [];
+                for (var i = 0; i < datasLength; i++) {
+                    var data = datas[i];
+                    if (data.Id === 1) {
+                        continue;
+                    }
+                    ids.push(data.Id);
+                }
+                $.ajax({
+                    method: "GET",
+                    url: '{{UrlHost}}{{urlfor "UserController.Deletes"}}',
+                    data: {ids:ids},
+                    success: function (response) {
+                        if (response.levelMsg !== "") {
+                            // show msg
+                            showMsg(response.levelMsg,response.msg,response.info);
+                            if (response.levelMsg === "success") {
+                                // remove rows
+                                rows.remove().draw();
+                            }
+                        }
+                    }
+                });
+            }
+        })
+    });
+</script>

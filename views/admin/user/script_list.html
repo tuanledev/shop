@@ -34,12 +34,19 @@
             //         }
             //     }
             // ],
-            columnDefs: [ {
+            columnDefs: [ 
+                {
                 orderable: false,
                 className: 'select-checkbox',
                 targets:   0,
                 width :'1%',
-            }],
+                },
+                {
+                orderable: false,
+                targets:   7,
+                width :'1%',
+                }
+            ],
             select: {
                 style:    'os',
                 selector: 'td:first-child'
@@ -63,7 +70,20 @@
                         return dataRow.substr(0,30)+"..." ;
                     }, },
                 { data: 'Email' },
-                { data: 'RoleID' },
+                { 
+                    data: 'RoleID',
+                    "render": function (dataRow, type, row, meta) {
+                        var roles = {{.roles}} ? {{.roles}} : null ;
+                        if (roles !== null) {
+                            for (var role in roles) {
+                                 var roleData = roles[role]; 
+                                 if (roleData.Id === dataRow) {
+                                     return `<span class="label label-danger">`+roleData.Name+`</span>`
+                                 }
+                            }
+                        }
+                    },
+                },
                 { data: 'Address' },
                 { 
                     data: 'LastLogin',
@@ -84,6 +104,16 @@
                                         <input type="checkbox" `+checked+` disabled><span class="lever switch-col-teal"></span>
                                 </label>`
                         div+= `</div>`;
+                        return div;
+                    },
+                },
+                { 
+                    data: '',
+                    "render": function (data, type, row, meta) {
+                        var urlHost = "{{UrlHost}}"+'{{urlfor "UserController.Edit"}}?id='+row.Id;
+                        var div =`
+                        <a href="`+urlHost+`" class="btn btn-success btn-circle"><i class="mdi mdi-tooltip-edit"></i></a>
+                        `;
                         return div;
                     },
                 },
@@ -133,13 +163,11 @@
                     url: '{{UrlHost}}{{urlfor "UserController.Deletes"}}',
                     data: {ids:ids},
                     success: function (response) {
-                        console.log("response ",response);
                         if (response.levelMsg !== "") {
                             // show msg
                             showMsg(response.levelMsg,response.msg,response.info);
                             if (response.levelMsg === "success") {
                                 // remove rows
-                                console.log(rows.indexes());
                                 rows.remove().draw();
                             }
                         }
@@ -148,5 +176,4 @@
             }
         })
     });
-
 </script>

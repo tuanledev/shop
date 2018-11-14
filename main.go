@@ -43,11 +43,11 @@ func init() {
 	beego.AddFuncMap("UrlHost", func() string {
 		// func UrlHost
 		urlHost := fmt.Sprintf("http://%s", beego.AppConfig.String("httphost"))
-		if beego.AppConfig.String("runmode") == "dev" {
-			// urlHost = fmt.Sprintf("http://%s:%s", beego.AppConfig.String("httpaddr"), beego.AppConfig.String("httpport"))
-			urlHost = ""
-			return urlHost
-		}
+		// if beego.AppConfig.String("runmode") == "dev" {
+		// 	// urlHost = fmt.Sprintf("http://%s:%s", beego.AppConfig.String("httpaddr"), beego.AppConfig.String("httpport"))
+		// 	urlHost = fmt.Sprintf("http://)
+		// 	return urlHost
+		// }
 		return urlHost
 	})
 }

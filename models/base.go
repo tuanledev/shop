@@ -21,7 +21,7 @@ func init() {
 	// }
 	// Set prefix db
 	if beego.AppConfig.String("dbprefix") != "" {
-		orm.RegisterModelWithPrefix(beego.AppConfig.String("dbprefix"), new(User), new(Role))
+		orm.RegisterModelWithPrefix(beego.AppConfig.String("dbprefix"), new(User), new(Role), new(Menu))
 	} else {
 		orm.RegisterModel(new(User))
 	}
@@ -31,7 +31,8 @@ func init() {
 	}
 }
 
-// // TableName return table name
-// func TableName(str string) string {
-// 	return fmt.Sprintf("%s%s", beego.AppConfig.String("dbprefix"), str)
-// }
+// TableName return table name
+func TableName(str string) string {
+	// return fmt.Sprintf("%s%s", beego.AppConfig.String("dbprefix"), str)
+	return str
+}

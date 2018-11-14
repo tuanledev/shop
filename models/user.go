@@ -7,7 +7,7 @@ import (
 )
 
 type User struct {
-	Id        int
+	Id        int    `form:"id"`
 	Username  string `orm:"unique;size(50)" form:"username" valid:"Required"`
 	Hash      string
 	Email     string `form:"email" valid:"Email"`
@@ -18,12 +18,12 @@ type User struct {
 	Fullname  string    `form:"fullname"`
 	Address   string    `form:"address"`
 	Active    int       `orm:"default(1)" form:"active"`
-	Password  string    `orm:"-" form:"password" valid:"Required"`
+	Password  string    `orm:"-" form:"password"`
 }
 
-// func (m *User) TableName() string {
-// 	return TableName("user")
-// }
+func (m *User) TableName() string {
+	return TableName("user")
+}
 
 func (m *User) Insert() error {
 	if _, err := orm.NewOrm().Insert(m); err != nil {

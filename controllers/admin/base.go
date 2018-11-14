@@ -7,6 +7,12 @@ import (
 	"github.com/astaxie/beego/session"
 )
 
+type msgNotification struct {
+	msgLevel string
+	msg      string
+	msgInfo  string
+}
+
 type baseController struct {
 	beego.Controller
 	userID         int
@@ -16,6 +22,7 @@ type baseController struct {
 	actionName     string
 	Session        session.Store
 	RoleID         int
+	// msg            *msgNotification
 }
 
 func (c *baseController) Prepare() {
@@ -60,4 +67,10 @@ func (c *baseController) showmsg(msg ...string) {
 
 	c.Data["json"] = msgJson
 	c.ServeJSON()
+}
+
+func (c *baseController) showData(msg ...string) {
+	c.Data["msg"] = msg[0]
+	c.Data["msgInfo"] = msg[1]
+	c.Data["redirect"] = msg[2]
 }

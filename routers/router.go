@@ -24,6 +24,10 @@ func init() {
 				// User
 				&admin.UserController{},
 			),
+			beego.NSAutoRouter(
+				// menu
+				&admin.MenuController{},
+			),
 		)
 
 	//register namespace

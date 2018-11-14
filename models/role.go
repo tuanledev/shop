@@ -11,9 +11,9 @@ type Role struct {
 	Detail   string `form:"detail"`
 }
 
-// func (m *User) TableName() string {
-// 	return TableName("user")
-// }
+func (m *Role) TableName() string {
+	return TableName("role")
+}
 
 func (m *Role) Insert() error {
 	if _, err := orm.NewOrm().Insert(m); err != nil {

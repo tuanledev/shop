@@ -2,38 +2,31 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                    <div class="row">
-                            <div class="col-6">
-                                <h4 class="card-title">Danh sách người dùng</h4>
-                            </div>
-                            <div class="col-6 text-right">
-                                <h4 class="card-title">
-                                    <button type="button" class="btn btn-success"><i class="mdi mdi-account-multiple-plus"></i> Thêm</button>
-                                    <button type="button" class="btn btn-danger" id="delete_user"><i class="mdi mdi-delete"></i> Xóa</button>
-                                </h4>
-                            </div>
+                <div class="row">
+                    <div class="col-6">
+                        <h4 class="card-title">Danh sách người dùng</h4>
                     </div>
+                    <div class="col-6 text-right">
+                        <h4 class="card-title">
+                            <button type="button" class="btn btn-danger" id="delete_user"><i class="mdi mdi-delete"></i>
+                                Xóa</button>
+                        </h4>
+                    </div>
+                </div>
                 <div class="table-responsive">
                     <div id="" class="dataTables_wrapper">
-                        <!--  <div class="dt-buttons"><a class="dt-button buttons-copy buttons-html5" tabindex="0"
-                                    aria-controls="user_datatable" href="#"><span>Copy</span></a><a class="dt-button buttons-csv buttons-html5"
-                                    tabindex="0" aria-controls="user_datatable" href="#"><span>CSV</span></a><a class="dt-button buttons-excel buttons-html5"
-                                    tabindex="0" aria-controls="user_datatable" href="#"><span>Excel</span></a><a class="dt-button buttons-pdf buttons-html5"
-                                    tabindex="0" aria-controls="user_datatable" href="#"><span>PDF</span></a><a class="dt-button buttons-print"
-                                    tabindex="0" aria-controls="user_datatable" href="#"><span>Print</span></a></div> -->
-                        <!--  <div id="user_datatable_filter" class="dataTables_filter"><label>Search:<input type="search"
-                                        class="" placeholder="" aria-controls="user_datatable"></label></div> -->
                         <table id="user_datatable" class="display table table-hover table-striped table-bordered dataTable "
                             cellspacing="0" width="100%" role="grid" aria-describedby="user_datatable_info" style="width: 100%;">
                             <thead>
                                 <tr role="row">
-                                    <th style="color: black"></th>
+                                    <th style="color: rgb(14, 11, 11)"></th>
                                     <th>Tên người dùng</th>
                                     <th>Email</th>
                                     <th>Quyền</th>
                                     <th>Địa chỉ</th>
                                     <th>Ngày đăng nhập</th>
                                     <th>Hoạt động</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <!-- <tfoot>

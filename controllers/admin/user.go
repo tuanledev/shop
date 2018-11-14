@@ -29,11 +29,20 @@ func (c *UserController) List() {
 	// 	}
 	// 	user.Insert()
 	// }
+	// get user
 	user := models.User{}
 	userRows := []models.User{}
 	count, err := user.Query().All(&userRows, "id", "username", "email", "role_id", "address", "last_login", "active")
 	fmt.Println("count ", count, "err ", err)
 	c.Data["dataUser"] = userRows
+	// get roles
+	role := models.Role{}
+	roles := []models.Role{}
+	_, err = role.Query().All(&roles)
+	if err == nil {
+		c.Data["roles"] = roles
+	}
+
 	c.LayoutSections = make(map[string]string)
 	c.LayoutSections["Scripts"] = "admin/user/script_list.html"
 	c.LayoutSections["Css"] = "admin/user/css_list.html"
@@ -143,13 +152,28 @@ func (c *UserController) Edit() {
 		errMsg := make(map[string]string)
 		// validation
 		if pass {
-			if salt, err := helper.HashPassword(time.Now().String() + user.Username); err == nil {
-				user.Salt = salt
+			if user.Password != "" {
+				// if password not change
+				if salt, err := helper.HashPassword(time.Now().String() + user.Username); err == nil {
+					user.Salt = salt
+				}
+				if hash, err := helper.HashPassword(user.Salt + user.Password); err == nil {
+					user.Hash = hash
+				}
+				err := user.Update("email", "role_id", "hash", "salt", "fullname", "address", "active")
+				if err != nil {
+					c.showData("Lỗi", "Sửa không thành công", "")
+				} else {
+					c.showData("Thành công", "Sửa Thành công", "/admin/user/list")
+				}
+			} else {
+				err := user.Update("email", "role_id", "fullname", "address", "active")
+				if err != nil {
+					c.showData("Lỗi", "Sửa không thành công", "")
+				} else {
+					c.showData("Thành công", "Sửa Thành công", "/admin/user/list")
+				}
 			}
-			if hash, err := helper.HashPassword(user.Salt + user.Password); err == nil {
-				user.Hash = hash
-			}
-			user.Insert()
 		} else {
 			for _, err := range valid.Errors {
 				errMsg[err.Field] = err.Message
