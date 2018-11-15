@@ -39,6 +39,7 @@ func UnicodeToAscii(str string) string {
 	for k, v := range CharMap {
 		str = strings.Replace(str, k, v, -1)
 	}
+
 	//compress the string if posible
 	// str = strings.Replace(str, "thanh pho", "TP.", -1)
 	// str = strings.Replace(str, "ho chi minh", "Hcm", -1)
@@ -50,4 +51,17 @@ func UnicodeToAscii(str string) string {
 	// str = strings.Replace(str, "&rdquo;", "\"", -1)
 
 	return str
+}
+
+func StrToAlias(str string) string {
+	str = strings.TrimLeft(str, " ")
+	str = strings.TrimRight(str, " ")
+	str = UnicodeToAscii(str)
+	str = strings.Replace(str, " ", "-", -1)
+	return str
+}
+
+func ShowCategory([]interface{}) map[string]interface{} {
+	categoris := make(map[string]interface{})
+	return categoris
 }

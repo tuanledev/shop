@@ -2,21 +2,21 @@
     <div class="col-12">
         <div class="card card-outline-info">
             <div class="card-header">
-                <h4 class="m-b-0 text-white">Thêm người dùng</h4>
+                <h4 class="m-b-0 text-white">Thêm menu</h4>
             </div>
             <div class="card-body">
-                <form class="" novalidate="" method="POST" action="{{urlfor "UserController.Add"}}">
+                <form class="" novalidate="" method="POST" action="">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <h5>Tên người dùng <span class="text-danger">*</span></h5>
+                                <h5>Tiêu đề VN <span class="text-danger">*</span></h5>
                                 <div class="controls">
-                                    <input type="text" name="username" id="username" class="form-control" required=""
+                                    <input type="text" name="TitleVN" id="username" class="form-control" 
                                         data-validation-required-message="Không được để trống"
                                         >
                                    <small class="has-danger form-control-label" style="color: red;" id="username_msg">
                                     {{if .errMsg}} 
-                                        {{ map_get .errMsg "Username"}} 
+                                        {{ map_get .errMsg "TitleVN"}} 
                                     {{end}}
                                     </small> 
                                 </div>
@@ -24,86 +24,33 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <h5>Email <span class="text-danger">*</span></h5>
+                                <h5>Tiêu đề EN <span class="text-danger">*</span></h5>
                                 <div class="controls">
-                                    <input type="email" name="email" class="form-control" required=""
-                                        data-validation-required-message="Không được để trống"
-                                        data-validation-email-message="Không phải là định dạng email">
+                                    <input type="text" name="TitleEN" class="form-control" data-validation-required-message="Không được để trống">
                                     <div class="help-block"></div>
-                                    {{if .errMsg}} <small class="has-danger form-control-label" style="color: red;">{{ map_get .errMsg "Email"}} </small> {{end}}
+                                    {{if .errMsg}} <small class="has-danger form-control-label" style="color: red;">{{ map_get .errMsg "TitleEN"}} </small> {{end}}
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-1">
                             <div class="form-group">
-                                <h5>Mật khẩu <span class="text-danger">*</span></h5>
+                                <h5>Thứ tự</h5>
                                 <div class="controls">
-                                    <input type="password" name="password" class="form-control" required=""
-                                        data-validation-required-message="Không được để trống">
-                                    <div class="help-block"></div>
-                                    {{if .errMsg}} <small class="has-danger form-control-label" style="color: red;">{{ map_get .errMsg "Password"}} </small> {{end}}
+                                    <input type="number" name="Sort" class="form-control" min="0" max="100"
+                                    value="0"
+                                    >
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <h5>Nhập lại mật khẩu <span class="text-danger">*</span></h5>
-                                <div class="controls">
-                                    <input type="password" name="password2" data-validation-match-match="password"
-                                        class="form-control" required="" data-validation-required-message="Không được để trống"
-                                        data-validation-match-message="Mật khẩu không trùng">
-                                    <div class="help-block"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <h5>Quyền <span class="text-danger">*</span></h5>
-                                <div class="controls">
-                                    <select name="role" id="select" required="" class="form-control" aria-invalid="false"
-                                        data-validation-required-message="Không được để trống">
-                                        <option value="">Chọn quyền</option>
-                                        {{range $role := .roles}}
-                                        <option value="{{$role.Id}}">{{$role.Name}}</option>
-                                        {{end}}
-                                    </select>
-                                    <div class="help-block"></div>
-                                    {{if .errMsg}} <small class="has-danger form-control-label" style="color: red;">{{ map_get .errMsg "Role"}} </small> {{end}}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <h5>Họ và tên</h5>
-                                <div class="controls">
-                                    <input type="text" name="fullname" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <h5>Địa chỉ</h5>
-                                <div class="controls">
-                                    <input type="text" name="address" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <h5>Hoạt động</h5>
                                 <fieldset class="controls">
                                     <label class="custom-control custom-radio">
-                                        <input type="radio" value="1" name="active" required="" id="styled_radio1"
+                                        <input type="radio" value="1" name="Active" id="styled_radio1"
                                             class="custom-control-input" checked>
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description">Có</span> </label>
@@ -111,10 +58,40 @@
                                 </fieldset>
                                 <fieldset>
                                     <label class="custom-control custom-radio">
-                                        <input type="radio" value="0" name="active" id="styled_radio2" class="custom-control-input">
+                                        <input type="radio" value="0" name="Active" id="styled_radio2" class="custom-control-input">
                                         <span class="custom-control-indicator"></span> <span class="custom-control-description">Không</span>
                                     </label>
                                 </fieldset>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <h5>Danh mục menu</h5>
+                                <div class="controls">
+                                    <input type="password" name="ParentID" 
+                                        class="form-control" >
+                                    <div class="help-block"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <h5>Danh mục sản phẩm</h5>
+                                <div class="controls">
+                                    <input type="password" name="CateProductID" 
+                                        class="form-control" >
+                                    <div class="help-block"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <h5>Danh mục tin tức</h5>
+                                <div class="controls">
+                                    <input type="password" name="CateNewsID" 
+                                        class="form-control" >
+                                    <div class="help-block"></div>
+                                </div>
                             </div>
                         </div>
                     </div>

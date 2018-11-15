@@ -14,37 +14,30 @@ type MenuController struct {
 }
 
 func (c *MenuController) List() {
-	// for index := 0; index < 100; index++ {
-
-	// 	user := models.User{
-	// 		Username: helper.RandStringRunes(100),
-	// 		Password: "123456",
-	// 		RoleID:   1,
-	// 	}
-	// 	if salt, err := helper.HashPassword(time.Now().String() + user.Username); err == nil {
-	// 		user.Salt = salt
-	// 	}
-	// 	if hash, err := helper.HashPassword(user.Salt + user.Password); err == nil {
-	// 		user.Hash = hash
-	// 	}
-	// 	user.Insert()
-	// }
 	// get user
 	menu := models.Menu{}
 	menuRows := []models.Menu{}
-	_, err := menu.Query().All(&menuRows, "id", "title_vn", "title_en", "sort", "active", "parent_id", "cate_product_id", "cate_news_id")
-	c.Data["data"] = menuRows
-	// get roles
-	role := models.Role{}
-	roles := []models.Role{}
-	_, err = role.Query().All(&roles)
-	if err == nil {
-		c.Data["roles"] = roles
+	menu.Query().All(&menuRows, "id", "title_vn", "title_en", "sort", "active", "parent_id", "cate_product_id", "cate_news_id")
+	nameParents := make(map[int]string)
+	for _, v := range menuRows {
+		if v.ParentID != 0 {
+			continue
+		}
+		nameParents[v.Id] = v.TitleVN
 	}
-
+	arrMenu := menuRows
+	for i, v := range menuRows {
+		if v.ParentID == 0 {
+			continue
+		}
+		if name, exist := nameParents[v.ParentID]; exist {
+			arrMenu[i].NameParentID = name
+		}
+	}
+	c.Data["data"] = arrMenu
 	c.LayoutSections = make(map[string]string)
-	c.LayoutSections["Scripts"] = "admin/user/script_list.html"
-	c.LayoutSections["Css"] = "admin/user/css_list.html"
+	c.LayoutSections["Scripts"] = "admin/menu/script_list.html"
+	c.LayoutSections["Css"] = "admin/menu/css_list.html"
 	c.display()
 }
 
@@ -66,39 +59,30 @@ func (c *MenuController) Add() {
 	}
 	// POST
 	if c.Ctx.Request.Method == "POST" {
-		user := models.User{}
-		c.ParseForm(&user)
+		menu := models.Menu{}
+		c.ParseForm(&menu)
 		valid := validation.Validation{}
-		pass, _ := valid.Valid(&user)
+		pass, _ := valid.Valid(&menu)
 		errMsg := make(map[string]string)
 		// validation
 		if pass {
-			if salt, err := helper.HashPassword(time.Now().String() + user.Username); err == nil {
-				user.Salt = salt
+			menu.AliasVN = helper.StrToAlias(menu.TitleVN)
+			menu.AliasEN = helper.StrToAlias(menu.TitleEN)
+			err := menu.Insert()
+			if err == nil {
+				c.showData("Thành công", "Thêm thành công", "/admin/menu/list")
+			} else {
+				c.showData("Lỗi", "Sửa không thành công", "")
 			}
-			if hash, err := helper.HashPassword(user.Salt + user.Password); err == nil {
-				user.Hash = hash
-			}
-			user.Insert()
 		} else {
 			for _, err := range valid.Errors {
 				errMsg[err.Field] = err.Message
 			}
-			if user.RoleID == 0 {
-				errMsg["Role"] = "Không được để trống"
-			}
 			c.Data["errMsg"] = errMsg
 		}
 	}
-	// GET
-	role := models.Role{}
-	roles := []models.Role{}
-	_, err := role.Query().All(&roles)
-	if err == nil {
-		c.Data["roles"] = roles
-	}
 	c.LayoutSections = make(map[string]string)
-	c.LayoutSections["Scripts"] = "admin/user/script_add.html"
+	c.LayoutSections["Scripts"] = "admin/menu/script_add.html"
 	c.Data["xsrf_token"] = c.XSRFToken()
 	c.display()
 }

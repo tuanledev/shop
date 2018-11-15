@@ -9,28 +9,22 @@
 
     // Check username exist
     $(document).ready(function () {
-        $("#username").keyup(delay(function (e) {
-            var username = $("#username").val().trim();
-            var xsrf = $("#_xsrf").val();
-            var urlHost = '{{UrlHost}}{{urlfor "UserController.Add"}}';
-            console.log(urlHost);
-            if (username.length >= 3) {
-                $.ajax({
-                    url: urlHost,
-                    type: 'post',
-                    data: {'username':username,'_xsrf':xsrf},
-                    success: function (response) {
-                        if (response.status) {
-                            $("#username_msg").html("Tên người dùng đã được sử dụng");
-                        } else {
-                            $("#username_msg").empty();
-                        }
-                    }
-                });
-            } else {
-                // $("#username_msg").hide();
-            }
-        },1000));
+        var msg = {{.msg}} ? {{.msg}} : "";
+    var msgInfo = {{.msgInfo}} ? {{.msgInfo}} : "";
+    var redirect = {{.redirect}} ? {{.redirect}} : "";
+    var timer = 1500; // 2s
+    if (msg !== "") {
+        swal({
+            title: msg,
+            text: msgInfo,
+            timer: timer,
+            showConfirmButton: false
+        });
+        if (redirect !== "") {
+            // similar behavior as an HTTP redirect
+            setTimeout(function(){ window.location.replace("{{UrlHost}}"+redirect); }, timer);
+        }
+    }
 
     });
 </script>

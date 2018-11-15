@@ -45,7 +45,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right scale-up">
                         <ul class="dropdown-user">
-                            <li><a href="#"><i class="ti-settings"></i> Cấu hình</a></li>
+                            <li><a href="{{urlfor "UserController.Edit"}}/?id={{.userId}}"><i class="ti-settings"></i> Cấu hình</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="{{urlfor "AuthController.Logout"}}"><i class="fa fa-power-off"></i> Đăng xuất</a></li>
                         </ul>

@@ -6,15 +6,18 @@ import (
 
 type Menu struct {
 	Id            int
-	TitleVn       string `orm:"column(title_vn) ;form:"titleVn"`
-	TitleEn       string `orm:"column(title_en) ;form:"titleEn"`
-	AliasVn       string `orm:"column(alias_vn) ;form:"aliasVn"`
-	AliasEn       string `orm:"column(alias_en) ;form:"aliasEn"`
-	Sort          string `form:"sort"`
-	Active        string `form:"active"`
-	ParentId      string `orm:"column(parent_id) ;form:"parentId"`
-	CateProductId string `orm:"column(cate_product_id) ;form:"cateProductId"`
-	CateNewsId    string `orm:"column(cate_news_id) ;form:"cateNewsId"`
+	TitleVN       string `orm:"column(title_vn)" form:"TitleVN" valid:"Required"`
+	TitleEN       string `orm:"column(title_en)" form:"TitleEN" valid:"Required"`
+	AliasVN       string `orm:"column(alias_vn)" form:"AliasVN"`
+	AliasEN       string `orm:"column(alias_en)" form:"AliasEN"`
+	Sort          int    `form:"Sort"`
+	Active        int    `form:"Active"`
+	ParentID      int    `orm:"column(parent_id)" form:"ParentID"`
+	CateProductID int    `orm:"column(cate_product_id)" form:"CateProductID"`
+	CateNewsID    int    `orm:"column(cate_news_id)" form:"CateNewsID"`
+	NameParentID  string `orm:"-"`
+	NameProductID string `orm:"-"`
+	NameNewsID    string `orm:"-"`
 }
 
 func (m *Menu) TableName() string {

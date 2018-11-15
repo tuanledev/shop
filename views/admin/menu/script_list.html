@@ -9,16 +9,15 @@
 <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script> -->
-<script src="https://cdn.datatables.net/select/1.2.7/js/dataTables.select.min.js"></script>
+<script src="{{UrlHost}}/static/admin/assets/plugins/datatables/dataTables.select.min.js"></script>
+<script src="{{UrlHost}}/static/admin/assets/plugins/datatables/dataTables.rowGroup.min.js"></script>
 <!-- end - This is for export functionality only -->
 <!-- moment -->
-<script src="{{UrlHost}}/static/js/moment.min.js"></script>
-<script src="{{UrlHost}}/static/js/moment.vi.js"></script>
 
 <script>
     $(document).ready(function () {
-        var user =  {{.dataUser}};
-        var table = $('#user_datatable').DataTable({
+        var dataMenus =  {{.data}};
+        var table = $('#datatable_data').DataTable({
             // dom: 'Bfrtip',
             // buttons: [
             //     {
@@ -34,6 +33,7 @@
             //         }
             //     }
             // ],
+         
             columnDefs: [ 
                 {
                 orderable: false,
@@ -43,55 +43,33 @@
                 },
                 {
                 orderable: false,
-                targets:   7,
-                width :'1%',
+                targets:   8,
+                width :'6%',
                 }
             ],
             select: {
                 style:    'os',
                 selector: 'td:first-child'
             },
-            "order": [
-                [1, 'asc']
-            ],
             "language": {
                 "url": "{{UrlHost}}/static/admin/assets/plugins/datatables/lang/vietnamese.json"
             },
-            data:user,
+            "displayLength": 10,
+            "lengthMenu": [10, 25, 50, 100],
+            data:dataMenus,
             columns: [
                 {
                     "render": function (dataRow, type, row, meta) {
                         return "" ;
                     }
                 },
-                { 
-                    data: 'Username' ,
-                    "render": function (dataRow, type, row, meta) {
-                        return dataRow.substr(0,30)+"..." ;
-                    }, },
-                { data: 'Email' },
-                { 
-                    data: 'RoleID',
-                    "render": function (dataRow, type, row, meta) {
-                        var roles = {{.roles}} ? {{.roles}} : null ;
-                        if (roles !== null) {
-                            for (var role in roles) {
-                                 var roleData = roles[role]; 
-                                 if (roleData.Id === dataRow) {
-                                     return roleData.Name
-                                 }
-                            }
-                        }
-                    },
-                },
-                { data: 'Address' },
-                { 
-                    data: 'LastLogin',
-                    "render": function (dataRow, type, row, meta) {
-                        return moment(dataRow).format('MM/DD/YYYY hh:mm:ss');
-                    },
-                },
-                { 
+                { data: 'TitleVN' },
+                { data: 'TitleEN' },
+                { data: 'Sort' },
+                { data: 'NameParentID'},
+                { data: 'CateProductID'},
+                { data: 'CateNewsID'},
+                {
                     data: 'Active',
                     "render": function (data, type, row, meta) {
                         var div =`<div class="switch" id="active_`+row.Id+`" >`;
@@ -107,19 +85,28 @@
                         return div;
                     },
                 },
-                { 
-                    data: '',
-                    "render": function (data, type, row, meta) {
-                        var urlHost = "{{UrlHost}}"+'{{urlfor "UserController.Edit"}}?id='+row.Id;
-                        var div =`
-                        <a href="`+urlHost+`" class="btn btn-success btn-circle"><i class="mdi mdi-tooltip-edit"></i></a>
+                {
+                    "render": function (dataRow, type, row, meta) {
+                        var div = `
+                        <a href="#" data-toggle="tooltip" data-original-title="Sửa"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
                         `;
-                        return div;
-                    },
+                        return div ;
+                    }
                 },
             ],
-            "displayLength": 10,
-            "lengthMenu": [10, 25, 50, 100],
+            "order": [
+                [4, 'asc']
+            ],
+            rowGroup: {
+                startRender: function ( rows, group) {
+                    if (group === "" || group === null) {
+                        return "Không có nhóm";
+                    }
+                    return group;
+                },
+                dataSrc: "NameParentID"
+            },
+            
         });
 
         table.on("click", "th.select-checkbox", function() {
@@ -145,8 +132,8 @@
         } );
 
         // delete users
-        $("#delete_user").click(function () { 
-            var rows = table.rows('tr.selected' );
+        $("#delete").click(function () { 
+            var rows = table.rows('tr.selected');
             var datas = rows.data();
             var datasLength = datas.length;
             if (datasLength > 0) {
