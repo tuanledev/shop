@@ -17,6 +17,7 @@
 <script>
     $(document).ready(function () {
         var dataMenus =  {{.data}};
+        var cates = {{.cates}};
         var table = $('#datatable_data').DataTable({
             // dom: 'Bfrtip',
             // buttons: [
@@ -66,8 +67,24 @@
                 { data: 'TitleVN' },
                 { data: 'TitleEN' },
                 { data: 'Sort' },
-                { data: 'NameParentID'},
-                { data: 'CateProductID'},
+                { data: 'NameParentID',
+                    "render": function (data, type, row, meta) {
+                            if (data === "") {
+                                return `<span class="label label-info">Không có</span>`;
+                            } 
+                            return data;
+                    },
+                },
+                { 
+                    data: 'NameProductID',
+                    "render": function (data, type, row, meta) {
+                            if (data === "") {
+                                return `<span class="label label-info">Không có</span>`;
+                            } 
+                            return data;
+                    },
+                   
+                },
                 { data: 'CateNewsID'},
                 {
                     data: 'Active',
@@ -87,8 +104,9 @@
                 },
                 {
                     "render": function (dataRow, type, row, meta) {
+                        var urlHost = `{{UrlHost}}{{urlfor "MenuController.Edit"}}?id=`+row.Id;
                         var div = `
-                        <a href="#" data-toggle="tooltip" data-original-title="Sửa"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                        <a href="`+urlHost+`" data-toggle="tooltip" data-original-title="Sửa"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
                         `;
                         return div ;
                     }
@@ -100,7 +118,7 @@
             rowGroup: {
                 startRender: function ( rows, group) {
                     if (group === "" || group === null) {
-                        return "Không có nhóm";
+                        return "Không có menu cha";
                     }
                     return group;
                 },
@@ -147,7 +165,7 @@
                 }
                 $.ajax({
                     method: "GET",
-                    url: '{{UrlHost}}{{urlfor "UserController.Deletes"}}',
+                    url: '{{UrlHost}}{{urlfor "MenuController.Deletes"}}',
                     data: {ids:ids},
                     success: function (response) {
                         if (response.levelMsg !== "") {

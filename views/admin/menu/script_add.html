@@ -10,22 +10,38 @@
     // Check username exist
     $(document).ready(function () {
         var msg = {{.msg}} ? {{.msg}} : "";
-    var msgInfo = {{.msgInfo}} ? {{.msgInfo}} : "";
-    var redirect = {{.redirect}} ? {{.redirect}} : "";
-    var timer = 1500; // 2s
-    if (msg !== "") {
-        swal({
-            title: msg,
-            text: msgInfo,
-            timer: timer,
-            showConfirmButton: false
-        });
-        if (redirect !== "") {
-            // similar behavior as an HTTP redirect
-            setTimeout(function(){ window.location.replace("{{UrlHost}}"+redirect); }, timer);
+        var msgInfo = {{.msgInfo}} ? {{.msgInfo}} : "";
+        var redirect = {{.redirect}} ? {{.redirect}} : "";
+        var timer = 1500; // 2s
+        if (msg !== "") {
+            swal({
+                title: msg,
+                text: msgInfo,
+                timer: timer,
+                showConfirmButton: false
+            });
+            if (redirect !== "") {
+                // similar behavior as an HTTP redirect
+                setTimeout(function(){ window.location.replace("{{UrlHost}}"+redirect); }, timer);
+            }
         }
-    }
-
+        $('#cate_product').hide();
+        $('#cate_new').hide();
+        // show cate
+        $('#select_menu').click(function (e) { 
+            var menuSel = $('#select_menu').find(":selected").text();
+            console.log( $('#select_menu').find(":selected").text());
+            if (menuSel === "Sản phẩm") {
+                $('#cate_product').show();
+            } else {
+                $('#cate_product').hide();
+            }
+            if (menuSel === "Tin tức") {
+                $('#cate_new').show();
+            } else {
+                $('#cate_new').hide();
+            }
+        });
     });
 </script>
 <!-- ============================================================== -->

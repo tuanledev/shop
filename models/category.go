@@ -5,7 +5,7 @@ import (
 )
 
 type Category struct {
-	Id              int
+	Id              int    `form:"id"`
 	TitleVN         string `orm:"column(title_vn)" form:"TitleVN"`
 	TitleEN         string `orm:"column(title_en)" form:"TitleEN"`
 	DescriptionVN   string `orm:"column(description_vn)" form:"DescriptionVN"`

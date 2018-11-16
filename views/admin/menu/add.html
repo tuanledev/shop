@@ -68,28 +68,40 @@
                             <div class="form-group">
                                 <h5>Danh mục menu</h5>
                                 <div class="controls">
-                                    <input type="password" name="ParentID" 
-                                        class="form-control" >
+                                    <select name="ParentID" id="select_menu" class="form-control" aria-invalid="false"
+                                        data-validation-required-message="Không được để trống">
+                                        <option value="0" selected>Chọn danh mục menu</option>
+                                        {{range $menu := .menus}}
+                                        <option value="{{$menu.Id}}">{{$menu.TitleVN}}</option>
+                                        {{end}}
+                                    </select>
                                     <div class="help-block"></div>
+                                    {{if .errMsg}} <small class="has-danger form-control-label" style="color: red;">{{ map_get .errMsg "ParentID"}} </small> {{end}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3" id="cate_product">
                             <div class="form-group">
                                 <h5>Danh mục sản phẩm</h5>
                                 <div class="controls">
-                                    <input type="password" name="CateProductID" 
-                                        class="form-control" >
+                                    <select name="CateProductID" id="select" class="form-control" aria-invalid="false"
+                                        data-validation-required-message="Không được để trống">
+                                        <option value="0" selected>Chọn danh mục sản phẩm</option>
+                                        {{range $cate := .cates}}
+                                        <option value="{{$cate.Id}}">{{$cate.TitleVN}}</option>
+                                        {{end}}
+                                    </select>
                                     <div class="help-block"></div>
+                                    {{if .errMsg}} <small class="has-danger form-control-label" style="color: red;">{{ map_get .errMsg "CateProductID"}} </small> {{end}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3" id="cate_new">
                             <div class="form-group">
                                 <h5>Danh mục tin tức</h5>
                                 <div class="controls">
-                                    <input type="password" name="CateNewsID" 
-                                        class="form-control" >
+                                    <input type="number" name="CateNewsID" 
+                                        class="form-control" value="0">
                                     <div class="help-block"></div>
                                 </div>
                             </div>

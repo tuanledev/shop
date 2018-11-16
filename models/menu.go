@@ -5,7 +5,7 @@ import (
 )
 
 type Menu struct {
-	Id            int
+	Id            int    `form:"id"`
 	TitleVN       string `orm:"column(title_vn)" form:"TitleVN" valid:"Required"`
 	TitleEN       string `orm:"column(title_en)" form:"TitleEN" valid:"Required"`
 	AliasVN       string `orm:"column(alias_vn)" form:"AliasVN"`

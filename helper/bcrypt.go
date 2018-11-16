@@ -40,22 +40,16 @@ func UnicodeToAscii(str string) string {
 		str = strings.Replace(str, k, v, -1)
 	}
 
-	//compress the string if posible
-	// str = strings.Replace(str, "thanh pho", "TP.", -1)
-	// str = strings.Replace(str, "ho chi minh", "Hcm", -1)
-	// str = strings.Replace(str, "viet nam", ".", -1)
-	// str = strings.Replace(str, "huyen", "H.", -1)
-	// str = strings.Replace(str, "tinh", "", -1)
-	// str = strings.Replace(str, "quan", "Q.", -1)
-	// str = strings.Replace(str, "phuong", "P.", -1)
-	// str = strings.Replace(str, "&rdquo;", "\"", -1)
-
 	return str
 }
 
 func StrToAlias(str string) string {
 	str = strings.TrimLeft(str, " ")
 	str = strings.TrimRight(str, " ")
+	for i := 0; i < 20; i++ {
+		str = strings.Replace(str, "  ", " ", -1)
+	}
+	str = strings.TrimSpace(str)
 	str = UnicodeToAscii(str)
 	str = strings.Replace(str, " ", "-", -1)
 	return str
@@ -64,4 +58,13 @@ func StrToAlias(str string) string {
 func ShowCategory([]interface{}) map[string]interface{} {
 	categoris := make(map[string]interface{})
 	return categoris
+}
+
+func TitleStrimSpace(str string) string {
+	str = strings.TrimLeft(str, " ")
+	str = strings.TrimRight(str, " ")
+	for i := 0; i < 20; i++ {
+		str = strings.Replace(str, "  ", " ", -1)
+	}
+	return str
 }

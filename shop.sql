@@ -586,24 +586,17 @@ CREATE TABLE IF NOT EXISTS `mn_menu` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `title_vn` (`title_vn`),
   UNIQUE KEY `title_en` (`title_en`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- Dumping data for table shop.mn_menu: ~11 rows (approximately)
 DELETE FROM `mn_menu`;
 /*!40000 ALTER TABLE `mn_menu` DISABLE KEYS */;
 INSERT INTO `mn_menu` (`id`, `title_vn`, `title_en`, `alias_vn`, `alias_en`, `sort`, `active`, `parent_id`, `cate_product_id`, `cate_news_id`) VALUES
-	(24, 'trang chủ', 'home', 'aaa', NULL, 0, 1, 0, 0, 0),
-	(25, 'lien he', 'contact', 'aaa', NULL, 0, 1, 0, 0, 0),
-	(26, 'san pham', 'product', 'aaa', NULL, 0, 1, 0, 0, 0),
-	(27, 'tin tuc', 'news', 'aaa', NULL, 0, 1, 0, 0, 0),
-	(28, 'khuyen mai', '2', 'aaa', NULL, 0, 1, 27, 0, 0),
-	(29, 'điện thoại', 'phone', 'aaa', NULL, 0, 1, 0, 0, 0),
-	(36, 'khuyen mai 2', ' 1', 'aaa', NULL, 0, 1, 27, 0, 0),
-	(38, 'khuyen mai 1', 'sale', 'aaa', NULL, 0, 1, 27, 0, 0),
-	(39, 'Tuấn lê', 'tuanle', 'tuan-le', 'tuanle', 1, 1, 0, 0, 0),
-	(40, '  tuấn sói ác  ', '  tuan    ác   ', 'tuan-soi-ac', 'tuan----ac', 2, 0, 1, 2, 3),
-	(45, 'asas asd', 'asdasd', 'asas-asd', 'asdasd', 1, 1, 0, 0, 0),
-	(46, 'adsad', 'asdsads', 'adsad', 'asdsads', 0, 1, 0, 0, 0);
+	(58, 'Trang chủ', 'Home', 'trang-chu', 'home', 1, 1, 0, 0, 0),
+	(59, 'Sản phẩm', 'Product', 'san-pham', 'product', 2, 1, 0, 0, 0),
+	(60, 'Liên Hệ', 'Contact', 'lien-he', 'contact', 3, 1, 0, 0, 0),
+	(61, 'Tin tức', 'news', 'tin-tuc', 'news', 4, 1, 0, 0, 0),
+	(62, 'Điện thoại', 'Phone ', 'dien-thoai', 'phone', 0, 1, 59, 26, 0);
 /*!40000 ALTER TABLE `mn_menu` ENABLE KEYS */;
 
 -- Dumping structure for table shop.mn_module
