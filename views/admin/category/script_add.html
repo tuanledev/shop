@@ -1,0 +1,33 @@
+<script src="{{UrlHost}}/static/admin/assets/js/validation.js"></script>
+<script>
+    ! function (window, document, $) {
+        "use strict";
+        $("input,select,textarea").not("[type=submit]").jqBootstrapValidation({
+            preventSubmit: true
+        });
+    }(window, document, jQuery);
+
+    // Check username exist
+    $(document).ready(function () {
+        var msg = {{.msg}} ? {{.msg}} : "";
+        var msgInfo = {{.msgInfo}} ? {{.msgInfo}} : "";
+        var redirect = {{.redirect}} ? {{.redirect}} : "";
+        var timer = 1500; // 2s
+        if (msg !== "") {
+            swal({
+                title: msg,
+                text: msgInfo,
+                timer: timer,
+                showConfirmButton: false
+            });
+            if (redirect !== "") {
+                // similar behavior as an HTTP redirect
+                setTimeout(function(){ window.location.replace("{{UrlHost}}"+redirect); }, timer);
+            }
+        }
+    });
+</script>
+<!-- ============================================================== -->
+<!-- Style switcher -->
+<!-- ============================================================== -->
+<script src="{{UrlHost}}/static/admin/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>

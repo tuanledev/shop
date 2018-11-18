@@ -119,7 +119,8 @@ func (c *MenuController) Add() {
 		if pass {
 			menu.AliasVN = helper.StrToAlias(menu.TitleVN)
 			menu.AliasEN = helper.StrToAlias(menu.TitleEN)
-			menu.TitleEN = strings.tim
+			menu.TitleEN = helper.TitleStrimSpace(menu.TitleEN)
+			menu.TitleVN = helper.TitleStrimSpace(menu.TitleVN)
 			err := menu.Insert()
 			if err == nil {
 				c.showData("Thành công", "Thêm thành công", "/admin/menu/list")

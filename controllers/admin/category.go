@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"shop/helper"
 	"shop/models"
+	"sort"
 
 	"github.com/astaxie/beego/validation"
 )
@@ -14,62 +15,40 @@ type CategoryController struct {
 
 func (c *CategoryController) List() {
 	// get user
-	menu := models.Menu{}
-	menuRows := []models.Menu{}
-	menu.Query().All(&menuRows, "id", "title_vn", "title_en", "sort", "active", "parent_id", "cate_product_id", "cate_news_id")
-	nameParents := make(map[int]string)
-	for _, v := range menuRows {
-		if v.ParentID != 0 {
-			continue
-		}
-		nameParents[v.Id] = v.TitleVN
+	cate := models.Category{}
+	cateRows := []models.Category{}
+	cate.Query().All(&cateRows, "id", "title_vn", "title_en", "sort", "images", "parent_id")
+	arrCates := cateRows
+	for key, v := range cateRows {
+		sort.Search(len(cateRows), func(i int) bool {
+			if v.ParentID == cateRows[i].Id {
+				arrCates[key].NameParentID = cateRows[i].TitleVN
+			}
+			return true
+		})
 	}
-	arrMenu := menuRows
-	for i, v := range menuRows {
-		if v.ParentID == 0 {
-			continue
-		}
-		if name, exist := nameParents[v.ParentID]; exist {
-			arrMenu[i].NameParentID = name
-		}
-	}
-	c.Data["data"] = arrMenu
+	c.Data["data"] = arrCates
 	c.LayoutSections = make(map[string]string)
-	c.LayoutSections["Scripts"] = "admin/menu/script_list.html"
-	c.LayoutSections["Css"] = "admin/menu/css_list.html"
+	c.LayoutSections["Scripts"] = "admin/category/script_list.html"
+	c.LayoutSections["Css"] = "admin/category/css_list.html"
 	c.display()
 }
 
 func (c *CategoryController) Add() {
-	// Ajax
-	if c.IsAjax() {
-		username := c.GetString("username")
-		user := models.User{Username: username}
-		err := user.Read("username")
-		status := make(map[string]bool)
-		if err == nil {
-			status["status"] = true
-		} else {
-			status["status"] = false
-		}
-		c.Data["json"] = status
-		c.ServeJSON()
-		return
-	}
 	// POST
 	if c.Ctx.Request.Method == "POST" {
-		menu := models.Menu{}
-		c.ParseForm(&menu)
+		category := models.Category{}
+		c.ParseForm(&category)
 		valid := validation.Validation{}
-		pass, _ := valid.Valid(&menu)
+		pass, _ := valid.Valid(&category)
 		errMsg := make(map[string]string)
 		// validation
 		if pass {
-			menu.AliasVN = helper.StrToAlias(menu.TitleVN)
-			menu.AliasEN = helper.StrToAlias(menu.TitleEN)
-			err := menu.Insert()
+			category.AliasVN = helper.StrToAlias(category.TitleVN)
+			category.AliasEN = helper.StrToAlias(category.TitleEN)
+			err := category.Insert()
 			if err == nil {
-				c.showData("Thành công", "Thêm thành công", "/admin/menu/list")
+				c.showData("Thành công", "Thêm thành công", "/admin/category/list")
 			} else {
 				c.showData("Lỗi", "Sửa không thành công", "")
 			}
@@ -80,8 +59,13 @@ func (c *CategoryController) Add() {
 			c.Data["errMsg"] = errMsg
 		}
 	}
+	// get category
+	cate := models.Category{}
+	cateRows := []models.Category{}
+	cate.Query().All(&cateRows, "id", "title_vn", "title_en")
+	c.Data["cates"] = cateRows
 	c.LayoutSections = make(map[string]string)
-	c.LayoutSections["Scripts"] = "admin/menu/script_add.html"
+	c.LayoutSections["Scripts"] = "admin/category/script_add.html"
 	c.Data["xsrf_token"] = c.XSRFToken()
 	c.display()
 }
@@ -92,9 +76,9 @@ func (c *CategoryController) Delete() {
 		c.showmsg("error", "Lỗi", "không được quyền xóa")
 	}
 	if id >= 0 {
-		menu := models.Menu{Id: id}
-		if menu.Read() == nil {
-			err := menu.Delete()
+		cate := models.Category{Id: id}
+		if cate.Read() == nil {
+			err := cate.Delete()
 			if err == nil {
 				c.showmsg("success", "Thành công", fmt.Sprintf("Xóa thành công %v", id))
 			} else {
@@ -110,8 +94,8 @@ func (c *CategoryController) Deletes() {
 	c.Ctx.Input.Bind(&ids, "ids")
 	if len(ids) > 0 {
 		for _, id := range ids {
-			menu := models.Menu{Id: id}
-			err := menu.Delete()
+			cate := models.Category{Id: id}
+			err := cate.Delete()
 			if err == nil {
 				c.showmsg("success", "Thành công", fmt.Sprintf("Xóa thành công %v", id))
 			} else {
@@ -119,24 +103,24 @@ func (c *CategoryController) Deletes() {
 			}
 		}
 	}
-	c.showmsg("error", "Lỗi", "Không có menu")
+	c.showmsg("error", "Lỗi", "Không có cate")
 }
 
 func (c *CategoryController) Edit() {
 	// POST
 	if c.Ctx.Request.Method == "POST" {
-		menu := models.Menu{}
-		c.ParseForm(&menu)
+		category := models.Category{}
+		c.ParseForm(&category)
 		valid := validation.Validation{}
-		pass, _ := valid.Valid(&menu)
+		pass, _ := valid.Valid(&category)
 		errMsg := make(map[string]string)
 		// validation
 		if pass {
-			menu.AliasVN = helper.StrToAlias(menu.TitleVN)
-			menu.AliasEN = helper.StrToAlias(menu.TitleEN)
-			err := menu.Update()
+			category.AliasVN = helper.StrToAlias(category.TitleVN)
+			category.AliasEN = helper.StrToAlias(category.TitleEN)
+			err := category.Update()
 			if err == nil {
-				c.showData("Thành công", "Thêm thành công", "/admin/menu/list")
+				c.showData("Thành công", "Thêm thành công", "/admin/category/list")
 			} else {
 				c.showData("Lỗi", "Sửa không thành công", "")
 			}
@@ -149,14 +133,14 @@ func (c *CategoryController) Edit() {
 	}
 	// GET
 	id, _ := c.GetInt("id")
-	menu := models.Menu{Id: id}
-	if err := menu.Read(); err != nil {
+	category := models.Category{Id: id}
+	if err := category.Read(); err != nil {
 		c.showmsg("error", "Lỗi", "")
-		c.Redirect("/admin/menu/list", 302)
+		c.Redirect("/admin/category/list", 302)
 	}
 	c.LayoutSections = make(map[string]string)
-	c.LayoutSections["Scripts"] = "admin/menu/script_edit.html"
+	c.LayoutSections["Scripts"] = "admin/category/script_edit.html"
 	c.Data["xsrf_token"] = c.XSRFToken()
-	c.Data["data"] = menu
+	c.Data["data"] = category
 	c.display()
 }

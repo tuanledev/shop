@@ -6,8 +6,8 @@ import (
 
 type Category struct {
 	Id              int    `form:"id"`
-	TitleVN         string `orm:"column(title_vn)" form:"TitleVN"`
-	TitleEN         string `orm:"column(title_en)" form:"TitleEN"`
+	TitleVN         string `orm:"column(title_vn)" form:"TitleVN" valid:"Required"`
+	TitleEN         string `orm:"column(title_en)" form:"TitleEN" valid:"Required"`
 	DescriptionVN   string `orm:"column(description_vn)" form:"DescriptionVN"`
 	DescriptionEN   string `orm:"column(description_en)" form:"DescriptionEN"`
 	Images          string `orm:"column(images)" form:"Images"`
@@ -18,6 +18,7 @@ type Category struct {
 	Active          int    `form:"active"`
 	MetaKeyword     string `orm:"column(meta_keyword)" form:"MetaKeyword"`
 	MetaDescription string `orm:"column(meta_description)" form:"MetaDescription"`
+	NameParentID    string `orm:"-"`
 }
 
 func (m *Category) TableName() string {
