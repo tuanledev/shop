@@ -154,9 +154,6 @@ func (c *MenuController) Add() {
 
 func (c *MenuController) Delete() {
 	id, _ := c.GetInt("id")
-	if id == 1 {
-		c.showmsg("error", "Lỗi", "không được quyền xóa")
-	}
 	if id >= 0 {
 		menu := models.Menu{Id: id}
 		if menu.Read() == nil {

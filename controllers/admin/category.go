@@ -2,6 +2,7 @@ package admin
 
 import (
 	"fmt"
+	"os"
 	"shop/helper"
 	"shop/models"
 	"sort"
@@ -46,11 +47,21 @@ func (c *CategoryController) Add() {
 		if pass {
 			category.AliasVN = helper.StrToAlias(category.TitleVN)
 			category.AliasEN = helper.StrToAlias(category.TitleEN)
-			err := category.Insert()
+			fImg, header, err := c.GetFile("Images")
+			// if content-type images
+			if fImg != nil && helper.CheckFileImage(header.Header.Get("Content-Type")) && err == nil {
+				filePath := fmt.Sprintf("static/img/category/%s", header.Filename)
+				err = c.SaveToFile("Images", filePath)
+				if err != nil {
+					c.showData("Lỗi", "Thêm hình không thành công", "")
+				}
+				category.Images = filePath
+			}
+			err = category.Insert()
 			if err == nil {
 				c.showData("Thành công", "Thêm thành công", "/admin/category/list")
 			} else {
-				c.showData("Lỗi", "Sửa không thành công", "")
+				c.showData("Lỗi", "Thêm không thành công", "")
 			}
 		} else {
 			for _, err := range valid.Errors {
@@ -72,9 +83,6 @@ func (c *CategoryController) Add() {
 
 func (c *CategoryController) Delete() {
 	id, _ := c.GetInt("id")
-	if id == 1 {
-		c.showmsg("error", "Lỗi", "không được quyền xóa")
-	}
 	if id >= 0 {
 		cate := models.Category{Id: id}
 		if cate.Read() == nil {
@@ -118,9 +126,31 @@ func (c *CategoryController) Edit() {
 		if pass {
 			category.AliasVN = helper.StrToAlias(category.TitleVN)
 			category.AliasEN = helper.StrToAlias(category.TitleEN)
-			err := category.Update()
+			fImg, header, err := c.GetFile("Images")
+			// if no update
+			imgOld := c.GetString("image_old")
+			if fImg == nil && imgOld != "" {
+				category.Images = imgOld
+			}
+			// if upload file
+			if fImg != nil && err == nil {
+				// if content-type images
+				if helper.CheckFileImage(header.Header.Get("Content-Type")) {
+					filePath := fmt.Sprintf("%s%s", helper.PathImgCategory, header.Filename)
+					err = c.SaveToFile("Images", filePath)
+					if err != nil {
+						c.showData("Lỗi", "Thêm hình không thành công", "")
+					}
+					category.Images = header.Filename
+					// remove img old
+					if imgOld != "" {
+						os.Remove(fmt.Sprintf("%s%s", helper.PathImgCategory, imgOld))
+					}
+				}
+			}
+			err = category.Update()
 			if err == nil {
-				c.showData("Thành công", "Thêm thành công", "/admin/category/list")
+				c.showData("Thành công", "Sửa thành công", "/admin/category/list")
 			} else {
 				c.showData("Lỗi", "Sửa không thành công", "")
 			}
@@ -138,6 +168,13 @@ func (c *CategoryController) Edit() {
 		c.showmsg("error", "Lỗi", "")
 		c.Redirect("/admin/category/list", 302)
 	}
+
+	// get category
+	cate := models.Category{}
+	cateRows := []models.Category{}
+	cate.Query().All(&cateRows, "id", "title_vn", "title_en")
+	c.Data["cates"] = cateRows
+
 	c.LayoutSections = make(map[string]string)
 	c.LayoutSections["Scripts"] = "admin/category/script_edit.html"
 	c.Data["xsrf_token"] = c.XSRFToken()

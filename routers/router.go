@@ -18,8 +18,6 @@ func init() {
 		beego.NewNamespace("/admin",
 			// Dashboard
 			beego.NSRouter("/", &admin.DashboardController{}),
-			// beego.("/admin/user", &admin.UserController{}, "*:List"),
-			// beego.Router("/admin/user/create", &admin.UserController{}, "*:Create"),
 			beego.NSAutoRouter(
 				// User
 				&admin.UserController{},
@@ -31,6 +29,10 @@ func init() {
 			beego.NSAutoRouter(
 				// menu
 				&admin.CategoryController{},
+			),
+			beego.NSAutoRouter(
+				// menu
+				&admin.ProductController{},
 			),
 		)
 

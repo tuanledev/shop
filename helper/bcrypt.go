@@ -68,3 +68,10 @@ func TitleStrimSpace(str string) string {
 	}
 	return str
 }
+
+func CheckFileImage(contentType string) bool {
+	if contentType == "image/gif" || contentType == "image/jpeg" || contentType == "image/pjpeg" || contentType == "image/png" {
+		return true
+	}
+	return false
+}

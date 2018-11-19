@@ -1,0 +1,192 @@
+<!-- This is data table -->
+<!-- <script src="{{UrlHost}}/static/admin/assets/plugins/datatables/jquery.dataTables.min1.10.19.js"></script> -->
+<script src="{{UrlHost}}/static/admin/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<!-- start - This is for export functionality only -->
+<!-- <script src="https://cdn.datatables.net/buttons/1.5.4/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script> -->
+<script src="{{UrlHost}}/static/admin/assets/plugins/datatables/dataTables.select.min.js"></script>
+<script src="{{UrlHost}}/static/admin/assets/plugins/datatables/dataTables.rowGroup.min.js"></script>
+<!-- moment -->
+<script src="{{UrlHost}}/static/js/moment.min.js"></script>
+<script src="{{UrlHost}}/static/js/moment.vi.js"></script>
+<!-- end - This is for export functionality only -->
+
+<script>
+    $(document).ready(function () {
+        var dataMenus =  {{.data}};
+        var table = $('#datatable_data').DataTable({
+            // dom: 'Bfrtip',
+            // buttons: [
+            //     {
+            //         text: 'Select all',
+            //         action: function () {
+            //             table.rows().select();
+            //         }
+            //     },
+            //     {
+            //         text: 'Select none',
+            //         action: function () {
+            //             table.rows().deselect();
+            //         }
+            //     }
+            // ],
+         
+            columnDefs: [ 
+                {
+                orderable: false,
+                className: 'select-checkbox',
+                targets:   0,
+                width :'1%',
+                },
+                {
+                targets:  [1],
+                width :'20%',
+                },
+                {
+                targets:   [5,7],
+                width :'1%',
+                },
+                {
+                orderable: false,
+                targets:   11,
+                width :'1%',
+                },
+            ],
+            select: {
+                style:    'os',
+                selector: 'td:first-child'
+            },
+            "language": {
+                "url": "{{UrlHost}}/static/admin/assets/plugins/datatables/lang/vietnamese.json"
+            },
+            "displayLength": 10,
+            "lengthMenu": [10, 25, 50, 100],
+            data:dataMenus,
+            columns: [
+                {
+                    "render": function (dataRow, type, row, meta) {
+                        return "" ;
+                    }
+                },
+                { data: 'TitleVN' },
+                { data: 'TitleEN' },
+                { data: 'Price' },
+                { data: 'SalePrice' },
+                { data: 'Hot' },
+                { data: 'New' },
+                { data: 'Sort' },
+                {
+                    data:"Images",
+                    "render": function (dataRow, type, row, meta) {
+                        var div = "";
+                        var imgPath = '{{UrlHost}}/static/img/product'+dataRow;
+                        if (dataRow === "") {
+                            div = `<a href="{{UrlHost}}/static/img/no_image.png" target="_blank"><img src="{{UrlHost}}/static/img/no_image.png" alt="" class="img-fluid" width="50px"></a>`
+                        } else {
+                            div = `<a href="`+imgPath+`" target="_blank"><img src="`+imgPath+`" alt="" class="img-fluid" width="50px" ></a>`
+                        }
+                        return div ;
+                    }
+                },
+                { 
+                    data: 'NameCategoryID',
+                    "render": function (data, type, row, meta) {
+                        if (data === "") {
+                                return `<span class="label label-info">Không có</span>`;
+                            } 
+                        return data;
+                    },
+                },
+                { 
+                    data: 'Date',
+                    "render": function (dataRow, type, row, meta) {
+                        return moment(dataRow).format('DD/MM/YYYY hh:mm:ss');
+                    },
+                },
+                { 
+                    data: '',
+                    "render": function (data, type, row, meta) {
+                        var urlHost = '{{UrlHost}}{{urlfor "ProductController.Edit"}}?id='+row.Id;
+                        var div =`
+                        <a href="`+urlHost+`" data-toggle="tooltip" data-original-title="Sửa"><i class="fa fa-pencil text-inverse m-r-10"></i></a>
+                        `;
+                        return div;
+                    },
+                },
+            ],
+            "order": [
+                [4, 'asc']
+            ],
+            rowGroup: {
+                startRender: function ( rows, group) {
+                    if (group === "" || group === null) {
+                        return "Không có loại sản phẩm";
+                    }
+                    return group;
+                },
+                dataSrc: "NameCategoryID"
+            },
+            
+        });
+
+        table.on("click", "th.select-checkbox", function() {
+            if ($("th.select-checkbox").hasClass("selected")) {
+                table.rows().deselect();
+                $("th.select-checkbox").removeClass("selected");
+            } else {
+                table.rows().select();
+                $("th.select-checkbox").addClass("selected");
+            }
+        })
+        .on("click","select deselect", function() {
+            if (table.rows({
+                    selected: true
+                }).count() !== table.rows().count()) {
+                $("th.select-checkbox").removeClass("selected");
+            } else {
+                $("th.select-checkbox").addClass("selected");
+            }
+        })
+        .on('click', 'tr', function () {
+            $(this).toggleClass('selected');
+        } );
+
+        // delete users
+        $("#delete").click(function () { 
+            var rows = table.rows('tr.selected');
+            var datas = rows.data();
+            var datasLength = datas.length;
+            var urlHost = '{{UrlHost}}{{urlfor "CategoryController.Deletes"}}'
+            if (datasLength > 0) {
+                var ids = [];
+                for (var i = 0; i < datasLength; i++) {
+                    var data = datas[i];
+                    if (data.Id === 1) {
+                        continue;
+                    }
+                    ids.push(data.Id);
+                }
+                $.ajax({
+                    method: "GET",
+                    url: urlHost,
+                    data: {ids:ids},
+                    success: function (response) {
+                        if (response.levelMsg !== "") {
+                            // show msg
+                            showMsg(response.levelMsg,response.msg,response.info);
+                            if (response.levelMsg === "success") {
+                                // remove rows
+                                rows.remove().draw();
+                            }
+                        }
+                    }
+                });
+            }
+        })
+    });
+</script>

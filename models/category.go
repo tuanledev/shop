@@ -15,7 +15,6 @@ type Category struct {
 	ParentID        int    `orm:"column(parent_id)" form:"ParentID"`
 	AliasVN         string `orm:"column(alias_vn)" form:"AliasVN"`
 	AliasEN         string `orm:"column(alias_en)" form:"AliasEN"`
-	Active          int    `form:"active"`
 	MetaKeyword     string `orm:"column(meta_keyword)" form:"MetaKeyword"`
 	MetaDescription string `orm:"column(meta_description)" form:"MetaDescription"`
 	NameParentID    string `orm:"-"`

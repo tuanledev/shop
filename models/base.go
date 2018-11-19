@@ -21,7 +21,7 @@ func init() {
 	// }
 	// Set prefix db
 	if beego.AppConfig.String("dbprefix") != "" {
-		orm.RegisterModelWithPrefix(beego.AppConfig.String("dbprefix"), new(User), new(Role), new(Menu), new(Category))
+		orm.RegisterModelWithPrefix(beego.AppConfig.String("dbprefix"), new(User), new(Role), new(Menu), new(Category), new(Product))
 	} else {
 		orm.RegisterModel(new(User))
 	}
