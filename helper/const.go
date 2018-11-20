@@ -5,3 +5,5 @@ const (
 	PathImgProduct  = "static/img/product/"
 	PathImg         = "static/img/"
 )
+
+var PathHost string

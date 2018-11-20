@@ -5,6 +5,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/disintegration/imaging"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -74,4 +75,11 @@ func CheckFileImage(contentType string) bool {
 		return true
 	}
 	return false
+}
+
+func ResizeImg(w int, h int, pathImg string) {
+	src, _ := imaging.Open(pathImg)
+	// Resize the cropped image to width = 200px preserving the aspect ratio.
+	src = imaging.Fill(src, w, h, imaging.Center, imaging.NearestNeighbor)
+	imaging.Save(src, pathImg)
 }

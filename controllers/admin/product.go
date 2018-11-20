@@ -7,6 +7,7 @@ import (
 	"shop/models"
 	"sort"
 
+	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/validation"
 )
 
@@ -85,6 +86,7 @@ func (c *ProductController) Add() {
 	c.LayoutSections["Scripts"] = "admin/product/script_add.html"
 	c.LayoutSections["Css"] = "admin/product/css_add.html"
 	c.Data["xsrf_token"] = c.XSRFToken()
+	c.Data["hostName"] = beego.AppConfig.String("httphost")
 	c.display()
 }
 

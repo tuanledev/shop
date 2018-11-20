@@ -34,6 +34,10 @@ func init() {
 				// menu
 				&admin.ProductController{},
 			),
+			beego.NSAutoRouter(
+				// menu
+				&admin.ImageController{},
+			),
 		)
 
 	//register namespace

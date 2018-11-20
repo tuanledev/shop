@@ -51,10 +51,12 @@ func (c *CategoryController) Add() {
 			// if content-type images
 			if fImg != nil && helper.CheckFileImage(header.Header.Get("Content-Type")) && err == nil {
 				filePath := fmt.Sprintf("static/img/category/%s", header.Filename)
-				err = c.SaveToFile("Images", filePath)
+				err = c.SaveToFile("Images", header.Filename)
 				if err != nil {
 					c.showData("Lỗi", "Thêm hình không thành công", "")
 				}
+				// Resize
+				helper.ResizeImg(200, 200, filePath)
 				category.Images = filePath
 			}
 			err = category.Insert()
@@ -86,6 +88,8 @@ func (c *CategoryController) Delete() {
 	if id >= 0 {
 		cate := models.Category{Id: id}
 		if cate.Read() == nil {
+			// delete img
+
 			err := cate.Delete()
 			if err == nil {
 				c.showmsg("success", "Thành công", fmt.Sprintf("Xóa thành công %v", id))
@@ -141,6 +145,8 @@ func (c *CategoryController) Edit() {
 					if err != nil {
 						c.showData("Lỗi", "Thêm hình không thành công", "")
 					}
+					// Resize
+					helper.ResizeImg(200, 200, filePath)
 					category.Images = header.Filename
 					// remove img old
 					if imgOld != "" {

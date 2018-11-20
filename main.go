@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"shop/controllers"
+	"shop/helper"
 	_ "shop/routers"
 
 	"github.com/astaxie/beego"
@@ -48,6 +49,7 @@ func init() {
 		// 	urlHost = fmt.Sprintf("http://)
 		// 	return urlHost
 		// }
+		helper.PathHost = urlHost
 		return urlHost
 	})
 }
