@@ -51,13 +51,13 @@ func (c *CategoryController) Add() {
 			// if content-type images
 			if fImg != nil && helper.CheckFileImage(header.Header.Get("Content-Type")) && err == nil {
 				filePath := fmt.Sprintf("static/img/category/%s", header.Filename)
-				err = c.SaveToFile("Images", header.Filename)
+				err = c.SaveToFile("Images", filePath)
 				if err != nil {
 					c.showData("Lỗi", "Thêm hình không thành công", "")
 				}
 				// Resize
 				helper.ResizeImg(200, 200, filePath)
-				category.Images = filePath
+				category.Images = header.Filename
 			}
 			err = category.Insert()
 			if err == nil {

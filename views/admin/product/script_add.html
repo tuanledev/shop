@@ -1,6 +1,10 @@
 <script src="{{UrlHost}}/static/admin/assets/js/validation.js"></script>
 <!-- wysuhtml5 Plugin JavaScript -->
 <script src="{{UrlHost}}/static/admin/assets/lib/tinymce/tinymce.min.js"></script>
+<!-- Style switcher -->
+<script src="{{UrlHost}}/static/admin/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+<!-- MultiFile -->
+<script src="{{UrlHost}}/static/js/jquery.MultiFile.min.js"></script>
 
 <script>
     ! function (window, document, $) {
@@ -31,12 +35,18 @@
         var hostName = '{{.hostName}}';
         var controller = '{{UrlHost}}{{urlfor "ImageController.Upload"}}'
         // tinymce
-        if ($("#mymce").length > 0) {
-            tinyContent("#mymce",hostName,controller);
+        if ($("#DescriptionVN").length > 0) {
+            tinyContent("#DescriptionVN",hostName,controller);
         }
+        if ($("#DescriptionEN").length > 0) {
+            tinyContent("#DescriptionEN",hostName,controller);
+        }
+        if ($("#ContentVN").length > 0) {
+            tinyContent("#ContentVN",hostName,controller);
+        }
+        if ($("#ContentEN").length > 0) {
+            tinyContent("#ContentEN",hostName,controller);
+        }
+
     });
 </script>
-<!-- ============================================================== -->
-<!-- Style switcher -->
-<!-- ============================================================== -->
-<script src="{{UrlHost}}/static/admin/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>

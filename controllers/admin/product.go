@@ -6,6 +6,8 @@ import (
 	"shop/helper"
 	"shop/models"
 	"sort"
+	"strings"
+	"time"
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/validation"
@@ -19,11 +21,11 @@ func (c *ProductController) List() {
 	// get user
 	product := models.Product{}
 	productRows := []models.Product{}
-	product.Query().All(&productRows, "id", "title_vn", "title_en", "sort", "images", "id_category", "price", "hot", "date")
+	product.Query().All(&productRows, "id", "title_vn", "title_en", "sort", "images", "id_category", "price", "hot", "create")
 	arrProduct := productRows
 	// get category
-	cate := models.Product{}
-	cateRows := []models.Product{}
+	cate := models.Category{}
+	cateRows := []models.Category{}
 	cate.Query().All(&cateRows, "id", "title_vn")
 	for key, v := range productRows {
 		sort.Search(len(cateRows), func(i int) bool {
@@ -56,13 +58,18 @@ func (c *ProductController) Add() {
 			product.TitleEN = helper.TitleStrimSpace(product.TitleEN)
 			fImg, header, err := c.GetFile("Images")
 			// if content-type images
-			if fImg != nil && helper.CheckFileImage(header.Header.Get("Content-Type")) && err == nil {
-				filePath := fmt.Sprintf("static/img/product/%s", header.Filename)
+			contentType := header.Header.Get("Content-Type")
+			if fImg != nil && helper.CheckFileImage(contentType) && err == nil {
+				typeImg := strings.Split(contentType, "/")
+				fileName := fmt.Sprintf("%s-%v.%s", product.AliasVN, time.Now().Unix(), typeImg[1])
+				filePath := fmt.Sprintf("static/img/product/%s", fileName)
 				err = c.SaveToFile("Images", filePath)
 				if err != nil {
 					c.showData("Lỗi", "Thêm hình không thành công", "")
 				}
-				product.Images = filePath
+				product.Images = fileName
+				// Resize
+				helper.ResizeImg(200, 200, filePath)
 			}
 			err = product.Insert()
 			if err == nil {
@@ -78,8 +85,8 @@ func (c *ProductController) Add() {
 		}
 	}
 	// get product
-	cate := models.Product{}
-	cateRows := []models.Product{}
+	cate := models.Category{}
+	cateRows := []models.Category{}
 	cate.Query().All(&cateRows, "id", "title_vn", "title_en")
 	c.Data["cates"] = cateRows
 	c.LayoutSections = make(map[string]string)
