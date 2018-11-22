@@ -19,7 +19,7 @@
         var msg = {{.msg}} ? {{.msg}} : "";
         var msgInfo = {{.msgInfo}} ? {{.msgInfo}} : "";
         var redirect = {{.redirect}} ? {{.redirect}} : "";
-        var timer = 1500; // 2s
+        var timer = 1000; // 2s
         if (msg !== "") {
             swal({
                 title: msg,
@@ -47,6 +47,61 @@
         if ($("#ContentEN").length > 0) {
             tinyContent("#ContentEN",hostName,controller);
         }
+
+        $("#Price").inputmask("decimal", {
+            placeholder: "0",
+            digits: 0,
+            digitsOptional: false,
+            radixPoint: ",",
+            groupSeparator: ".",
+            autoGroup: true,
+            allowPlus: false,
+            allowMinus: false,
+            clearMaskOnLostFocus: false,
+            removeMaskOnSubmit: true,
+            autoUnmask: true,
+            // onUnMask: function(maskedValue, unmaskedValue) {
+            //     var x = maskedValue.split(',');
+            //     return x[0].replace(/\./g, '') + '.' + x[1];
+            // }
+        });
+        $("#SalePrice").inputmask("decimal", {
+            placeholder: "0",
+            digits: 0,
+            digitsOptional: false,
+            radixPoint: ",",
+            groupSeparator: ".",
+            autoGroup: true,
+            allowPlus: false,
+            allowMinus: false,
+            clearMaskOnLostFocus: false,
+            removeMaskOnSubmit: true,
+            autoUnmask: true,
+            // onUnMask: function(maskedValue, unmaskedValue) {
+            //     var x = maskedValue.split(',');
+            //     return x[0].replace(/\./g, '') + '.' + x[1];
+            // }
+        });
+
+        $('#div-showImagesDetail').hide();
+        // multi upload
+        $('#ImagesDetail').MultiFile({
+            max: 5, 
+            accept: 'gif|jpg|png|jpeg|pjpeg',
+            STRING: {
+                file: '<em class="card-text" title="Click to remove" onclick="$(this).parent().prev().click()">$file</em>',
+                remove: '<i class="mdi mdi-close"></i>'
+            },
+            list: '#div-ImagesDetail',
+            afterFileSelect : function(element, value, master_element) {
+                $('#div-showImagesDetail').show();
+            },
+            afterFileRemove : function(element, value, master_element) {
+                if ($('#div-ImagesDetail').find("div.MultiFile-label").length < 1 ) {
+                    $('#div-showImagesDetail').hide();
+                }
+            },
+        });
 
     });
 </script>

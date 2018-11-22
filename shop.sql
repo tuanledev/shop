@@ -40,18 +40,17 @@ CREATE TABLE IF NOT EXISTS `mn_category` (
   `meta_keyword` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `meta_description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=utf8;
 
--- Dumping data for table shop.mn_category: ~2 rows (approximately)
+-- Dumping data for table shop.mn_category: ~0 rows (approximately)
 DELETE FROM `mn_category`;
 /*!40000 ALTER TABLE `mn_category` DISABLE KEYS */;
 INSERT INTO `mn_category` (`id`, `title_vn`, `title_en`, `description_vn`, `description_en`, `images`, `parent_id`, `sort`, `alias_vn`, `alias_en`, `meta_keyword`, `meta_description`) VALUES
-	(114, 'trang chủ as ú ú à à', '  tuan    ác   ', '', '', '2.png', 0, 0, 'trang-chu-as-u-u-a-a', 'tuan-ac', '', ''),
-	(115, 'a sadsa a s asdas das sa s         sa', '  tuan    ác   ', '', '', '1.png', 114, 0, 'a-sadsa-a-s-asdas-das-sa-s-sa', 'tuan-ac', '', '');
+	(119, '123', '43545', '', '', '123-1542880736.png', 0, 1, '123', '43545', '', '');
 /*!40000 ALTER TABLE `mn_category` ENABLE KEYS */;
 
--- Dumping structure for table shop.mn_catimages
-CREATE TABLE IF NOT EXISTS `mn_catimages` (
+-- Dumping structure for table shop.mn_cate_images
+CREATE TABLE IF NOT EXISTS `mn_cate_images` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `title_vn` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `title_en` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -74,10 +73,10 @@ CREATE TABLE IF NOT EXISTS `mn_catimages` (
   PRIMARY KEY (`Id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table shop.mn_catimages: 10 rows
-DELETE FROM `mn_catimages`;
-/*!40000 ALTER TABLE `mn_catimages` DISABLE KEYS */;
-INSERT INTO `mn_catimages` (`Id`, `title_vn`, `title_en`, `description_vn`, `description_en`, `images`, `parentid`, `sort`, `ticlock`, `alias`, `meta_keyword`, `meta_description`, `home`, `link`, `style`, `title`, `icon`, `link1`, `adv`) VALUES
+-- Dumping data for table shop.mn_cate_images: 10 rows
+DELETE FROM `mn_cate_images`;
+/*!40000 ALTER TABLE `mn_cate_images` DISABLE KEYS */;
+INSERT INTO `mn_cate_images` (`Id`, `title_vn`, `title_en`, `description_vn`, `description_en`, `images`, `parentid`, `sort`, `ticlock`, `alias`, `meta_keyword`, `meta_description`, `home`, `link`, `style`, `title`, `icon`, `link1`, `adv`) VALUES
 	(7, 'Living Pool', 'Living Pool', '', '', 'living-pool-jrn.jpg', 0, 2, '0', 'living-pool', '', '', NULL, '', NULL, '', '', NULL, NULL),
 	(6, 'Natural Pool', 'Natural Pool', '', '', 'natural-pool-5c4.jpg', 0, 1, '0', 'natural-pool', 'ho boi, be boi, xay dung ho boi', 'ho boi, be boi, xay dung ho boi', NULL, '', NULL, 'naturalpool', '', NULL, NULL),
 	(8, 'album 1', 'album 1', '', '', 'album-1-hfk.jpg', 6, 1, '0', 'album-1', 'ho boi, be boi', 'ho boi, be boi', NULL, '', NULL, 'Bio-NaturalPools', '', NULL, NULL),
@@ -88,7 +87,7 @@ INSERT INTO `mn_catimages` (`Id`, `title_vn`, `title_en`, `description_vn`, `des
 	(14, 'Mẩu vật liệu hoàn thiện hồ bơi', 'finishing material', '', '', 'mau-vat-lieu-hoan-thien-ho-boi-enc.jpg', 13, 0, '0', 'vat-lieu-hoan-thien-ho-boi', 'ho boi, xay dung ho boi, xay dung ho boi, thiet bi ho boi', 'Vật liệu hoàn thiện hồ bơi', NULL, '', NULL, 'vat lieu hoan thien ho boi', '', NULL, NULL),
 	(15, 'Landscape', 'Landscape', '', '', 'landscape-tls.jpg', 7, 0, '0', 'canh-quan', '', '', NULL, '', NULL, '', '', NULL, NULL),
 	(18, 'Tiểu Cảnh Sân Vườn', 'Landscape', '', '', 'tieu-canh-san-vuon-cjc.jpg', 7, 1, '0', 'tieu-canh-san-vuon', '', '', NULL, '', NULL, '', '', NULL, NULL);
-/*!40000 ALTER TABLE `mn_catimages` ENABLE KEYS */;
+/*!40000 ALTER TABLE `mn_cate_images` ENABLE KEYS */;
 
 -- Dumping structure for table shop.mn_catnews
 CREATE TABLE IF NOT EXISTS `mn_catnews` (
@@ -711,31 +710,31 @@ CREATE TABLE IF NOT EXISTS `mn_product` (
   `description_en` text COLLATE utf8_unicode_ci,
   `content_en` longtext COLLATE utf8_unicode_ci,
   `id_category` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `images` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `images` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `images1` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `images2` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `images3` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `images4` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `images5` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `price` int(11) NOT NULL DEFAULT '0',
+  `sale_price` int(11) NOT NULL DEFAULT '0',
   `sort` tinyint(4) NOT NULL DEFAULT '0',
   `hot` tinyint(4) NOT NULL DEFAULT '0',
   `alias_vn` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `alias_en` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `sale_price` int(11) NOT NULL DEFAULT '0',
   `create` timestamp NULL DEFAULT NULL,
   `meta_keyword` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `meta_description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `order` int(11) NOT NULL DEFAULT '1',
   `new` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Dumping data for table shop.mn_product: 1 rows
 DELETE FROM `mn_product`;
 /*!40000 ALTER TABLE `mn_product` DISABLE KEYS */;
-INSERT INTO `mn_product` (`id`, `title_vn`, `title_en`, `description_vn`, `content_vn`, `description_en`, `content_en`, `id_category`, `images`, `images1`, `images2`, `images3`, `images4`, `images5`, `price`, `sort`, `hot`, `alias_vn`, `alias_en`, `sale_price`, `create`, `meta_keyword`, `meta_description`, `order`, `new`) VALUES
-	(11, 'a sadsa a s asdas das sa s sa', 'homea dasd á', '', '', '', '', '0', 'a-sadsa-a-s-asdas-das-sa-s-sa-1542797073.png', '', '', '', '', '', 0, 0, 0, 'a-sadsa-a-s-asdas-das-sa-s-sa', 'homea-dasd-a', 0, '2018-11-21 17:44:33', '', '', 0, 0);
+INSERT INTO `mn_product` (`id`, `title_vn`, `title_en`, `description_vn`, `content_vn`, `description_en`, `content_en`, `id_category`, `images`, `images1`, `images2`, `images3`, `images4`, `images5`, `price`, `sale_price`, `sort`, `hot`, `alias_vn`, `alias_en`, `create`, `meta_keyword`, `meta_description`, `order`, `new`) VALUES
+	(48, '123213', '234432543', '<p>asdasdsada</p>', '<p>54654654</p>', '<p>34243245</p>', '<p>7676576575</p>', '119', '123213-1542881469.png', '', '', '', '', '', 0, 0, 0, 1, '123213', '234432543', '2018-11-22 17:11:09', '', '', 0, 1);
 /*!40000 ALTER TABLE `mn_product` ENABLE KEYS */;
 
 -- Dumping structure for table shop.mn_role

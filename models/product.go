@@ -21,8 +21,8 @@ type Product struct {
 	Images3         string    `orm:"column(images3)" form:"Images3"`
 	Images4         string    `orm:"column(images4)" form:"Images4"`
 	Images5         string    `orm:"column(images5)" form:"Images5"`
-	Price           int       `form:"Price"`
-	SalePrice       int       `orm:"column(sale_price)" form:"Price"`
+	Price           int       `orm:"column(price)" form:"Price"`
+	SalePrice       int       `orm:"column(sale_price)" form:"SalePrice"`
 	Sort            int       `form:"Sort"`
 	Hot             int       `form:"Hot"`
 	Order           int       `form:"Order"`

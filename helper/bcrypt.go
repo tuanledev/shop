@@ -1,6 +1,7 @@
 package helper
 
 import (
+	"fmt"
 	"math/rand"
 	"strings"
 	"time"
@@ -71,7 +72,7 @@ func TitleStrimSpace(str string) string {
 }
 
 func CheckFileImage(contentType string) bool {
-	if contentType == "image/gif" || contentType == "image/jpeg" || contentType == "image/pjpeg" || contentType == "image/png" {
+	if contentType == "image/gif" || contentType == "image/jpeg" || contentType == "image/pjpeg" || contentType == "image/png" || contentType == "image/jpg" {
 		return true
 	}
 	return false
@@ -80,6 +81,12 @@ func CheckFileImage(contentType string) bool {
 func ResizeImg(w int, h int, pathImg string) {
 	src, _ := imaging.Open(pathImg)
 	// Resize the cropped image to width = 200px preserving the aspect ratio.
-	src = imaging.Fill(src, w, h, imaging.Center, imaging.NearestNeighbor)
+	src = imaging.Resize(src, w, h, imaging.NearestNeighbor)
 	imaging.Save(src, pathImg)
+}
+
+func FormatNameImg(contentType, alias string) string {
+	typeImg := strings.Split(contentType, "/")
+	fileName := fmt.Sprintf("%s-%v.%s", alias, time.Now().Unix(), typeImg[1])
+	return fileName
 }

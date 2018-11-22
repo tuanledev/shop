@@ -1,4 +1,11 @@
 <script src="{{UrlHost}}/static/admin/assets/js/validation.js"></script>
+<!-- wysuhtml5 Plugin JavaScript -->
+<script src="{{UrlHost}}/static/admin/assets/lib/tinymce/tinymce.min.js"></script>
+<!-- Style switcher -->
+<script src="{{UrlHost}}/static/admin/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+<!-- MultiFile -->
+<script src="{{UrlHost}}/static/js/jquery.MultiFile.min.js"></script>
+
 <script>
     ! function (window, document, $) {
         "use strict";
@@ -10,7 +17,7 @@
     var msg = {{.msg}} ? {{.msg}} : "";
     var msgInfo = {{.msgInfo}} ? {{.msgInfo}} : "";
     var redirect = {{.redirect}} ? {{.redirect}} : "";
-    var timer = 1500; // 2s
+    var timer = 1000; // 1s
     if (msg !== "") {
         swal({
             title: msg,
@@ -23,6 +30,58 @@
             setTimeout(function(){ window.location.replace("{{UrlHost}}"+redirect); }, timer);
         }
     }
+
+    var hostName = '{{.hostName}}';
+    var controller = '{{UrlHost}}{{urlfor "ImageController.Upload"}}'
+    // tinymce
+    if ($("#DescriptionVN").length > 0) {
+        tinyContent("#DescriptionVN",hostName,controller);
+    }
+    if ($("#DescriptionEN").length > 0) {
+        tinyContent("#DescriptionEN",hostName,controller);
+    }
+    if ($("#ContentVN").length > 0) {
+        tinyContent("#ContentVN",hostName,controller);
+    }
+    if ($("#ContentEN").length > 0) {
+        tinyContent("#ContentEN",hostName,controller);
+    }
+
+    $("#Price").inputmask("decimal", {
+            placeholder: "0",
+            digits: 0,
+            digitsOptional: false,
+            radixPoint: ",",
+            groupSeparator: ".",
+            autoGroup: true,
+            allowPlus: false,
+            allowMinus: false,
+            clearMaskOnLostFocus: false,
+            removeMaskOnSubmit: true,
+            autoUnmask: true,
+            // onUnMask: function(maskedValue, unmaskedValue) {
+            //     var x = maskedValue.split(',');
+            //     return x[0].replace(/\./g, '') + '.' + x[1];
+            // }
+        });
+        $("#SalePrice").inputmask("decimal", {
+            placeholder: "0",
+            digits: 0,
+            digitsOptional: false,
+            radixPoint: ",",
+            groupSeparator: ".",
+            autoGroup: true,
+            allowPlus: false,
+            allowMinus: false,
+            clearMaskOnLostFocus: false,
+            removeMaskOnSubmit: true,
+            autoUnmask: true,
+            // onUnMask: function(maskedValue, unmaskedValue) {
+            //     var x = maskedValue.split(',');
+            //     return x[0].replace(/\./g, '') + '.' + x[1];
+            // }
+        });
+    
 </script>
 <!-- ============================================================== -->
 <!-- Style switcher -->

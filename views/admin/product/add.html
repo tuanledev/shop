@@ -48,7 +48,7 @@
                             <div class="form-group">
                                 <label>Giá</label>
                                 <div class="controls">
-                                    <input type="number" name="Price" class="form-control" min="0" value="0">
+                                    <input type="text" id="Price" name="Price" class="form-control" >
                                 </div>
                             </div>
                         </div>
@@ -56,8 +56,7 @@
                             <div class="form-group">
                                 <label>Giá khuyến mãi</label>
                                 <div class="controls">
-                                    <input type="number" name="SalePrice" class="form-control" min="0"
-                                        value="0">
+                                    <input type="text" id="SalePrice" name="SalePrice" class="form-control"> 
                                 </div>
                             </div>
                         </div>
@@ -66,7 +65,7 @@
                                 <label>Nổi bật</label>
                                 <div class="switch">
                                     <label>
-                                        <input type="checkbox" name="Hot" id="Hot" />
+                                        <input type="checkbox" name="Hot" id="Hot" checked/>
                                         <span class="lever switch-col-red"></span>
                                     </label>
                                 </div>
@@ -77,7 +76,7 @@
                                 <label>Mới</label>
                                 <div class="switch">
                                     <label>
-                                        <input type="checkbox" name="New" id="New" />
+                                        <input type="checkbox" name="New" id="New" checked/>
                                         <span class="lever switch-col-blue"></span>
                                     </label>
                                 </div>
@@ -87,7 +86,7 @@
                             <div class="form-group">
                                 <label>Danh mục sản phẩm</label>
                                 <div class="controls">
-                                    <select name="ParentID" id="select" class="form-control" aria-invalid="false"
+                                    <select name="CategoryID" id="select" class="form-control" aria-invalid="false"
                                         data-validation-required-message="Không được để trống">
                                         <option value="0" selected>Chọn danh mục sản phẩm</option>
                                         {{range $cate := .cates}}
@@ -95,7 +94,7 @@
                                         {{end}}
                                     </select>
                                     <div class="help-block"></div>
-                                    {{if .errMsg}} <small class="has-danger form-control-label" style="color: red;">{{ map_get .errMsg "ParentID"}} </small> {{end}}
+                                    {{if .errMsg}} <small class="has-danger form-control-label" style="color: red;">{{ map_get .errMsg "CategoryID"}} </small> {{end}}
                                 </div>
                             </div>
                         </div>
@@ -150,11 +149,10 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Chọn nhiều hình detail</label>
-                                                    <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                                                        <span class="input-group-addon btn btn-primary btn-file"> <span class="fileinput-new">Chọn hình</span>
-                                                            <input type="file" name="ImagesDetail" aria-invalid="false" multiple>
-                                                        </span>
-                                                        <a href="#" class="input-group-addon btn btn-secondary fileinput-exists" data-dismiss="fileinput">Xóa</a>
+                                                    <input type="file"name="ImagesDetail" id="ImagesDetail" multiple class="with-preview"> 
+                                                </div>
+                                                <div class="card" id="div-showImagesDetail">
+                                                    <div class="card-body collapse show" id="div-ImagesDetail">
                                                     </div>
                                                 </div>
                                             </div>
@@ -167,7 +165,7 @@
                     <div class="form-actions">
                         <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>Thêm</button>
                         <button type="reset" class="btn btn-inverse">Hủy</button>
-                    </div>
+                    </div> 
                     <input type="hidden" name="_xsrf" id="_xsrf" value="{{.xsrf_token}}">
                 </form>
             </div>

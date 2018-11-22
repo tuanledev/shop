@@ -84,8 +84,8 @@ function tinyContent(id, hostName, controller) {
         // URL
         relative_urls: true,
         remove_script_host: true,
-        document_base_url: hostName,
-        convert_urls: true,
+        document_base_url: "/",
+        // convert_urls: true,
 
         font_formats: 'Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n',
         image_title: true,
@@ -98,9 +98,6 @@ function tinyContent(id, hostName, controller) {
         // without images_upload_url set, Upload tab won't show up
         // we override default upload handler to simulate successful upload
         images_upload_handler: function (blobInfo, success, failure) {
-            console.log("blobInfo.blob()", blobInfo);
-            console.log("blobInfo.blobUri()", blobInfo.blobUri());
-
             setTimeout(function () {
                 var xsrf = $("#_xsrf").val();
                 var fd = new FormData();

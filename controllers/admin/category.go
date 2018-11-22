@@ -49,15 +49,20 @@ func (c *CategoryController) Add() {
 			category.AliasEN = helper.StrToAlias(category.TitleEN)
 			fImg, header, err := c.GetFile("Images")
 			// if content-type images
-			if fImg != nil && helper.CheckFileImage(header.Header.Get("Content-Type")) && err == nil {
-				filePath := fmt.Sprintf("static/img/category/%s", header.Filename)
-				err = c.SaveToFile("Images", filePath)
-				if err != nil {
-					c.showData("Lỗi", "Thêm hình không thành công", "")
+			if fImg != nil && err == nil {
+				contentType := header.Header.Get("Content-Type")
+				// check ext img
+				if helper.CheckFileImage(contentType) {
+					fileName := helper.FormatNameImg(contentType, category.AliasVN)
+					filePath := fmt.Sprintf("static/img/category/%s", fileName)
+					err = c.SaveToFile("Images", filePath)
+					if err != nil {
+						c.showData("Lỗi", "Thêm hình không thành công", "")
+					}
+					// Resize
+					helper.ResizeImg(200, 200, filePath)
+					category.Images = fileName
 				}
-				// Resize
-				helper.ResizeImg(200, 200, filePath)
-				category.Images = header.Filename
 			}
 			err = category.Insert()
 			if err == nil {
@@ -88,10 +93,9 @@ func (c *CategoryController) Delete() {
 	if id >= 0 {
 		cate := models.Category{Id: id}
 		if cate.Read() == nil {
-			// delete img
-
-			err := cate.Delete()
-			if err == nil {
+			if cate.Delete() == nil {
+				// delete img
+				os.Remove(fmt.Sprintf("%s%s", helper.PathImgCategory, cate.Images))
 				c.showmsg("success", "Thành công", fmt.Sprintf("Xóa thành công %v", id))
 			} else {
 				c.showmsg("error", "Lỗi", fmt.Sprintf("Xóa không thành công %v", id))
@@ -107,11 +111,14 @@ func (c *CategoryController) Deletes() {
 	if len(ids) > 0 {
 		for _, id := range ids {
 			cate := models.Category{Id: id}
-			err := cate.Delete()
-			if err == nil {
-				c.showmsg("success", "Thành công", fmt.Sprintf("Xóa thành công %v", id))
-			} else {
-				c.showmsg("error", "Lỗi", fmt.Sprintf("Xóa không thành công %v", id))
+			if cate.Read() == nil {
+				if cate.Delete() == nil {
+					// delete img
+					os.Remove(fmt.Sprintf("%s%s", helper.PathImgCategory, cate.Images))
+					c.showmsg("success", "Thành công", fmt.Sprintf("Xóa thành công %v", id))
+				} else {
+					c.showmsg("error", "Lỗi", fmt.Sprintf("Xóa không thành công %v", id))
+				}
 			}
 		}
 	}
@@ -139,15 +146,18 @@ func (c *CategoryController) Edit() {
 			// if upload file
 			if fImg != nil && err == nil {
 				// if content-type images
-				if helper.CheckFileImage(header.Header.Get("Content-Type")) {
-					filePath := fmt.Sprintf("%s%s", helper.PathImgCategory, header.Filename)
+				contentType := header.Header.Get("Content-Type")
+				// check ext img
+				if helper.CheckFileImage(contentType) {
+					fileName := helper.FormatNameImg(contentType, category.AliasVN)
+					filePath := fmt.Sprintf("%s%s", helper.PathImgCategory, fileName)
 					err = c.SaveToFile("Images", filePath)
 					if err != nil {
 						c.showData("Lỗi", "Thêm hình không thành công", "")
 					}
 					// Resize
 					helper.ResizeImg(200, 200, filePath)
-					category.Images = header.Filename
+					category.Images = fileName
 					// remove img old
 					if imgOld != "" {
 						os.Remove(fmt.Sprintf("%s%s", helper.PathImgCategory, imgOld))

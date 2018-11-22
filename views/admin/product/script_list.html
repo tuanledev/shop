@@ -75,16 +75,46 @@
                 },
                 { data: 'TitleVN' },
                 { data: 'TitleEN' },
-                { data: 'Price' },
-                { data: 'SalePrice' },
-                { data: 'Hot' },
-                { data: 'New' },
+                { data: 'Price' ,'render': function ( data, type, full, meta ){return numeral(data).format('0,0')+' VNĐ';}},
+                { data: 'SalePrice','render': function ( data, type, full, meta ){return numeral(data).format('0,0') +' VNĐ';}},
+                { 
+                    data: 'Hot' ,
+                    "render": function (data, type, row, meta) {
+                        var div =`<div class="switch" id="active_`+row.Id+`" >`;
+                        var checked = "";
+                        if (data === 1) {
+                            checked = "checked";
+                        } 
+                        div += ` 
+                                <label>
+                                        <input type="checkbox" `+checked+` disabled><span class="lever switch-col-red"></span>
+                                </label>`
+                        div+= `</div>`;
+                        return div;
+                    },
+                },
+                { 
+                    data: 'New' ,
+                    "render": function (data, type, row, meta) {
+                        var div =`<div class="switch" id="active_`+row.Id+`" >`;
+                        var checked = "";
+                        if (data === 1) {
+                            checked = "checked";
+                        } 
+                        div += ` 
+                                <label>
+                                        <input type="checkbox" `+checked+` disabled><span class="lever switch-col-teal"></span>
+                                </label>`
+                        div+= `</div>`;
+                        return div;
+                    },
+                },
                 { data: 'Sort' },
                 {
                     data:"Images",
                     "render": function (dataRow, type, row, meta) {
                         var div = "";
-                        var imgPath = '{{UrlHost}}/static/img/product'+dataRow;
+                        var imgPath = '{{UrlHost}}/static/img/product/'+dataRow;
                         if (dataRow === "") {
                             div = `<a href="{{UrlHost}}/static/img/no_image.png" target="_blank"><img src="{{UrlHost}}/static/img/no_image.png" alt="" class="img-fluid" width="50px"></a>`
                         } else {
@@ -103,7 +133,7 @@
                     },
                 },
                 { 
-                    data: 'Date',
+                    data: 'Create',
                     "render": function (dataRow, type, row, meta) {
                         return moment(dataRow).format('DD/MM/YYYY hh:mm:ss');
                     },
@@ -111,7 +141,7 @@
                 { 
                     data: '',
                     "render": function (data, type, row, meta) {
-                        var urlHost = '{{UrlHost}}{{urlfor "ProductController.Edit"}}?id='+row.Id;
+                        var urlHost = `{{UrlHost}}{{urlfor "ProductController.Edit"}}?id=`+row.Id;
                         var div =`
                         <a href="`+urlHost+`" data-toggle="tooltip" data-original-title="Sửa"><i class="fa fa-pencil text-inverse m-r-10"></i></a>
                         `;
@@ -161,7 +191,8 @@
             var rows = table.rows('tr.selected');
             var datas = rows.data();
             var datasLength = datas.length;
-            var urlHost = '{{UrlHost}}{{urlfor "CategoryController.Deletes"}}'
+            var urlHost = `{{UrlHost}}{{urlfor "ProductController.Deletes"}}`;
+            console.log(urlHost);
             if (datasLength > 0) {
                 var ids = [];
                 for (var i = 0; i < datasLength; i++) {
