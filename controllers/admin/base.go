@@ -69,6 +69,17 @@ func (c *baseController) showmsg(msg ...string) {
 	c.ServeJSON()
 }
 
+func (c *baseController) showImg(msg ...string) {
+	msgJson := make(map[string]string)
+	msgJson["levelMsg"] = msg[0]
+	msgJson["msg"] = msg[1]
+	msgJson["info"] = msg[2]
+	msgJson["src"] = msg[3]
+
+	c.Data["json"] = msgJson
+	c.ServeJSON()
+}
+
 func (c *baseController) showData(msg ...string) {
 	c.Data["msg"] = msg[0]
 	c.Data["msgInfo"] = msg[1]

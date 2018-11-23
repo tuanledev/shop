@@ -1,0 +1,91 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card card-outline-info">
+            <div class="card-header">
+                <h4 class="m-b-0 text-white">Thêm danh mục sản phẩm</h4>
+            </div>
+            <div class="card-body">
+                <form class="" novalidate="" method="POST" action="" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <h5>Tiêu đề VN <span class="text-danger">*</span></h5>
+                                <div class="controls">
+                                    <input type="text" name="TitleVN" id="username" class="form-control" 
+                                        data-validation-required-message="Không được để trống"
+                                        >
+                                   <small class="has-danger form-control-label" style="color: red;" id="username_msg">
+                                    {{if .errMsg}} 
+                                        {{ map_get .errMsg "TitleVN"}} 
+                                    {{end}}
+                                    </small> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <h5>Tiêu đề EN <span class="text-danger">*</span></h5>
+                                <div class="controls">
+                                    <input type="text" name="TitleEN" class="form-control" data-validation-required-message="Không được để trống">
+                                    <div class="help-block"></div>
+                                    {{if .errMsg}} <small class="has-danger form-control-label" style="color: red;">{{ map_get .errMsg "TitleEN"}} </small> {{end}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <h5>Thứ tự</h5>
+                                <div class="controls">
+                                    <input type="number" name="Sort" class="form-control" min="0" max="100"
+                                    value="0"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5" id="cate_product">
+                            <div class="form-group">
+                                <h5>Danh mục bài viết</h5>
+                                <div class="controls">
+                                    <select name="ParentID" id="select" class="form-control" aria-invalid="false"
+                                        data-validation-required-message="Không được để trống">
+                                        <option value="0" selected>Chọn danh mục bài viết</option>
+                                        {{range $cate := .cates}}
+                                        <option value="{{$cate.Id}}">{{$cate.TitleVN}}</option>
+                                        {{end}}
+                                    </select>
+                                    <div class="help-block"></div>
+                                    {{if .errMsg}} <small class="has-danger form-control-label" style="color: red;">{{ map_get .errMsg "ParentID"}} </small> {{end}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5" id="">
+                            <div class="form-group">
+                                <h5>Hình</h5>
+                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                    <div class="form-control" data-trigger="fileinput">
+                                        <i class="fa fa-file fileinput-exists"></i>
+                                        <span class="fileinput-filename"></span>
+                                    </div>
+                                    <span class="input-group-addon btn btn-secondary btn-file">
+                                        <span class="fileinput-new">Chọn</span>
+                                        <span class="fileinput-exists">Thay đổi</span>
+                                        <input type="hidden" aria-invalid="false"><input type="hidden" aria-invalid="false"><input type="file" name="Images"
+                                            aria-invalid="false">
+                                    </span>
+                                    <a href="#" class="input-group-addon btn btn-secondary fileinput-exists" data-dismiss="fileinput">Xóa</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>Thêm</button>
+                        <button type="reset" class="btn btn-inverse">Hủy</button>
+                    </div>
+                    <input type="hidden" name="_xsrf" id="_xsrf" value="{{.xsrf_token}}">
+                </form>
+            </div>
+        </div>
+    </div>

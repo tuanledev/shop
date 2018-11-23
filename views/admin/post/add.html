@@ -1,0 +1,148 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card card-outline-info">
+            <div class="card-header">
+                <h4 class="m-b-0 text-white">Thêm bài viết</h4>
+            </div>
+            <div class="card-body">
+                <form novalidate="" method="POST" action="" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Tên bài viết VN <span class="text-danger">*</span></label>
+                                <div class="controls">
+                                    <input type="text" name="TitleVN" id="username" class="form-control"
+                                        data-validation-required-message="Không được để trống">
+                                    <small class="has-danger form-control-label" style="color: red;" id="username_msg">
+                                        {{if .errMsg}}
+                                        {{ map_get .errMsg "TitleVN"}}
+                                        {{end}}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Tên bài viết EN <span class="text-danger">*</span></label>
+                                <div class="controls">
+                                    <input type="text" name="TitleEN" class="form-control"
+                                        data-validation-required-message="Không được để trống">
+                                    <div class="help-block"></div>
+                                    {{if .errMsg}} <small class="has-danger form-control-label" style="color: red;">{{ map_get .errMsg "TitleEN"}} </small> {{end}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label>Thứ tự</label>
+                                <div class="controls">
+                                    <input type="number" name="Sort" class="form-control" min="0" max="100"
+                                        value="0">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1" id="">
+                            <div class="form-group">
+                                <label>Nổi bật</label>
+                                <div class="switch">
+                                    <label>
+                                        <input type="checkbox" name="Hot" id="Hot" />
+                                        <span class="lever switch-col-red"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1" id="">
+                            <div class="form-group">
+                                <label>Mới</label>
+                                <div class="switch">
+                                    <label>
+                                        <input type="checkbox" name="New" id="New" />
+                                        <span class="lever switch-col-blue"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5" id="">
+                            <div class="form-group">
+                                <label>Danh mục bài viết</label>
+                                <div class="controls">
+                                    <select name="CategoryID" id="select" class="form-control" aria-invalid="false"
+                                        data-validation-required-message="Không được để trống">
+                                        <option value="0" selected>Chọn danh mục bài viết</option>
+                                        {{range $cate := .cates}}
+                                        <option value="{{$cate.Id}}">{{$cate.TitleVN}}</option>
+                                        {{end}}
+                                    </select>
+                                    <div class="help-block"></div>
+                                    {{if .errMsg}} <small class="has-danger form-control-label" style="color: red;">{{ map_get .errMsg "CategoryID"}} </small> {{end}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                            <!-- Nav tabs -->
+                                <ul class="nav nav-tabs customtab" role="tablist">
+                                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#desVN" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">Miêu tả VN</span></a> </li>
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#desEN" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">Miêu tả EN</span></a> </li>
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#contVN" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">Nội dung VN</span></a> </li>
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#contEN" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">Nội dung EN</span></a> </li>
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#image-product" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">Hình ảnh</span></a> </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="desVN" role="tabpanel">
+                                        <div class="p-10">
+                                            <textarea id="DescriptionVN" name="DescriptionVN"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane p-10" id="desEN" role="tabpanel">
+                                            <textarea id="DescriptionEN" name="DescriptionEN"></textarea>
+                                    </div>
+                                    <div class="tab-pane p-10" id="contVN" role="tabpanel">
+                                            <textarea id="ContentVN" name="ContentVN"></textarea>
+                                    </div>
+                                    <div class="tab-pane p-10" id="contEN" role="tabpanel">
+                                            <textarea id="ContentEN" name="ContentEN"></textarea>
+                                    </div>
+                                    <div class="tab-pane p-10" id="image-product" role="tabpanel">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Chọn hình sản phẩm</label>
+                                                    <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                        <div class="form-control" data-trigger="fileinput">
+                                                            <i class="fa fa-file fileinput-exists"></i>
+                                                            <span class="fileinput-filename"></span>
+                                                        </div>
+                                                        <span class="input-group-addon btn btn-secondary btn-file">
+                                                            <span class="fileinput-new">Chọn</span>
+                                                            <span class="fileinput-exists">Thay đổi</span>
+                                                            <input type="hidden"><input type="file" name="Images">
+                                                        </span>
+                                                        <a href="#" class="input-group-addon btn btn-secondary fileinput-exists" data-dismiss="fileinput">Xóa</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>Thêm</button>
+                        <button type="reset" class="btn btn-inverse">Hủy</button>
+                    </div> 
+                    <input type="hidden" name="_xsrf" id="_xsrf" value="{{.xsrf_token}}">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -38,6 +38,14 @@ func init() {
 				// menu
 				&admin.ImageController{},
 			),
+			beego.NSAutoRouter(
+				// menu
+				&admin.CatenewController{},
+			),
+			beego.NSAutoRouter(
+				// menu
+				&admin.PostController{},
+			),
 		)
 
 	//register namespace

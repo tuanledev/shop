@@ -48,7 +48,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-5" id="cate_product">
+                        <div class="col-md-3" id="cate_product">
                             <div class="form-group">
                                 <h5>Danh mục sản phẩm</h5>
                                 <div class="controls">
@@ -67,12 +67,25 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2" id="">
+                        <div class="col-md-4" id="">
                             <div class="form-group">
                                 <h5>Hình</h5>
                                 <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                                    <span class="input-group-addon btn btn-default btn-file"> <span class="fileinput-new">Chọn hình</span>
-                                    <input type="file" name="Images"> 
+                                    <!-- <span class="input-group-addon btn btn-default btn-file"> <span class="fileinput-new">Chọn hình</span>
+                                    <input type="file" name="Images">  -->
+                                    <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                        <div class="form-control" data-trigger="fileinput">
+                                            <i class="fa fa-file fileinput-exists"></i>
+                                            <span class="fileinput-filename"></span>
+                                        </div>
+                                        <span class="input-group-addon btn btn-secondary btn-file">
+                                            <span class="fileinput-new">Chọn</span>
+                                            <span class="fileinput-exists">Thay đổi</span>
+                                           <input type="file" name="Images"
+                                                aria-invalid="false">
+                                        </span>
+                                        <a href="#" class="input-group-addon btn btn-secondary fileinput-exists" data-dismiss="fileinput">Xóa</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

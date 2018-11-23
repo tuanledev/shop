@@ -197,32 +197,21 @@ func (c *ProductController) Edit() {
 		errMsg := make(map[string]string)
 		// validation
 		if pass {
+			if c.GetString("Hot") == "on" {
+				product.Hot = 1
+			} else {
+				product.Hot = 0
+			}
+			if c.GetString("New") == "on" {
+				product.New = 1
+			} else {
+				product.New = 0
+			}
 			product.AliasVN = helper.StrToAlias(product.TitleVN)
 			product.AliasEN = helper.StrToAlias(product.TitleEN)
-			fImg, header, err := c.GetFile("Images")
-			// if not update
-			imgOld := c.GetString("image_old")
-			if fImg == nil && imgOld != "" {
-				product.Images = imgOld
-			}
-			// if upload file
-			if fImg != nil && err == nil {
-				// if content-type images
-				if helper.CheckFileImage(header.Header.Get("Content-Type")) {
-					filePath := fmt.Sprintf("static/img/product/%s", header.Filename)
-					err = c.SaveToFile("Images", filePath)
-					if err != nil {
-						c.showData("Lỗi", "Thêm hình không thành công", "")
-					}
-					product.Images = filePath
-					// remove img old
-					if imgOld != "" {
-						os.Remove(imgOld)
-					}
-				}
-			}
-			err = product.Update()
-			if err == nil {
+			product.TitleVN = helper.TitleStrimSpace(product.TitleVN)
+			product.TitleEN = helper.TitleStrimSpace(product.TitleEN)
+			if product.Update("title_vn", "title_en", "description_vn", "description_en", "content_vn", "content_en", "id_category", "price", "sale_price", "sort", "hot", "alias_vn", "alias_en", "new") == nil {
 				c.showData("Thành công", "Sửa thành công", "/admin/product/list")
 			} else {
 				c.showData("Lỗi", "Sửa không thành công", "")
@@ -239,7 +228,6 @@ func (c *ProductController) Edit() {
 	product := models.Product{Id: id}
 	if product.Read() != nil {
 		c.showmsg("error", "Lỗi", "")
-		c.Redirect("/admin/product/list", 302)
 	}
 	// get product
 	cate := models.Category{}
@@ -249,12 +237,152 @@ func (c *ProductController) Edit() {
 
 	imgProduct := []string{}
 	imgProduct = append(imgProduct, product.Images, product.Images1, product.Images2, product.Images3, product.Images4, product.Images5)
-	if len(imgProduct) > 0 {
-		c.Data["images"] = imgProduct
-	}
+	c.Data["images"] = imgProduct
 	c.LayoutSections = make(map[string]string)
 	c.LayoutSections["Scripts"] = "admin/product/script_edit.html"
 	c.Data["xsrf_token"] = c.XSRFToken()
 	c.Data["data"] = product
 	c.display()
+}
+
+func (c *ProductController) UploadImage() {
+	// POST
+	if c.IsAjax() {
+		image := c.GetString("image")
+		id, _ := c.GetInt("id")
+		fmt.Println("image ", image, "id ", id)
+		if image != "" && id != 0 {
+			product := models.Product{Id: id}
+			if product.Read() != nil {
+				c.showmsg("error", "Lỗi", "")
+			}
+			fImg, header, err := c.GetFile("file")
+			// if upload file
+			if fImg != nil && err == nil {
+				contentType := header.Header.Get("Content-Type")
+				// check ext img
+				if helper.CheckFileImage(contentType) {
+					fileName := fmt.Sprintf(helper.FormatNameImg(contentType, product.AliasVN))
+					filePath := fmt.Sprintf("static/img/product/%s", fileName)
+					err = c.SaveToFile("file", filePath)
+					if err != nil {
+						c.showmsg("error", "Lỗi", "")
+					}
+					// Resize
+					helper.ResizeImg(200, 200, filePath)
+					switch image {
+					case "Image0":
+						product.Images = fileName
+						if product.Update("Images") == nil {
+							c.showImg("success", "Thành công", "", filePath)
+						} else {
+							c.showmsg("error", "Lỗi", "")
+						}
+					case "Image1":
+						product.Images1 = fileName
+						if product.Update("Images1") == nil {
+							c.showImg("success", "Thành công", "", filePath)
+						} else {
+							c.showmsg("error", "Lỗi", "")
+						}
+					case "Image2":
+						product.Images2 = fileName
+						if product.Update("Images2") == nil {
+							c.showImg("success", "Thành công", "", filePath)
+						} else {
+							c.showmsg("error", "Lỗi", "")
+						}
+					case "Image3":
+						product.Images3 = fileName
+						if product.Update("Images3") == nil {
+							c.showImg("success", "Thành công", "", filePath)
+						} else {
+							c.showmsg("error", "Lỗi", "")
+						}
+					case "Image4":
+						product.Images4 = fileName
+						if product.Update("Images4") == nil {
+							c.showImg("success", "Thành công", "", filePath)
+						} else {
+							c.showmsg("error", "Lỗi", "")
+						}
+					case "Image5":
+						product.Images5 = fileName
+						if product.Update("Images5") == nil {
+							c.showImg("success", "Thành công", "", filePath)
+						} else {
+							c.showmsg("error", "Lỗi", "")
+						}
+					}
+				}
+			}
+
+		} else {
+			c.showmsg("error", "Lỗi", "")
+		}
+	}
+}
+func (c *ProductController) RemoveImage() {
+	// POST
+	if c.Ctx.Request.Method == "POST" {
+		image := c.GetString("image")
+		id, _ := c.GetInt("id")
+		if image != "" && id != 0 {
+			product := models.Product{Id: id}
+			if product.Read() != nil {
+				c.showmsg("error", "Lỗi", "")
+			}
+			// Remove
+			switch image {
+			case "Image0":
+				os.Remove(fmt.Sprintf("%s%s", helper.PathImgProduct, product.Images))
+				product.Images = ""
+				if product.Update("Images") == nil {
+					c.showImg("success", "Thành công", "", "")
+				} else {
+					c.showmsg("error", "Lỗi", "")
+				}
+			case "Image1":
+				os.Remove(fmt.Sprintf("%s%s", helper.PathImgProduct, product.Images1))
+				product.Images1 = ""
+				if product.Update("Images1") == nil {
+					c.showImg("success", "Thành công", "", "")
+				} else {
+					c.showmsg("error", "Lỗi", "")
+				}
+			case "Image2":
+				os.Remove(fmt.Sprintf("%s%s", helper.PathImgProduct, product.Images2))
+				product.Images2 = ""
+				if product.Update("Images2") == nil {
+					c.showImg("success", "Thành công", "", "")
+				} else {
+					c.showmsg("error", "Lỗi", "")
+				}
+			case "Image3":
+				os.Remove(fmt.Sprintf("%s%s", helper.PathImgProduct, product.Images3))
+				product.Images3 = ""
+				if product.Update("Images3") == nil {
+					c.showImg("success", "Thành công", "", "")
+				} else {
+					c.showmsg("error", "Lỗi", "")
+				}
+			case "Image4":
+				os.Remove(fmt.Sprintf("%s%s", helper.PathImgProduct, product.Images4))
+				product.Images4 = ""
+				if product.Update("Images4") == nil {
+					c.showImg("success", "Thành công", "", "")
+				} else {
+					c.showmsg("error", "Lỗi", "")
+				}
+			case "Image5":
+				os.Remove(fmt.Sprintf("%s%s", helper.PathImgProduct, product.Images))
+				product.Images5 = ""
+				if product.Update("Images5") == nil {
+					c.showImg("success", "Thành công", "", "")
+				} else {
+					c.showmsg("error", "Lỗi", "")
+				}
+			}
+		}
+	}
 }

@@ -1,0 +1,107 @@
+<script src="{{UrlHost}}/static/admin/assets/js/validation.js"></script>
+<!-- wysuhtml5 Plugin JavaScript -->
+<script src="{{UrlHost}}/static/admin/assets/lib/tinymce/tinymce.min.js"></script>
+<!-- Style switcher -->
+<script src="{{UrlHost}}/static/admin/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+<!-- MultiFile -->
+<script src="{{UrlHost}}/static/js/jquery.MultiFile.min.js"></script>
+
+<script>
+    ! function (window, document, $) {
+        "use strict";
+        $("input,select,textarea").not("[type=submit]").jqBootstrapValidation({
+            preventSubmit: true
+        });
+    }(window, document, jQuery);
+
+    // Check username exist
+    $(document).ready(function () {
+        var msg = {{.msg}} ? {{.msg}} : "";
+        var msgInfo = {{.msgInfo}} ? {{.msgInfo}} : "";
+        var redirect = {{.redirect}} ? {{.redirect}} : "";
+        var timer = 1000; // 2s
+        if (msg !== "") {
+            swal({
+                title: msg,
+                text: msgInfo,
+                timer: timer,
+                showConfirmButton: false
+            });
+            if (redirect !== "") {
+                // similar behavior as an HTTP redirect
+                setTimeout(function(){ window.location.replace("{{UrlHost}}"+redirect); }, timer);
+            }
+        }
+        var hostName = '{{.hostName}}';
+        var controller = '{{UrlHost}}{{urlfor "ImageController.Upload"}}'
+        // tinymce
+        if ($("#DescriptionVN").length > 0) {
+            tinyContent("#DescriptionVN",hostName,controller);
+        }
+        if ($("#DescriptionEN").length > 0) {
+            tinyContent("#DescriptionEN",hostName,controller);
+        }
+        if ($("#ContentVN").length > 0) {
+            tinyContent("#ContentVN",hostName,controller);
+        }
+        if ($("#ContentEN").length > 0) {
+            tinyContent("#ContentEN",hostName,controller);
+        }
+
+        $("#Price").inputmask("decimal", {
+            placeholder: "0",
+            digits: 0,
+            digitsOptional: false,
+            radixPoint: ",",
+            groupSeparator: ".",
+            autoGroup: true,
+            allowPlus: false,
+            allowMinus: false,
+            clearMaskOnLostFocus: false,
+            removeMaskOnSubmit: true,
+            autoUnmask: true,
+            // onUnMask: function(maskedValue, unmaskedValue) {
+            //     var x = maskedValue.split(',');
+            //     return x[0].replace(/\./g, '') + '.' + x[1];
+            // }
+        });
+        $("#SalePrice").inputmask("decimal", {
+            placeholder: "0",
+            digits: 0,
+            digitsOptional: false,
+            radixPoint: ",",
+            groupSeparator: ".",
+            autoGroup: true,
+            allowPlus: false,
+            allowMinus: false,
+            clearMaskOnLostFocus: false,
+            removeMaskOnSubmit: true,
+            autoUnmask: true,
+            // onUnMask: function(maskedValue, unmaskedValue) {
+            //     var x = maskedValue.split(',');
+            //     return x[0].replace(/\./g, '') + '.' + x[1];
+            // }
+        });
+
+        $('#div-showImagesDetail').hide();
+        // multi upload
+        $('#ImagesDetail').MultiFile({
+            max: 5, 
+            accept: 'gif|jpg|png|jpeg|pjpeg',
+            STRING: {
+                file: '<em class="card-text" title="Click to remove" onclick="$(this).parent().prev().click()">$file</em>',
+                remove: '<i class="mdi mdi-close"></i>'
+            },
+            list: '#div-ImagesDetail',
+            afterFileSelect : function(element, value, master_element) {
+                $('#div-showImagesDetail').show();
+            },
+            afterFileRemove : function(element, value, master_element) {
+                if ($('#div-ImagesDetail').find("div.MultiFile-label").length < 1 ) {
+                    $('#div-showImagesDetail').hide();
+                }
+            },
+        });
+
+    });
+</script>

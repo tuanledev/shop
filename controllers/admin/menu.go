@@ -30,9 +30,9 @@ func (c *MenuController) List() {
 			}
 			return true
 		})
-		sort.Search(len(menuRows), func(i int) bool {
-			if menuRows[i].Id == arrMenu[key].ParentID {
-				arrMenu[key].NameParentID = v.TitleVN
+		sort.Search(len(menuRows), func(j int) bool {
+			if menuRows[j].Id == arrMenu[key].ParentID {
+				arrMenu[key].NameParentID = menuRows[j].TitleVN
 			}
 			return true
 		})
@@ -77,18 +77,22 @@ func (c *MenuController) Edit() {
 	menu := models.Menu{Id: id}
 	if err := menu.Read(); err != nil {
 		c.showmsg("error", "Lỗi", "")
-		c.Redirect("/admin/menu/list", 302)
 	}
 	// get category
 	cate := models.Category{}
 	cateRows := []models.Category{}
 	cate.Query().All(&cateRows, "id", "title_vn", "title_en")
+	c.Data["cates"] = cateRows
+	// get menus
+	menuCate := models.Menu{}
+	menuRows := []models.Menu{}
+	menuCate.Query().All(&menuRows, "id", "title_vn", "title_en", "cate_product_id", "cate_news_id")
+	c.Data["menus"] = menuRows
 
 	c.LayoutSections = make(map[string]string)
 	c.LayoutSections["Scripts"] = "admin/menu/script_edit.html"
 	c.Data["xsrf_token"] = c.XSRFToken()
 	c.Data["data"] = menu
-	c.Data["cate"] = cate
 	c.display()
 }
 

@@ -81,7 +81,56 @@
             //     return x[0].replace(/\./g, '') + '.' + x[1];
             // }
         });
-    
+
+        for (let i = 0; i <= 6; i++) {
+            $('#Remove-Image-'+i).click(function () {
+                var xsrf = $("#_xsrf").val();
+                var formData = new FormData();
+                formData.append('image', 'Image'+i);
+                formData.append('id', $('#id').val());
+                formData.append('_xsrf',xsrf);
+                $.ajax({
+                    url : '{{UrlHost}}{{urlfor "ProductController.RemoveImage"}}',
+                    type : 'POST',
+                    data : formData,
+                    processData: false,  // tell jQuery not to process the data
+                    contentType: false,  // tell jQuery not to set contentType
+                    success : function(response) {
+                        if (response.levelMsg !== "") {
+                            // show msg
+                            showMsg(response.levelMsg,response.msg,response.info);
+                            if (response.levelMsg === "success") {
+                                $('#Div-Image-'+i).attr("src",'{{UrlHost}}/static/img/no_image.png');
+                            }
+                        }
+                    }
+                });
+            });
+            $('#Upload-Image-'+i).click(function () {
+                var xsrf = $("#_xsrf").val();
+                var formData = new FormData();
+                formData.append('file', $('#Image-'+i)[0].files[0]);
+                formData.append('image', 'Image'+i);
+                formData.append('id', $('#id').val());
+                formData.append('_xsrf',xsrf);
+                $.ajax({
+                    url : '{{UrlHost}}{{urlfor "ProductController.UploadImage"}}',
+                    type : 'POST',
+                    data : formData,
+                    processData: false,  // tell jQuery not to process the data
+                    contentType: false,  // tell jQuery not to set contentType
+                    success : function(response) {
+                        if (response.levelMsg !== "") {
+                            // show msg
+                            showMsg(response.levelMsg,response.msg,response.info);
+                            if (response.levelMsg === "success") {
+                                $('#Div-Image-'+i).attr("src",'{{UrlHost}}/'+response.src);
+                            }
+                        }
+                    }
+                });
+            });
+        }
 </script>
 <!-- ============================================================== -->
 <!-- Style switcher -->
