@@ -1,27 +1,22 @@
 package models
 
 import (
+	"time"
+
 	"github.com/astaxie/beego/orm"
 )
 
 type Image struct {
-	Id              int    `form:"id"`
-	TitleVN         string `orm:"column(title_vn)" form:"TitleVN" valid:"Required"`
-	TitleEN         string `orm:"column(title_en)" form:"TitleEN" valid:"Required"`
-	DescriptionVN   string `orm:"column(description_vn)" form:"DescriptionVN"`
-	DescriptionEN   string `orm:"column(description_en)" form:"DescriptionEN"`
-	Images          string `orm:"column(images)" form:"Images"`
-	Sort            int    `form:"Sort"`
-	ParentID        int    `orm:"column(parent_id)" form:"ParentID"`
-	AliasVN         string `orm:"column(alias_vn)" form:"AliasVN"`
-	AliasEN         string `orm:"column(alias_en)" form:"AliasEN"`
-	MetaKeyword     string `orm:"column(meta_keyword)" form:"MetaKeyword"`
-	MetaDescription string `orm:"column(meta_description)" form:"MetaDescription"`
-	NameParentID    string `orm:"-"`
+	Id         int       `form:"id"`
+	Images     string    `form:"Images"`
+	CateID     int       `orm:"column(cate_id)" form:"CateID"`
+	Sort       int       `form:"Sort"`
+	Date       time.Time `orm:"auto_now_add;type(datetime)"`
+	NameCateID string    `orm:"-"`
 }
 
 func (m *Image) TableName() string {
-	return TableName("cate_images")
+	return TableName("image")
 }
 
 func (m *Image) Insert() error {

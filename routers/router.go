@@ -3,6 +3,7 @@ package routers
 import (
 	"shop/controllers"
 	"shop/controllers/admin"
+	"shop/controllers/fontend"
 
 	"github.com/astaxie/beego"
 )
@@ -12,6 +13,9 @@ func init() {
 	// Login
 	beego.Router("/login", &controllers.AuthController{}, "*:Login")
 	beego.Router("/logout", &controllers.AuthController{}, "*:Logout")
+
+	//index
+	beego.Router("/", &fontend.IndexController{}, "*:Index")
 
 	//init namespace
 	ns :=
@@ -27,24 +31,32 @@ func init() {
 				&admin.MenuController{},
 			),
 			beego.NSAutoRouter(
-				// menu
+				// category
 				&admin.CategoryController{},
 			),
 			beego.NSAutoRouter(
-				// menu
+				// product
 				&admin.ProductController{},
 			),
 			beego.NSAutoRouter(
-				// menu
+				// image
 				&admin.ImageController{},
 			),
 			beego.NSAutoRouter(
-				// menu
+				// cate new
 				&admin.CatenewController{},
 			),
 			beego.NSAutoRouter(
-				// menu
+				// post
 				&admin.PostController{},
+			),
+			beego.NSAutoRouter(
+				// cate image
+				&admin.CateimageController{},
+			),
+			beego.NSAutoRouter(
+				// setting
+				&admin.SettingController{},
 			),
 		)
 

@@ -1,0 +1,68 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card card-outline-info">
+            <div class="card-header">
+                <h4 class="m-b-0 text-white">Sửa danh mục hình ảnh</h4>
+            </div>
+            <div class="card-body">
+                <form novalidate="" method="POST" action="" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Thứ tự</th>
+                                            <th>Hình</th>
+                                            <th class="text-nowrap">Hành động</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{range $image := .images}}
+                                        <tr id="tr-image-{{$image.Id}}">
+                                            <input type="hidden" name="id" id="id-image-{{$image.Id}}" value="{{$image.Id}}">
+                                            <td width="15%"> <input class="form-control" type="number" id="sort-image-{{$image.Id}}" value="{{$image.Sort}}"/> </td>
+                                            <td width="20%">
+                                                <div>
+                                                    <img id="Div-Image-{{$image.Id}}" src="{{UrlHost}}/static/img/image/{{$image.Images}}" class="radius"
+                                                        width="100" height="80">
+                                                </div>
+                                            </td>
+                                            <td class="text-nowrap">
+                                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                    <div class="form-control" data-trigger="fileinput">
+                                                        <i class="fa fa-file fileinput-exists"></i>
+                                                        <span class="fileinput-filename"></span>
+                                                    </div>
+                                                    <span class="input-group-addon btn btn-secondary btn-file">
+                                                        <span class="fileinput-new">Chọn</span>
+                                                        <span class="fileinput-exists">Thay đổi</span>
+                                                        <input type="hidden"><input type="file" id="Image-{{$image.Id}}">
+                                                    </span>
+                                                    <a class="input-group-addon btn btn-secondary fileinput-exists" data-dismiss="fileinput">Xóa</a>
+                                                </div>
+                                                <button id="Remove-Image-{{$image.Id}}" type="button" class="btn btn-danger btn-circle mt-1">
+                                                    <i class="mdi mdi-close"></i>
+                                                </button>
+                                                <button id="Upload-Image-{{$image.Id}}" type="button" class="btn btn-info btn-circle mt-1">
+                                                    <i class="mdi mdi-upload"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        {{end}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="form-actions">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>Sửa</button>
+                        <button type="reset" class="btn btn-inverse">Hủy</button>
+                    </div> -->
+                    <input type="hidden" name="_xsrf" id="_xsrf" value="{{.xsrf_token}}">
+                    <!-- <input type="hidden" name="id" id="id" value="{{.data.Id}}"> -->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

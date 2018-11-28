@@ -48,7 +48,7 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <h5>Hoạt động</h5>
-                                <fieldset class="controls">
+                                <!-- <fieldset class="controls">
                                     <label class="custom-control custom-radio">
                                         <input type="radio" value="1" name="Active" id="styled_radio1"
                                             class="custom-control-input" checked>
@@ -61,14 +61,19 @@
                                         <input type="radio" value="0" name="Active" id="styled_radio2" class="custom-control-input">
                                         <span class="custom-control-indicator"></span> <span class="custom-control-description">Không</span>
                                     </label>
-                                </fieldset>
+                                </fieldset> -->
+                                <div class="switch">
+                                    <label>
+                                        <input name="Active" type="checkbox" checked><span class="lever switch-col-teal"></span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <h5>Danh mục menu</h5>
                                 <div class="controls">
-                                    <select name="ParentID" id="select_menu" class="form-control" aria-invalid="false"
+                                    <select name="ParentID" class="form-control" aria-invalid="false"
                                         data-validation-required-message="Không được để trống">
                                         <option value="0" selected>Chọn danh mục menu</option>
                                         {{range $menu := .menus}}
@@ -80,11 +85,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3" id="cate_product">
+                        <div class="col-md-2" id="cate_product">
                             <div class="form-group">
                                 <h5>Danh mục sản phẩm</h5>
                                 <div class="controls">
-                                    <select name="CateProductID" id="select" class="form-control" aria-invalid="false"
+                                    <select name="CateProductID" class="form-control" aria-invalid="false"
                                         data-validation-required-message="Không được để trống">
                                         <option value="0" selected>Chọn danh mục sản phẩm</option>
                                         {{range $cate := .cates}}
@@ -96,13 +101,29 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3" id="cate_new">
+                        <div class="col-md-2" id="cate_post">
                             <div class="form-group">
-                                <h5>Danh mục tin tức</h5>
+                                <h5>Danh mục bài viết</h5>
                                 <div class="controls">
-                                    <input type="number" name="CateNewsID" 
-                                        class="form-control" value="0">
+                                    <select name="CateNewsID" id="select_cate_news" class="form-control" aria-invalid="false">
+                                        <option value="0" selected>Chọn danh mục bài viết</option>
+                                        {{range $post := .posts}}
+                                        <option value="{{$post.Id}}">{{$post.TitleVN}}</option>
+                                        {{end}}
+                                    </select>
                                     <div class="help-block"></div>
+                                    {{if .errMsg}} <small class="has-danger form-control-label" style="color: red;">{{ map_get .errMsg "CateNewsID"}} </small> {{end}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2" id="div-post">
+                            <div class="form-group">
+                                <h5>Bài viết</h5>
+                                <div class="controls">
+                                    <select name="PostID" id="select_post" class="form-control" aria-invalid="false">
+                                    </select>
+                                    <div class="help-block"></div>
+                                    {{if .errMsg}} <small class="has-danger form-control-label" style="color: red;">{{ map_get .errMsg "PostID"}} </small> {{end}}
                                 </div>
                             </div>
                         </div>

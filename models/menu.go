@@ -15,9 +15,11 @@ type Menu struct {
 	ParentID      int    `orm:"column(parent_id)" form:"ParentID"`
 	CateProductID int    `orm:"column(cate_product_id)" form:"CateProductID"`
 	CateNewsID    int    `orm:"column(cate_news_id)" form:"CateNewsID"`
+	PostID        int    `orm:"column(post_id)" form:"PostID"`
 	NameParentID  string `orm:"-"`
 	NameProductID string `orm:"-"`
 	NameNewsID    string `orm:"-"`
+	NamePostID    string `orm:"-"`
 }
 
 func (m *Menu) TableName() string {

@@ -46,7 +46,7 @@
                     <ul aria-expanded="false" class="collapse">
                         <!-- category menu -->
                         <li>
-                            <a class="has-arrow " aria-expanded="false"><span class="hide-menu">Menu</span></a>
+                            <a class="has-arrow " aria-expanded="false"><i class="mdi mdi-menu"> </i><span class="hide-menu">Menu</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="{{UrlHost}}{{urlfor "MenuController.List"}}"><i class="mdi mdi-format-list-bulleted"></i>
                                         Danh sách</a></li>
@@ -56,7 +56,7 @@
                         </li>
                         <!-- category product -->
                         <li>
-                            <a class="has-arrow " aria-expanded="false"><span class="hide-menu">Sản phẩm</span></a>
+                            <a class="has-arrow " aria-expanded="false"><i class="mdi mdi-shopping"> </i><span class="hide-menu">Sản phẩm</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="{{UrlHost}}{{urlfor "CategoryController.List"}}"><i class="mdi mdi-format-list-bulleted"></i>
                                         Danh sách</a></li>
@@ -66,11 +66,21 @@
                         </li>
                         <!-- category new -->
                         <li>
-                            <a class="has-arrow " aria-expanded="false"><span class="hide-menu">Bài viết</span></a>
+                            <a class="has-arrow " aria-expanded="false"><i class="mdi mdi-note-text"> </i><span class="hide-menu">Bài viết</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="{{UrlHost}}{{urlfor "CatenewController.List"}}"><i class="mdi mdi-format-list-bulleted"></i>
                                         Danh sách</a></li>
                                 <li><a href="{{UrlHost}}{{urlfor "CatenewController.Add"}}"><i class="mdi mdi-playlist-plus"></i>
+                                        Thêm</a></li>
+                            </ul>
+                        </li>
+                        <!-- category image -->
+                        <li>
+                            <a class="has-arrow " aria-expanded="false"><i class="mdi mdi-folder-multiple-image"> </i><span class="hide-menu">Hình ảnh</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="{{UrlHost}}{{urlfor "CateimageController.List"}}"><i class="mdi mdi-format-list-bulleted"></i>
+                                        Danh sách</a></li>
+                                <li><a href="{{UrlHost}}{{urlfor "CateimageController.Add"}}"><i class="mdi mdi-playlist-plus"></i>
                                         Thêm</a></li>
                             </ul>
                         </li>
@@ -102,6 +112,33 @@
                                 Danh sách</a></li>
                         <li><a href="{{UrlHost}}{{urlfor "PostController.Add"}}"><i class="mdi mdi-note-plus"></i>
                                 Thêm</a></li>
+                    </ul>
+                <!-- images -->
+                <li>
+                    <a class="has-arrow" aria-expanded="false">
+                        <span class="hide-menu">
+                            <i class="mdi mdi-folder-image"></i>Hình ảnh
+                        </span>
+                    </a>
+                    <ul aria-expanded="true" class="collapse in">
+                        <li><a href="{{UrlHost}}{{urlfor "ImageController.List"}}"><i class="mdi mdi-folder-multiple-image"></i>
+                                Danh sách</a></li>
+                        <li><a href="{{UrlHost}}{{urlfor "ImageController.Add"}}"><i class="mdi mdi-folder-plus"></i>
+                                Thêm</a></li>
+                    </ul>
+                </li>
+                <!-- setting -->
+                <li>
+                    <a class="has-arrow" aria-expanded="false">
+                        <span class="hide-menu">
+                            <i class="mdi mdi-settings"></i>Cấu hình
+                        </span>
+                    </a>
+                    <ul aria-expanded="true" class="collapse in">
+                        <li>
+                            <a href="{{UrlHost}}{{urlfor "SettingController.Edit"}}"><i class="mdi mdi-settings-box"></i>
+                            Tùy chỉnh</a>
+                        </li>
                     </ul>
                 </li>
 

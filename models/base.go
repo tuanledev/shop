@@ -21,9 +21,9 @@ func init() {
 	// }
 	// Set prefix db
 	if beego.AppConfig.String("dbprefix") != "" {
-		orm.RegisterModelWithPrefix(beego.AppConfig.String("dbprefix"), new(User), new(Role), new(Menu), new(Category), new(Product), new(CateNew), new(Post))
+		orm.RegisterModelWithPrefix(beego.AppConfig.String("dbprefix"), new(User), new(Role), new(Menu), new(Category), new(Product), new(CateNew), new(Post), new(Image), new(CateImage), new(Setting))
 	} else {
-		orm.RegisterModel(new(User), new(Role), new(Menu), new(Category), new(Product), new(CateNew), new(Post))
+		orm.RegisterModel(new(User), new(Role), new(Menu), new(Category), new(Product), new(CateNew), new(Post), new(Image), new(CateImage), new(Setting))
 	}
 	// Log debug db
 	if beego.AppConfig.String("runmode") == "dev" {

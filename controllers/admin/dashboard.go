@@ -5,5 +5,6 @@ type DashboardController struct {
 }
 
 func (c *DashboardController) Get() {
+
 	c.display("dashboard")
 }

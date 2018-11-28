@@ -47,6 +47,8 @@ func (c *CatenewController) Add() {
 		if pass {
 			category.AliasVN = helper.StrToAlias(category.TitleVN)
 			category.AliasEN = helper.StrToAlias(category.TitleEN)
+			category.TitleVN = helper.TitleStrimSpace(category.TitleVN)
+			category.TitleEN = helper.TitleStrimSpace(category.TitleEN)
 			fImg, header, err := c.GetFile("Images")
 			// if content-type images
 			if fImg != nil && err == nil {
@@ -137,6 +139,8 @@ func (c *CatenewController) Edit() {
 		if pass {
 			category.AliasVN = helper.StrToAlias(category.TitleVN)
 			category.AliasEN = helper.StrToAlias(category.TitleEN)
+			category.TitleVN = helper.TitleStrimSpace(category.TitleVN)
+			category.TitleEN = helper.TitleStrimSpace(category.TitleEN)
 			fImg, header, err := c.GetFile("Images")
 			// if no update
 			imgOld := c.GetString("image_old")

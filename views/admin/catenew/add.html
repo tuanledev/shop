@@ -35,6 +35,58 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Meta từ khóa VN<span class="text-danger"></span></label>
+                                <div class="controls">
+                                    <input type="text" name="MetaKeywordVN" id="username" class="form-control">
+                                    <small class="has-danger form-control-label" style="color: red;" id="username_msg">
+                                        {{if .errMsg}}
+                                        {{ map_get .errMsg "MetaKeywordVN"}}
+                                        {{end}}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Meta từ khóa EN <span class="text-danger"></span></label>
+                                <div class="controls">
+                                    <input type="text" name="MetaKeywordEN" class="form-control">
+                                    <div class="help-block"></div>
+                                    {{if .errMsg}} <small class="has-danger form-control-label" style="color: red;">{{ map_get .errMsg "MetaKeywordEN"}} </small> {{end}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Meta miêu tả VN<span class="text-danger"></span></label>
+                                <div class="controls">
+                                    <input type="text" name="MetaDescriptionVN" id="username" class="form-control">
+                                    <small class="has-danger form-control-label" style="color: red;" id="username_msg">
+                                        {{if .errMsg}}
+                                        {{ map_get .errMsg "MetaDescriptionVN"}}
+                                        {{end}}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Meta miêu tả EN <span class="text-danger"></span></label>
+                                <div class="controls">
+                                    <input type="text" name="MetaDescriptionEN" class="form-control">
+                                    <div class="help-block"></div>
+                                    {{if .errMsg}} <small class="has-danger form-control-label" style="color: red;">{{ map_get .errMsg "MetaDescriptionEN"}} </small> {{end}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
                         <div class="col-md-2">
                             <div class="form-group">
                                 <h5>Thứ tự</h5>

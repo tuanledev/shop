@@ -1,17 +1,13 @@
 package admin
 
 import (
+	"shop/helper"
+	"shop/models"
 	"strings"
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/session"
 )
-
-type msgNotification struct {
-	msgLevel string
-	msg      string
-	msgInfo  string
-}
 
 type baseController struct {
 	beego.Controller
@@ -22,7 +18,6 @@ type baseController struct {
 	actionName     string
 	Session        session.Store
 	RoleID         int
-	// msg            *msgNotification
 }
 
 func (c *baseController) Prepare() {
@@ -30,6 +25,15 @@ func (c *baseController) Prepare() {
 	// if c.GetSession("username") == nil {
 	// 	c.Redirect("/login", 302)
 	// }
+	// Get logo
+	if c.Ctx.GetCookie("logo") == "" || c.Ctx.GetCookie("icon") == "" {
+		setting := models.Setting{Id: 1}
+		if setting.Read() == nil {
+			c.Ctx.SetCookie("logo", setting.Logo, helper.TimeYear)
+			c.Ctx.SetCookie("icon", setting.Icon, helper.TimeYear)
+		}
+	}
+
 	controllerName, actionName := c.GetControllerAndAction()
 	c.moduleName = "admin"
 	c.controllerName = strings.ToLower(controllerName[0 : len(controllerName)-10])
@@ -45,6 +49,8 @@ func (c *baseController) display(tpl ...string) {
 	}
 	c.Data["userId"] = c.GetSession("userId")
 	c.Data["username"] = c.GetSession("username")
+	c.Data["logo"] = c.Ctx.GetCookie("logo")
+	c.Data["icon"] = c.Ctx.GetCookie("icon")
 	c.Layout = c.moduleName + "/layout.html"
 	c.TplName = tplName
 }
@@ -75,6 +81,17 @@ func (c *baseController) showImg(msg ...string) {
 	msgJson["msg"] = msg[1]
 	msgJson["info"] = msg[2]
 	msgJson["src"] = msg[3]
+
+	c.Data["json"] = msgJson
+	c.ServeJSON()
+}
+
+func (c *baseController) showMsgs(msg ...interface{}) {
+	msgJson := make(map[string]interface{})
+	msgJson["levelMsg"] = msg[0]
+	msgJson["msg"] = msg[1]
+	msgJson["info"] = msg[2]
+	msgJson["data"] = msg[3]
 
 	c.Data["json"] = msgJson
 	c.ServeJSON()

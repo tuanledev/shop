@@ -1,0 +1,115 @@
+<script src="{{UrlHost}}/static/admin/assets/js/validation.js"></script>
+<!-- wysuhtml5 Plugin JavaScript -->
+<script src="{{UrlHost}}/static/admin/assets/lib/tinymce/tinymce.min.js"></script>
+<!-- Style switcher -->
+<script src="{{UrlHost}}/static/admin/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+<!-- MultiFile -->
+<script src="{{UrlHost}}/static/js/jquery.MultiFile.min.js"></script>
+
+<script>
+    ! function (window, document, $) {
+        "use strict";
+        $("input,select,textarea").not("[type=submit]").jqBootstrapValidation({
+            preventSubmit: true
+        });
+    }(window, document, jQuery);
+
+    var msg = {{.msg}} ? {{.msg}} : "";
+    var msgInfo = {{.msgInfo}} ? {{.msgInfo}} : "";
+    var redirect = {{.redirect}} ? {{.redirect}} : "";
+    var timer = 1000; // 1s
+    if (msg !== "") {
+        swal({
+            title: msg,
+            text: msgInfo,
+            timer: timer,
+            showConfirmButton: false
+        });
+        if (redirect !== "") {
+            // similar behavior as an HTTP redirect
+            setTimeout(function(){ window.location.replace("{{UrlHost}}"+redirect); }, timer);
+        }
+    }
+
+    var images = {{.images}};
+    var lenImgs = images.length;
+    for (let i = 0; i < lenImgs; i++) {
+        var image = images[i];
+        var id = image.Id;
+        // sort change
+        $('#sort-image-'+id).change(delay(function (e) {
+            var image = images[i];
+            var id = image.Id;
+            var sort = $('#sort-image-'+id).val();
+            var xsrf = $("#_xsrf").val();
+            $.ajax({
+                url: "{{UrlHost}}/admin/image/edits",
+                type: 'POST',
+                data: {'id':id,'_xsrf':xsrf,"sort":sort,"action":"sort"},
+                success: function (response) {
+                    if (response.levelMsg !== "") {
+                        // show msg
+                        showMsg(response.levelMsg,response.msg,response.info);
+                    }
+                }
+            });
+        },1500));
+        // remove image
+        $('#Remove-Image-'+id).click(function () {
+            var image = images[i];
+            var id = image.Id;
+            var xsrf = $("#_xsrf").val();
+            var formData = new FormData();
+            formData.append('id', id);
+            formData.append('_xsrf',xsrf);
+            formData.append('action',"remove");
+            $.ajax({
+                url : "{{UrlHost}}/admin/image/edits",
+                type : 'POST',
+                data : formData,
+                processData: false,  // tell jQuery not to process the data
+                contentType: false,  // tell jQuery not to set contentType
+                success : function(response) {
+                    if (response.levelMsg !== "") {
+                        // show msg
+                        showMsg(response.levelMsg,response.msg,response.info);
+                        if (response.levelMsg === "success") {
+                            $('table tr#tr-image-'+id).remove();
+                        }
+                    }
+                }
+            });
+        });
+        // upload image
+        $('#Upload-Image-'+id).click(function () {
+            var image = images[i];
+            var id = image.Id;
+            var xsrf = $("#_xsrf").val();
+            var formData = new FormData();
+            formData.append('file', $('#Image-'+id)[0].files[0]);
+            formData.append('id', id);
+            formData.append('_xsrf',xsrf);
+            formData.append('action',"upload");
+            $.ajax({
+                url : "{{UrlHost}}/admin/image/edits",
+                type : 'POST',
+                data : formData,
+                processData: false,  // tell jQuery not to process the data
+                contentType: false,  // tell jQuery not to set contentType
+                success : function(response) {
+                    if (response.levelMsg !== "") {
+                        // show msg
+                        showMsg(response.levelMsg,response.msg,response.info);
+                        if (response.levelMsg === "success") {
+                            $('#Div-Image-'+id).attr("src",'{{UrlHost}}/'+response.src);
+                        }
+                    }
+                }
+            });
+        });
+    }
+</script>
+<!-- ============================================================== -->
+<!-- Style switcher -->
+<!-- ============================================================== -->
+<script src="{{UrlHost}}/static/admin/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>

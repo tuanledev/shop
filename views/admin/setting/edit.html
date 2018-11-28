@@ -1,0 +1,200 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card card-outline-info">
+            <div class="card-header">
+                <h4 class="m-b-0 text-white">Cấu hình website</h4>
+            </div>
+            <div class="card-body">
+                <form novalidate="" method="POST" action="" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Chọn hình logo </label>
+                                <input type="hidden" name="image_Logo" value="{{.data.Logo}}">
+                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                    <div class="form-control" data-trigger="fileinput">
+                                        <i class="fa fa-file fileinput-exists"></i>
+                                        <span class="fileinput-filename"></span>
+                                    </div>
+                                    <span class="input-group-addon btn btn-secondary btn-file">
+                                        <span class="fileinput-new">Chọn</span>
+                                        <span class="fileinput-exists">Thay đổi</span>
+                                        <input type="hidden"><input type="file" name="Logo">
+                                    </span>
+                                    <a href="#" class="input-group-addon btn btn-secondary fileinput-exists"
+                                        data-dismiss="fileinput">Xóa</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Chọn hình icon </label>
+                                <input type="hidden" name="image_Icon" value="{{.data.Icon}}">
+                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                    <div class="form-control" data-trigger="fileinput">
+                                        <i class="fa fa-file fileinput-exists"></i>
+                                        <span class="fileinput-filename"></span>
+                                    </div>
+                                    <span class="input-group-addon btn btn-secondary btn-file">
+                                        <span class="fileinput-new">Chọn</span>
+                                        <span class="fileinput-exists">Thay đổi</span>
+                                        <input type="hidden"><input type="file" name="Icon">
+                                    </span>
+                                    <a href="#" class="input-group-addon btn btn-secondary fileinput-exists"
+                                        data-dismiss="fileinput">Xóa</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Tiêu đề VN</label>
+                                <textarea class="form-control" rows="2" name="TitleVN">{{.data.TitleVN}}</textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Tiêu đề EN</label>
+                                <textarea class="form-control" rows="2" name="TitleEN">{{.data.TitleEN}}</textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Miêu tả VN</label>
+                                <textarea class="form-control" rows="2" name="DescriptionVN">{{.data.DescriptionVN}}</textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Miêu tả EN</label>
+                                <textarea class="form-control" rows="2" name="DescriptionEN">{{.data.DescriptionEN}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Keyword VN</label>
+                                <textarea class="form-control" rows="2" name="KeywordVN">{{.data.KeywordVN}}</textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Keyword EN</label>
+                                <textarea class="form-control" rows="2" name="KeywordEN">{{.data.KeywordEN}}</textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Google analytics</label>
+                                <textarea class="form-control" rows="2" name="Googleanalytics">{{.data.Googleanalytics}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" name="Email" class="form-control" value="{{.data.Email}}">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Địa chỉ</label>
+                                <input type="text" name="Address" class="form-control" value="{{.data.Address}}">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Hotline 1</label>
+                                <input type="text" name="Hotline" class="form-control" value="{{.data.Hotline}}">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Hotline 2</label>
+                                <input type="text" name="Hotline2" class="form-control" value="{{.data.Hotline2}}"> 
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Fanpage</label>
+                                <input type="text" name="Fanpage" class="form-control" value="{{.data.Fanpage}}">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Youtube</label>
+                                <input type="text" name="Youtube" class="form-control" value="{{.data.Youtube}}">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Twitter</label>
+                                <input type="text" name="Twitter" class="form-control" value="{{.data.Twitter}}">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Google</label>
+                                <input type="text" name="Google" class="form-control" value="{{.data.Google}}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Instagram</label>
+                                <input type="text" name="Instagram" class="form-control" value="{{.data.Instagram}}">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Công ty</label>
+                                <input type="text" name="Company" class="form-control" value="{{.data.Company}}">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Slogan</label>
+                                <input type="text" name="Slogan" class="form-control" value="{{.data.Slogan}}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Footer</label>
+                                <textarea id="Footer" name="Footer">{{.data.Footer}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Meta Facebook</label>
+                                <textarea id="MetaFB" name="MetaFB">{{.data.MetaFB}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>Sửa</button>
+                        <button type="reset" class="btn btn-inverse">Hủy</button>
+                    </div>
+                    <input type="hidden" name="_xsrf" id="_xsrf" value="{{.xsrf_token}}">
+                    <input type="hidden" name="id" id="id" value="{{.data.Id}}">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

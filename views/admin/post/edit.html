@@ -2,14 +2,14 @@
     <div class="col-12">
         <div class="card card-outline-info">
             <div class="card-header">
-                <h4 class="m-b-0 text-white">Sửa sản phẩm</h4>
+                <h4 class="m-b-0 text-white">Sửa bài viết</h4>
             </div>
             <div class="card-body">
                 <form novalidate="" method="POST" action="" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Tên sản phẩm VN <span class="text-danger">*</span></label>
+                                <label>Tên bài viết VN <span class="text-danger">*</span></label>
                                 <div class="controls">
                                     <input type="text" name="TitleVN" id="TitleVN" class="form-control"
                                         data-validation-required-message="Không được để trống" value="{{.data.TitleVN}}">
@@ -23,12 +23,63 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Tên sản phẩm EN <span class="text-danger">*</span></label>
+                                <label>Tên bài viết EN <span class="text-danger">*</span></label>
                                 <div class="controls">
                                     <input type="text" name="TitleEN" class="form-control"
                                         data-validation-required-message="Không được để trống" value="{{.data.TitleEN}}">
                                     <div class="help-block"></div>
                                     {{if .errMsg}} <small class="has-danger form-control-label" style="color: red;">{{ map_get .errMsg "TitleEN"}} </small> {{end}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Meta từ khóa VN<span class="text-danger"></span></label>
+                                <div class="controls">
+                                    <input type="text" name="MetaKeywordVN" id="username" class="form-control" value="{{.data.MetaKeywordVN}}">
+                                    <small class="has-danger form-control-label" style="color: red;" id="username_msg">
+                                        {{if .errMsg}}
+                                        {{ map_get .errMsg "MetaKeywordVN"}}
+                                        {{end}}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Meta từ khóa EN <span class="text-danger"></span></label>
+                                <div class="controls">
+                                    <input type="text" name="MetaKeywordEN" class="form-control" value="{{.data.MetaKeywordEN}}">
+                                    <div class="help-block"></div>
+                                    {{if .errMsg}} <small class="has-danger form-control-label" style="color: red;">{{ map_get .errMsg "MetaKeywordEN"}} </small> {{end}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Meta miêu tả VN<span class="text-danger"></span></label>
+                                <div class="controls">
+                                    <input type="text" name="MetaDescriptionVN" id="username" class="form-control" value="{{.data.MetaDescriptionVN}}">
+                                    <small class="has-danger form-control-label" style="color: red;" id="username_msg">
+                                        {{if .errMsg}}
+                                        {{ map_get .errMsg "MetaDescriptionVN"}}
+                                        {{end}}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Meta miêu tả EN <span class="text-danger"></span></label>
+                                <div class="controls">
+                                    <input type="text" name="MetaDescriptionEN" class="form-control" value="{{.data.MetaDescriptionEN}}">
+                                    <div class="help-block"></div>
+                                    {{if .errMsg}} <small class="has-danger form-control-label" style="color: red;">{{ map_get .errMsg "MetaDescriptionEN"}} </small> {{end}}
                                 </div>
                             </div>
                         </div>
@@ -168,7 +219,7 @@
                         </div>
                     </div>
                     <div class="form-actions">
-                        <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>Thêm</button>
+                        <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>Sửa</button>
                         <button type="reset" class="btn btn-inverse">Hủy</button>
                     </div>
                     <input type="hidden" name="_xsrf" id="_xsrf" value="{{.xsrf_token}}">

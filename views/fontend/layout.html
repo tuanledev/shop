@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="{{.Lang}}">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{.title}}</title>
+    <meta name="keywords" content="{{.keywords}}">
+    <meta name="description" content="{{.description}}">
+    <link rel="alternate" hreflang="x-default" href="{{UrlHost}}/">
+    <link rel="alternate" hreflang="en" href="{{UrlHost}}/en">
+    <meta http-equiv="content-language" content="{{.Lang}}" />
+</head>
+<body>
+    {{.header}}
+    {{.LayoutContent}}
+    {{.footer}}
+</body>
+</html>

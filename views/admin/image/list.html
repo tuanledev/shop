@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <h4 class="card-title">Danh sách hình ảnh</h4>
+                    </div>
+                    <div class="col-6 text-right">
+                        <h4 class="card-title">
+                                <a href='{{UrlHost}}{{urlfor "ImageController.Add"}}' class="btn btn-success" ><i class="mdi mdi-plus-circle"></i>
+                                    Thêm</a>
+                            <button type="button" class="btn btn-danger" id="delete"><i class="mdi mdi-delete"></i>
+                                Xóa</button>
+                        </h4>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <div id="" class="dataTables_wrapper">
+                        <table id="datatable_data" class="display table table-hover table-bordered dataTable "
+                            cellspacing="0" width="100%" role="grid" aria-describedby="datatable_data_info" style="width: 100%;">
+                            <thead>
+                                <tr role="row">
+                                    <th style="color: rgb(14, 11, 11)"></th>
+                                    <th>Thứ tự</th>
+                                    <th>Hình</th>
+                                    <th>Danh mục</th>
+                                    <th>Ngày</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <!-- <tfoot>
+                                <tr>
+                                    <th rowspan="1" colspan="1">Name</th>
+                                    <th rowspan="1" colspan="1">Position</th>
+                                    <th rowspan="1" colspan="1">Office</th>
+                                    <th rowspan="1" colspan="1">Age</th>
+                                    <th rowspan="1" colspan="1">Start date</th>
+                                    <th rowspan="1" colspan="1">Salary</th>
+                                </tr>
+                            </tfoot> -->
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -161,7 +161,7 @@ func (c *PostController) Edit() {
 			product.AliasEN = helper.StrToAlias(product.TitleEN)
 			product.TitleVN = helper.TitleStrimSpace(product.TitleVN)
 			product.TitleEN = helper.TitleStrimSpace(product.TitleEN)
-			if product.Update("title_vn", "title_en", "description_vn", "description_en", "content_vn", "content_en", "id_category", "sort", "hot", "alias_vn", "alias_en", "new") == nil {
+			if product.Update("title_vn", "title_en", "description_vn", "description_en", "content_vn", "content_en", "id_category", "sort", "hot", "alias_vn", "alias_en", "new", "meta_keyword_vn", "meta_keyword_en", "meta_description_vn", "meta_description_en") == nil {
 				c.showData("Thành công", "Sửa thành công", "/admin/post/list")
 			} else {
 				c.showData("Lỗi", "Sửa không thành công", "")

@@ -12,7 +12,7 @@
         var msg = {{.msg}} ? {{.msg}} : "";
         var msgInfo = {{.msgInfo}} ? {{.msgInfo}} : "";
         var redirect = {{.redirect}} ? {{.redirect}} : "";
-        var timer = 1500; // 2s
+        var timer = 1000; // 2s
         if (msg !== "") {
             swal({
                 title: msg,
@@ -25,23 +25,41 @@
                 setTimeout(function(){ window.location.replace("{{UrlHost}}"+redirect); }, timer);
             }
         }
-        // $('#cate_product').hide();
-        // $('#cate_new').hide();
+        $("#div-post").hide();
         // // show cate
-        // $('#select_menu').click(function (e) { 
-        //     var menuSel = $('#select_menu').find(":selected").text();
-        //     console.log( $('#select_menu').find(":selected").text());
-        //     if (menuSel === "Sản phẩm") {
-        //         $('#cate_product').show();
-        //     } else {
-        //         $('#cate_product').hide();
-        //     }
-        //     if (menuSel === "Tin tức") {
-        //         $('#cate_new').show();
-        //     } else {
-        //         $('#cate_new').hide();
-        //     }
-        // });
+        $('#select_cate_news').click(function (e) { 
+            var cateVal = $('#select_cate_news').val();
+            var xsrf = $("#_xsrf").val();
+            if (cateVal > 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "{{UrlHost}}/admin/menu/add",
+                    data: {"id_cate_news":cateVal,"_xsrf":xsrf},
+                    // dataType: "dataType",
+                    success: function (res) {
+                        if (res.status === true) {
+                            data = res.data;
+                            var lengthData =  data.length;
+                            if (lengthData > 0) {
+                                $("#div-post").show();
+                                $("#select_post").empty();
+                                var opt = new Option("Chọn bài viết", 0);
+                                $("#select_post").append(opt);
+                                for (let i = 0; i < lengthData; i++) {
+                                    const post = data[i];
+                                    var option = new Option(post.TitleVN, post.Id);
+                                    $("#select_post").append(option);
+                                }
+                            }
+                        } else {
+                            $("#div-post").hide();
+                        }
+                    }
+                });
+            } else {
+                $("#div-post").hide();
+            }
+        });
     });
 </script>
 <!-- ============================================================== -->

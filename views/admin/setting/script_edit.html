@@ -1,0 +1,35 @@
+<!-- Style switcher -->
+<script src="{{UrlHost}}/static/admin/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+<script src="{{UrlHost}}/static/admin/assets/lib/tinymce/tinymce.min.js"></script>
+<script>
+    var msg = {{.msg}} ? {{.msg}} : "";
+    var msgInfo = {{.msgInfo}} ? {{.msgInfo}} : "";
+    var redirect = {{.redirect}} ? {{.redirect}} : "";
+    var timer = 1000; // 1s
+    if (msg !== "") {
+        swal({
+            title: msg,
+            text: msgInfo,
+            timer: timer,
+            showConfirmButton: false
+        });
+        if (redirect !== "") {
+            // similar behavior as an HTTP redirect
+            setTimeout(function(){ window.location.replace("{{UrlHost}}"+redirect); }, timer);
+        }
+    }
+
+    var hostName = '{{.hostName}}';
+    var controller = '{{UrlHost}}{{urlfor "ImageController.Upload"}}'
+    // tinymce
+    if ($("#Footer").length > 0) {
+        tinyContent("#Footer",hostName,controller);
+    }
+    if ($("#MetaFB").length > 0) {
+        tinyContent("#MetaFB",hostName,controller);
+    }
+</script>
+<!-- ============================================================== -->
+<!-- Style switcher -->
+<!-- ============================================================== -->
+<script src="{{UrlHost}}/static/admin/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
