@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="{{.Lang}}">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{.title}}</title>
+    <meta name="keywords" content="{{.keywords}}">
+    <meta name="description" content="{{.description}}">
+    <link rel="alternate" hreflang="x-default" href="{{UrlHost}}/">
+    <link rel="alternate" hreflang="en" href="{{UrlHost}}/en">
+    <meta http-equiv="content-language" content="{{.Lang}}" />
+    <link rel="icon" href="{{UrlHost}}/static/img/setting/{{.icon}}" type="image/png">
+    <style type="text/css">
+        img.wp-smiley,
+        img.emoji {
+            display: inline !important;
+            border: none !important;
+            box-shadow: none !important;
+            height: 1em !important;
+            width: 1em !important;
+            margin: 0 .07em !important;
+            vertical-align: -0.1em !important;
+            background: none !important;
+            padding: 0 !important;
+        }
+    </style>
+
+    <link rel='stylesheet' id='contact-form-7-css' href='{{UrlHost}}/static/frontend/css/styles.css' type='text/css'
+        media='all' />
+    <link rel='stylesheet' id='simple-share-buttons-adder-indie-css' href='{{UrlHost}}/static/frontend/css/font-google-css.css'
+        type='text/css' media='all' />
+    <!-- <link rel='stylesheet' id='simple-share-buttons-adder-font-awesome-css' href='css/font-awesome.min.css'
+type='text/css' media='all' /> -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+        crossorigin="anonymous">
+    <link rel='stylesheet' id='ceres-organics-style-css' href='{{UrlHost}}/static/frontend/css/styles-form7.css' type='text/css'
+        media='all' />
+    <script type='text/javascript' src='{{UrlHost}}/static/frontend/js/jquery.min.js'></script>
+    <script type='text/javascript' src='{{UrlHost}}/static/frontend/js/jquery-migrate.min.js'></script>
+    <script type='text/javascript' src='{{UrlHost}}/static/frontend/js/wpgmza_data.js'></script>
+    <!-- <link rel='https://api.w.org/' href='https://www.ceres.co.nz/wp-json/' /> -->
+    <!-- <script id='st_insights_js' type='text/javascript' src='js/st_insights.js'></script> -->
+    <script id='st_insights_js' type='text/javascript' src='{{UrlHost}}/static/frontend/js/st_insights.js'></script>
+    <style type="text/css">
+        .wpb_animate_when_almost_visible {
+            opacity: 1;
+        }
+    </style>
+
+</head>
+
+<body class="home blog group-blog hfeed wpb-js-composer js-comp-ver-5.5.5 vc_responsive">
+    <!-- page -->
+    <div id="page" class="site">
+        <!-- header -->
+        {{.header}}
+
+        <!-- content -->
+        <div id="content" class="site-content">
+            {{.LayoutContent}}
+        </div>
+        
+        <!-- footer -->
+        {{.footer}}
+    </div>
+    <!-- end page -->
+
+    <link rel='stylesheet' id='yikes-inc-easy-mailchimp-public-styles-css' href='{{UrlHost}}/static/frontend/css/yikes-inc-easy-mailchimp-extender-public.min.css'
+        type='text/css' media='all' />
+    <!-- <script type='text/javascript'>
+        /* <![CDATA[ */
+        var wpcf7 = { "apiSettings": { "root": "https:\/\/www.ceres.co.nz\/wp-json\/contact-form-7\/v1", "namespace": "contact-form-7\/v1" }, "recaptcha": { "messages": { "empty": "Please verify that you are not a robot." } } };
+/* ]]> */
+    </script> -->
+    <script type='text/javascript' src='{{UrlHost}}/static/frontend/js/scripts.js'></script>
+    <script type='text/javascript' src='{{UrlHost}}/static/frontend/js/ssba.js'></script>
+
+    <script type='text/javascript' src='{{UrlHost}}/static/frontend/js/blankshield.min.js'></script>
+    <script type='text/javascript' src='{{UrlHost}}/static/frontend/js/block-tabnapping.js'></script>
+    <script type='text/javascript' src='{{UrlHost}}/static/frontend/js/underscore.min.js'></script>
+    <script type='text/javascript' src='{{UrlHost}}/static/frontend/js/backbone.min.js'></script>
+    <!-- <script type='text/javascript'>
+        /* <![CDATA[ */
+        var wpApiSettings = { "root": "https:\/\/www.ceres.co.nz\/wp-json\/", "nonce": "24f2d012ab", "versionString": "wp\/v2\/" };
+/* ]]> */
+    </script> -->
+    <script type='text/javascript' src='{{UrlHost}}/static/frontend/js/api-request.min.js'></script>
+    <script type='text/javascript' src='{{UrlHost}}/static/frontend/js/wp-api.min.js'></script>
+    <script type='text/javascript' src='{{UrlHost}}/static/frontend/js/jquery.min.js'></script>
+    <script type='text/javascript' src='{{UrlHost}}/static/frontend/js/lazyload.min.js'></script>
+    <script type='text/javascript' src='{{UrlHost}}/static/frontend/js/swiper.min.js'></script>
+    <script type='text/javascript' src='{{UrlHost}}/static/frontend/js/custom.js'></script>
+    <script type='text/javascript' src='{{UrlHost}}/static/frontend/js/navigation.js'></script>
+    <script type='text/javascript' src='{{UrlHost}}/static/frontend/js/skip-link-focus-fix.js'></script>
+    <script type='text/javascript' src='{{UrlHost}}/static/frontend/js/wp-embed.min.js'></script>
+    <!-- <script type='text/javascript'>
+        /* <![CDATA[ */
+        var yikes_mailchimp_ajax = { "ajax_url": "https:\/\/www.ceres.co.nz\/wp-admin\/admin-ajax.php", "page_data": "8488", "interest_group_checkbox_error": "This field is required.", "preloader_url": "https:\/\/www.ceres.co.nz\/wp-content\/plugins\/yikes-inc-easy-mailchimp-extender\/includes\/images\/ripple.svg", "loading_dots": "https:\/\/www.ceres.co.nz\/wp-content\/plugins\/yikes-inc-easy-mailchimp-extender\/includes\/images\/bars.svg", "ajax_security_nonce": "881fc29d22" };
+/* ]]> */
+    </script> -->
+    <script type='text/javascript' src='{{UrlHost}}/static/frontend/js/yikes-mc-ajax-forms.min.js'></script>
+    <!-- <script type='text/javascript'>
+        /* <![CDATA[ */
+        var form_submission_helpers = { "ajax_url": "https:\/\/www.ceres.co.nz\/wp-admin\/admin-ajax.php", "preloader_url": "https:\/\/www.ceres.co.nz\/wp-admin\/images\/wpspin_light.gif", "countries_with_zip": { "US": "US", "GB": "GB", "CA": "CA", "IE": "IE", "CN": "CN", "IN": "IN", "AU": "AU", "BR": "BR", "MX": "MX", "IT": "IT", "NZ": "NZ", "JP": "JP", "FR": "FR", "GR": "GR", "DE": "DE", "NL": "NL", "PT": "PT", "ES": "ES" }, "page_data": "8488" };
+/* ]]> */
+    </script> -->
+    <script type='text/javascript' src='{{UrlHost}}/static/frontend/js/form-submission-helpers.min.js'></script>
+
+</body>
+
+</html>

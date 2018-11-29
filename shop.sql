@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `mn_category` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=123 DEFAULT CHARSET=utf8;
 
--- Dumping data for table shop.mn_category: ~2 rows (approximately)
+-- Dumping data for table shop.mn_category: ~1 rows (approximately)
 DELETE FROM `mn_category`;
 /*!40000 ALTER TABLE `mn_category` DISABLE KEYS */;
 INSERT INTO `mn_category` (`id`, `title_vn`, `title_en`, `description_vn`, `description_en`, `images`, `parent_id`, `sort`, `alias_vn`, `alias_en`, `meta_keyword_vn`, `meta_keyword_en`, `meta_description_vn`, `meta_description_en`) VALUES
@@ -360,7 +360,7 @@ CREATE TABLE IF NOT EXISTS `mn_image` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
 
--- Dumping data for table shop.mn_image: ~1 rows (approximately)
+-- Dumping data for table shop.mn_image: ~0 rows (approximately)
 DELETE FROM `mn_image`;
 /*!40000 ALTER TABLE `mn_image` DISABLE KEYS */;
 INSERT INTO `mn_image` (`id`, `images`, `cate_id`, `sort`, `date`) VALUES
@@ -411,7 +411,7 @@ CREATE TABLE IF NOT EXISTS `mn_menu` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table shop.mn_menu: ~4 rows (approximately)
+-- Dumping data for table shop.mn_menu: ~5 rows (approximately)
 DELETE FROM `mn_menu`;
 /*!40000 ALTER TABLE `mn_menu` DISABLE KEYS */;
 INSERT INTO `mn_menu` (`id`, `title_vn`, `title_en`, `alias_vn`, `alias_en`, `sort`, `active`, `parent_id`, `cate_product_id`, `cate_news_id`, `post_id`) VALUES
@@ -551,7 +551,7 @@ CREATE TABLE IF NOT EXISTS `mn_post` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=182 DEFAULT CHARSET=utf8;
 
--- Dumping data for table shop.mn_post: ~1 rows (approximately)
+-- Dumping data for table shop.mn_post: ~2 rows (approximately)
 DELETE FROM `mn_post`;
 /*!40000 ALTER TABLE `mn_post` DISABLE KEYS */;
 INSERT INTO `mn_post` (`id`, `title_vn`, `title_en`, `description_vn`, `description_en`, `content_vn`, `content_en`, `images`, `id_category`, `sort`, `hot`, `new`, `create`, `tag`, `meta_keyword_vn`, `meta_keyword_en`, `meta_description_vn`, `meta_description_en`, `alias_vn`, `alias_en`) VALUES
@@ -648,7 +648,7 @@ CREATE TABLE IF NOT EXISTS `mn_setting` (
 DELETE FROM `mn_setting`;
 /*!40000 ALTER TABLE `mn_setting` DISABLE KEYS */;
 INSERT INTO `mn_setting` (`id`, `description_vn`, `description_en`, `keyword_vn`, `keyword_en`, `title_vn`, `title_en`, `email`, `googleanalytics`, `enable`, `hotline`, `hotline2`, `fanpage`, `youtube`, `twitter`, `google`, `instagram`, `address`, `company`, `slogan`, `logo`, `icon`, `footer`, `meta_fb`) VALUES
-	(1, '12321', '12321', 'asdasd', 'wasdasd', 'PhanRangDesign 123', '1232131', 'tuanle@gmail.com', '123213', 0, '090 88 11 928 434', '090 69 03 669324324', '123', '123213', '123213', '213213', '123213', '12321321', '123213', '123213', 'back-end-web-developer-job-description-irna4b-1543369622.jpeg', '', '<p>asdsadsadsadsa<img src="static/filemanager/screenshot-from-2018-08-07-10-27-17-1543369521.png" alt="" width="200" height="200" /></p>', '<p>&lt;meta property=\'og:type\' content=\'website\'/&gt;<br />&lt;meta property=\'og:site_name\' content=\'Sun Fantastic - T&ecirc;n trang web\'/&gt;<br />&lt;meta property=\'og:title\' content=\'T&ecirc;n ti&ecirc;u đề của b&agrave;i viết\'/&gt;<br />&lt;meta property=\'og:image\' content=\'Địa chỉ h&igrave;nh ảnh\'/&gt;<br />&lt;meta property=\'og:url\' content=\'Địa chỉ URL b&agrave;i viết\'/&gt;<br />&lt;meta property=\'og:description\' content=\'M&ocirc; tả\'/&gt;<br />&lt;meta property=\'fb:admins\' content=\'ID\'/&gt;</p>');
+	(1, '12321', '12321', 'asdasd', 'wasdasd', 'PhanRangDesign 123', '1232131', 'tuanle@gmail.com', '123213', 0, '090 88 11 928 434', '090 69 03 669324324', '123', '123213', '123213', '213213', '123213', '12321321', '123213', '123213', 'logo-1543461109.png', '', '<p>asdsadsadsadsa<img src="static/filemanager/screenshot-from-2018-08-07-10-27-17-1543369521.png" alt="" width="200" height="200" /></p>', '<p>&lt;meta property=\'og:type\' content=\'website\'/&gt;<br />&lt;meta property=\'og:site_name\' content=\'Sun Fantastic - T&ecirc;n trang web\'/&gt;<br />&lt;meta property=\'og:title\' content=\'T&ecirc;n ti&ecirc;u đề của b&agrave;i viết\'/&gt;<br />&lt;meta property=\'og:image\' content=\'Địa chỉ h&igrave;nh ảnh\'/&gt;<br />&lt;meta property=\'og:url\' content=\'Địa chỉ URL b&agrave;i viết\'/&gt;<br />&lt;meta property=\'og:description\' content=\'M&ocirc; tả\'/&gt;<br />&lt;meta property=\'fb:admins\' content=\'ID\'/&gt;</p>');
 /*!40000 ALTER TABLE `mn_setting` ENABLE KEYS */;
 
 -- Dumping structure for table shop.mn_user

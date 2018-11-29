@@ -3,6 +3,7 @@ package helper
 import (
 	"fmt"
 	"math/rand"
+	"shop/models"
 	"strings"
 	"time"
 
@@ -89,4 +90,8 @@ func FormatNameImg(contentType, alias string) string {
 	typeImg := strings.Split(contentType, "/")
 	fileName := fmt.Sprintf("%s-%v.%s", alias, time.Now().Unix(), typeImg[1])
 	return fileName
+}
+
+func ReturnMenus([]models.Menu) map[string]string {
+
 }

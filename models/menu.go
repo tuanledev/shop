@@ -20,6 +20,7 @@ type Menu struct {
 	NameProductID string `orm:"-"`
 	NameNewsID    string `orm:"-"`
 	NamePostID    string `orm:"-"`
+	Link          string `orm:"-"`
 }
 
 func (m *Menu) TableName() string {
