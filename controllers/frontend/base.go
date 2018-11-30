@@ -1,6 +1,7 @@
 package frontend
 
 import (
+	"fmt"
 	"shop/helper"
 	"shop/models"
 	"strings"
@@ -94,8 +95,11 @@ func (c *baseController) Prepare() {
 	// get menu
 	cateMenu := models.Menu{}
 	cateMenus := []models.Menu{}
-	cateMenu.Query().Filter("active", 1).All(&cateMenus, "")
-	c
+	cateMenu.Query().Filter("active", 1).OrderBy("sort").All(&cateMenus)
+	// datas := []map[string]interface{}
+	// var datas []map[string]interface{}
+	datas := helper.ShowMenus(cateMenus)
+	fmt.Println("datas-------", datas)
 }
 
 func (c *baseController) display(tpl string) {

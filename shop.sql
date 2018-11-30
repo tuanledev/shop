@@ -402,6 +402,8 @@ CREATE TABLE IF NOT EXISTS `mn_menu` (
   `title_en` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `alias_vn` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `alias_en` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `url_vn` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `url_en` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `sort` tinyint(4) DEFAULT '0',
   `active` tinyint(4) DEFAULT '1',
   `parent_id` int(11) NOT NULL DEFAULT '0',
@@ -409,16 +411,19 @@ CREATE TABLE IF NOT EXISTS `mn_menu` (
   `cate_news_id` int(11) NOT NULL DEFAULT '0',
   `post_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table shop.mn_menu: ~5 rows (approximately)
+-- Dumping data for table shop.mn_menu: ~7 rows (approximately)
 DELETE FROM `mn_menu`;
 /*!40000 ALTER TABLE `mn_menu` DISABLE KEYS */;
-INSERT INTO `mn_menu` (`id`, `title_vn`, `title_en`, `alias_vn`, `alias_en`, `sort`, `active`, `parent_id`, `cate_product_id`, `cate_news_id`, `post_id`) VALUES
-	(58, 'Trang chủ', 'Home', 'trang-chu', 'home', 1, 1, 0, 0, 0, 0),
-	(59, 'Sản phẩm', 'Product', 'san-pham', 'product', 2, 1, 0, 0, 0, 0),
-	(60, 'Liên Hệ', 'Contact', 'lien-he', 'contact', 3, 1, 0, 0, 0, 0),
-	(61, 'Tin tức', 'News', 'tin-tuc', 'news', 4, 1, 0, 0, 0, 0);
+INSERT INTO `mn_menu` (`id`, `title_vn`, `title_en`, `alias_vn`, `alias_en`, `url_vn`, `url_en`, `sort`, `active`, `parent_id`, `cate_product_id`, `cate_news_id`, `post_id`) VALUES
+	(58, 'Trang chủ', 'Home', 'trang-chu', 'home', NULL, NULL, 1, 1, 0, 0, 0, 0),
+	(59, 'Sản phẩm', 'Product', 'san-pham', 'product', NULL, NULL, 2, 1, 0, 0, 0, 0),
+	(60, 'Liên Hệ', 'Contact', 'lien-he', 'contact', NULL, NULL, 3, 1, 0, 0, 0, 0),
+	(61, 'Tin tức', 'News', 'tin-tuc', 'news', NULL, NULL, 4, 1, 0, 0, 0, 0),
+	(63, 'sanpham 1', 'sanpham 1', 'sanpham-1', 'sanpham-1', NULL, NULL, 1, 1, 59, 120, 0, 0),
+	(64, 'sanpham 1-1', 'sanpham 1-1', 'sanpham-1-1', 'sanpham-1-1', NULL, NULL, 1, 1, 63, 122, 0, 0),
+	(65, 'tuan le', 'tuan le', 'tuan-le', 'tuan-le', NULL, NULL, 0, 1, 0, 0, 0, 181);
 /*!40000 ALTER TABLE `mn_menu` ENABLE KEYS */;
 
 -- Dumping structure for table shop.mn_module

@@ -92,6 +92,38 @@ func FormatNameImg(contentType, alias string) string {
 	return fileName
 }
 
-func ReturnMenus([]models.Menu) map[string]string {
+func ShowMenus(menus []models.Menu) []map[string]interface{} {
+	var datas []map[string]interface{}
+	// datas["123"] = make(map[string]interface{})
+	// arrMenus := menus
+	// for _, menu := range menus {
+	// 	if menu.ParentID != 0 {
+	// 		continue
+	// 	}
+	// 	if menu.PostID > 0 && menu.ParentID == 0 {
+	// 		menuMap := make(map[string]interface{})
+	// 		menuMap[menu.TitleVN] = "bai-viet/" + menu.AliasVN + "/" + menu.PostID
+	// 		datas = append(datas, menuMap)
+	// 	} else if menu.ParentID == 0 {
+	// 		menuMap := make(map[string]interface{})
+	// 		menuMap[menu.TitleVN] = make(map[string]interface{})
+	// 		datas = append(datas, menuMap)
+	// 	}
+	// }
+	// for _, menu := range menus {
+	// 	if menu.ParentID == 0 {
+	// 		continue
+	// 	}
+	// 	sort.Search(len(menus), func(i int) bool {
+	// 		if menu.ParentID == arrMenus[i].Id {
+	// 			for _, data := range datas {
+	// 				if _, exist := data[arrMenus[i].TitleVN]; exist {
 
+	// 				}
+	// 			}
+	// 		}
+	// 		return true
+	// 	})
+	// }
+	return datas
 }
