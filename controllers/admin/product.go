@@ -20,7 +20,7 @@ func (c *ProductController) List() {
 	// get user
 	product := models.Product{}
 	productRows := []models.Product{}
-	product.Query().All(&productRows, "id", "title_vn", "title_en", "sort", "images", "id_category", "price", "sale_price", "hot", "create", "new")
+	product.Query().OrderBy("-id").All(&productRows, "id", "title_vn", "title_en", "sort", "images", "id_category", "price", "sale_price", "hot", "create", "new")
 	arrProduct := productRows
 	// get category
 	cate := models.Category{}
@@ -70,7 +70,7 @@ func (c *ProductController) Add() {
 					}
 					product.Images = fileName
 					// Resize
-					helper.ResizeImg(200, 200, filePath)
+					helper.ResizeImg(1200, 500, filePath)
 				}
 			}
 
@@ -104,7 +104,7 @@ func (c *ProductController) Add() {
 							product.Images5 = fileName
 						}
 						// Resize
-						helper.ResizeImg(200, 200, filePath)
+						helper.ResizeImg(1200, 500, filePath)
 					}
 				}
 			}
@@ -268,7 +268,7 @@ func (c *ProductController) UploadImage() {
 						c.showmsg("error", "Lỗi", "")
 					}
 					// Resize
-					helper.ResizeImg(200, 200, filePath)
+					helper.ResizeImg(1200, 500, filePath)
 					switch image {
 					case "Image0":
 						product.Images = fileName

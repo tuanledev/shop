@@ -4462,6 +4462,15 @@ a.expand.closed-sub-m {
 .pagination span.current {
   background-color: #9e2429;
   color: #ffffff; }
+.pagination a.current {
+  background-color: #9e2429;
+  color: #ffffff; 
+  pointer-events: none;
+  cursor: default;
+}
+.pagination a.disabled {
+  display: none;
+}
 
 /*--------------------------------------------------------------
 # Accessibility
@@ -4839,6 +4848,36 @@ img.ingredient-img {
   -o-transition-timing-function: ease-in;
   -webkit-transition-timing-function: ease-in;
   transition-timing-function: ease-in; }
+
+  span.price {
+  width: 100%;
+  text-transform: uppercase;
+  border: solid 2px #9e2429;
+  color: #FFFFFF !important;
+  text-decoration: none;
+  padding: 0px 10px;
+  font: normal normal normal 18px / 45px "CenturyGothicStd", Helvetica, Arial, Verdana, sans-serif !important;
+  background-color: #9e2429 !important;
+  border-color: #9e2429;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -moz-transition-property: all;
+  -o-transition-property: all;
+  -webkit-transition-property: all;
+  transition-property: all;
+  -moz-transition-duration: .15s;
+  -o-transition-duration: .15s;
+  -webkit-transition-duration: .15s;
+  transition-duration: .15s;
+  -moz-transition-timing-function: ease-in;
+  -o-transition-timing-function: ease-in;
+  -webkit-transition-timing-function: ease-in;
+  transition-timing-function: ease-in; }
+
+.img-product{
+  height: 200px !important;
+}
 
 /* custom */
 .modal-cm {

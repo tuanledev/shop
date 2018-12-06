@@ -1,0 +1,53 @@
+{{if .category_news.Images}}
+<div class="hero-banner recipe-banner">
+    <div class="hero-blog" style="background-image: url('{{UrlHost}}/static/img/catenew/{{ .category_news.Images}}');">
+        <div class="css-table">
+            <div class="css-table-cell center middle home">
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}
+<div id="primary" class="content-area">
+    <main id="main" class="site-main container" role="main">
+        <div class="row">
+            <!-- header -->
+            <div class="col-xs-12">
+                <header class="entry-header">
+                    <h1 class="entry-title">{{i18n .Lang "blog"}} {{if .category_news.TitleVN }}{{.category_news.TitleVN}}{{end}}{{if .category_news.TitleEN }}{{.category_news.TitleEN}}{{end}}</h1>
+                </header>
+            </div>
+            <!-- content -->
+            <div class="col-xs-12" style="padding: 0;">
+                {{range $post := .data }}
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 blog-block">
+                    <div class="blog-list-image">
+                        <p>
+                            <a href="{{UrlHost}}/{{if eq $.Lang "en-US" }}en/{{end}}{{i18n $.Lang "menu_blog"}}/{{if $post.AliasVN }}{{$post.AliasVN}}{{end}}{{if $post.AliasEN }}{{$post.AliasEN}}{{end}}-{{$post.Id}}.html" class="post-list-link">
+                                <img class="post-list-image" src="{{UrlHost}}/static/img/post/{{$post.Images}}">
+                            </a>
+                        </p>
+                    </div>
+                    <div class="blog-list-content">
+                        <h2 class="entry-title">
+                            <a href="{{UrlHost}}/{{if eq $.Lang "en-US" }}en/{{end}}{{i18n $.Lang "menu_blog"}}/{{if $post.AliasVN }}{{$post.AliasVN}}{{end}}{{if $post.AliasEN }}{{$post.AliasEN}}{{end}}-{{$post.Id}}.html">
+                            </a>
+                            {{if $post.TitleVN }}{{$post.TitleVN}}{{end}}{{if $post.TitleEN }}{{$post.TitleEN}}{{end}}
+                        </h2>
+                        {{if $post.DescriptionVN }}
+                            <p>{{str2html (substr $post.DescriptionVN 0 200)}} [...]</p>
+                        {{end}}
+                        {{if $post.DescriptionEN }}
+                            <p>{{str2html (substr $post.DescriptionEN 0 200)}} [...] </p>
+                        {{end}}
+                        <a href="{{UrlHost}}/{{if eq $.Lang "en-US" }}en/{{end}}{{i18n $.Lang "menu_blog"}}/{{if $post.AliasVN }}{{$post.AliasVN}}{{end}}{{if $post.AliasEN }}{{$post.AliasEN}}{{end}}-{{$post.Id}}.html">{{i18n $.Lang "view"}}</a>
+                    </div>
+                </div>
+                {{end}}
+            </div>
+            <!-- pagination -->
+            {{template "frontend/pagination.html" .}}
+
+        </div> <!-- end row -->
+    </main>
+</div>

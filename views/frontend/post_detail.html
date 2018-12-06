@@ -1,0 +1,45 @@
+{{if ne .data.Images ""}}
+<div class="hero-banner">
+    <div class="hero-blog" style="background-image: url('{{UrlHost}}/static/img/post/{{.data.Images}}');"></div>
+</div>
+{{end}}
+<div id="primary" class="content-area">
+    <main id="main" class="site-main container" role="main">
+        <div class="row">
+            <div class="col-xs-12">
+                <article id="post-8488" class="post type-post status-publish format-standard has-post-thumbnail hentry category-environment">
+                    <header class="entry-header">
+                        {{if ne .data.TitleVN ""}}
+                        <h1 class="entry-title">{{.data.TitleVN}}</h1>
+                        {{end}}
+                        {{if ne .data.TitleEN ""}}
+                        <h1 class="entry-title">{{.data.TitleEN}}</h1>
+                        {{end}}
+                        <!-- <div class="entry-meta">
+                                        <span class="posted-on">Posted on <a href="https://www.ceres.co.nz/blog/9-small-ways-to-reduce-your-waste/"
+                                                rel="bookmark"><time class="entry-date published" datetime="2018-11-16T12:13:57+00:00">November
+                                                    16, 2018</time><time class="updated" datetime="2018-11-23T11:24:35+00:00">November
+                                                    23, 2018</time></a></span><span class="byline"> by <span class="author vcard"><a
+                                                    class="url fn n" href="https://www.ceres.co.nz/blog/author/enna/">Ceres
+                                                    Organics</a></span></span> </div>.entry-meta -->
+                    </header><!-- .entry-header -->
+
+                    <div class="entry-content">
+                        {{if ne .data.ContentVN ""}}
+                        {{str2html .data.ContentVN}}
+                        {{end}}
+                        {{if ne .data.ContentEN ""}}
+                        {{str2html .data.ContentEN}}
+                        {{end}}
+                    </div><!-- .entry-content -->
+
+                    <!-- <footer class="entry-footer">
+                                    <span class="cat-links">Posted in <a href="https://www.ceres.co.nz/blog/category/environment/"
+                                            rel="category tag">Environment</a></span> 
+                                        </footer>.entry-footer -->
+                </article><!-- #post-## -->
+            </div>
+
+        </div>
+    </main>
+</div>

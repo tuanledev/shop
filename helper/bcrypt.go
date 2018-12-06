@@ -1,12 +1,15 @@
 package helper
 
 import (
+	"bytes"
 	"fmt"
 	"math/rand"
 	"shop/models"
+	"strconv"
 	"strings"
 	"time"
 
+	"github.com/astaxie/beego"
 	"github.com/disintegration/imaging"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -23,6 +26,7 @@ func CheckPasswordHash(password, hash string) error {
 
 func init() {
 	rand.Seed(time.Now().UnixNano())
+	PathHost = fmt.Sprintf("http://%s", beego.AppConfig.String("httphost"))
 }
 
 var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
@@ -58,11 +62,6 @@ func StrToAlias(str string) string {
 	return str
 }
 
-func ShowCategory([]interface{}) map[string]interface{} {
-	categoris := make(map[string]interface{})
-	return categoris
-}
-
 func TitleStrimSpace(str string) string {
 	str = strings.TrimLeft(str, " ")
 	str = strings.TrimRight(str, " ")
@@ -92,38 +91,85 @@ func FormatNameImg(contentType, alias string) string {
 	return fileName
 }
 
-func ShowMenus(menus []models.Menu) []map[string]interface{} {
-	var datas []map[string]interface{}
-	// datas["123"] = make(map[string]interface{})
-	// arrMenus := menus
-	// for _, menu := range menus {
-	// 	if menu.ParentID != 0 {
-	// 		continue
-	// 	}
-	// 	if menu.PostID > 0 && menu.ParentID == 0 {
-	// 		menuMap := make(map[string]interface{})
-	// 		menuMap[menu.TitleVN] = "bai-viet/" + menu.AliasVN + "/" + menu.PostID
-	// 		datas = append(datas, menuMap)
-	// 	} else if menu.ParentID == 0 {
-	// 		menuMap := make(map[string]interface{})
-	// 		menuMap[menu.TitleVN] = make(map[string]interface{})
-	// 		datas = append(datas, menuMap)
-	// 	}
-	// }
-	// for _, menu := range menus {
-	// 	if menu.ParentID == 0 {
-	// 		continue
-	// 	}
-	// 	sort.Search(len(menus), func(i int) bool {
-	// 		if menu.ParentID == arrMenus[i].Id {
-	// 			for _, data := range datas {
-	// 				if _, exist := data[arrMenus[i].TitleVN]; exist {
+func ShowCategory(menus []models.Category, parentID int, lang string, buffer *bytes.Buffer, level int) {
+	cateChild := []models.Category{}
+	// var buffer bytes.Buffer
+	for _, menu := range menus {
+		if menu.ParentID == parentID {
+			cateChild = append(cateChild, menu)
+		}
+	}
+	if len(cateChild) > 0 {
+		if level > 0 {
+			buffer.WriteString(`<ul class="sub-menu sub-menu-level">`)
+		} else {
+			buffer.WriteString(`<ul class="sub-menu">`)
+		}
+		level++
+		for _, cate := range cateChild {
+			switch lang {
+			case "en-US":
+				buffer.WriteString(fmt.Sprintf(`
+					<li class="menu-item">
+						<a href="%s/en/product/%v">%s</a>
+				`, PathHost, cate.Id, cate.TitleEN))
+				ShowCategory(menus, cate.Id, lang, buffer, level)
+				buffer.WriteString("</li>")
+			default:
+				buffer.WriteString(fmt.Sprintf(`
+					<li class="menu-item">
+						<a href="%s/san-pham/%v">%s</a>
+				`, PathHost, cate.Id, cate.TitleVN))
+				ShowCategory(menus, cate.Id, lang, buffer, level)
+				buffer.WriteString("</li>")
+			}
+		}
+		buffer.WriteString("</ul>")
+	}
+}
 
-	// 				}
-	// 			}
-	// 		}
-	// 		return true
-	// 	})
-	// }
-	return datas
+func ShowCateNews(menus []models.CateNew, parentID int, lang string, buffer *bytes.Buffer, level int) {
+	cateChild := []models.CateNew{}
+	// var buffer bytes.Buffer
+	for _, menu := range menus {
+		if menu.ParentID == parentID {
+			cateChild = append(cateChild, menu)
+		}
+	}
+	if len(cateChild) > 0 {
+		if level > 0 {
+			buffer.WriteString(`<ul class="sub-menu sub-menu-level">`)
+		} else {
+			buffer.WriteString(`<ul class="sub-menu">`)
+		}
+		level++
+		for _, cate := range cateChild {
+			switch lang {
+			case "en-US":
+				buffer.WriteString(fmt.Sprintf(`
+					<li class="menu-item">
+						<a href="%s/en/blog/%v">%s</a>
+				`, PathHost, cate.Id, cate.TitleEN))
+				ShowCateNews(menus, cate.Id, lang, buffer, level)
+				buffer.WriteString("</li>")
+			default:
+				buffer.WriteString(fmt.Sprintf(`
+					<li class="menu-item">
+						<a href="%s/tin-tuc/%v">%s</a>
+				`, PathHost, cate.Id, cate.TitleVN))
+				ShowCateNews(menus, cate.Id, lang, buffer, level)
+				buffer.WriteString("</li>")
+			}
+		}
+		buffer.WriteString("</ul>")
+	}
+}
+
+func ParseUrl(url string) int {
+	var id int
+	urlStr := strings.Split(url, "-")
+	if len(urlStr) > 0 {
+		id, _ = strconv.Atoi(urlStr[len(urlStr)-1])
+	}
+	return id
 }

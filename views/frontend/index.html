@@ -1,124 +1,40 @@
 <div id="primary" class="content-area">
-        <main id="main" class="site-main" role="main">
+    <main id="main" class="site-main" role="main">
+        <div class="container-fluid full home-grid">
+            {{range $post := .data}}
+            <div class="row">
+                <div class="col-sm-12 lazy" data-original="{{UrlHost}}/static/img/post/{{ $post.Images}}">
+                    <div class="css-table">
+                        <div class="css-table-cell center middle drop-shadow">
+                            <!-- <br class="title-br"> -->
+                            {{if ne $post.TitleEN ""}}
+                            <h2 style="text-align: center; color: #ffffff;">
+                                {{$post.TitleEN}}
+                            </h2>
+                            {{end}}
 
+                            {{if ne $post.TitleVN ""}}
+                            <h2 style="text-align: center; color: #ffffff;">
+                                {{$post.TitleVN}}
+                            </h2>
+                            {{end}}
 
-            <div class="container-fluid full home-grid">
-                <div class="row">
-                    <div class="col-sm-12 lazy" data-original="/wp-content/uploads/2016/07/Ceres-Home-Shop-Online-Op-2.jpg">
+                            {{if ne $post.AliasVN ""}}
+                            <a href="{{UrlHost}}/{{i18n $.Lang "menu_blog"}}/{{$post.AliasVN}}-{{$post.Id}}.html" class="dt-btn dt-btn-m">
+                                {{i18n $.Lang "view"}}
+                            </a>
+                            {{end}}
 
-                        <div class="css-table">
-                            <div class="css-table-cell center middle drop-shadow">
-                                <h2 style="text-align: center; color: #ffffff;">{{i18n .Lang "technology"}} <br class="title-br">
-                                    MADE EASY </h2>
-                                <a href="https://www.ceres.co.nz/products/grocery/ceres-organics/" class="dt-btn dt-btn-m">SHOP
-                                    ONLINE</a>
-                                <img src="/static/img/no_image.png" alt="">
-                            </div>
+                            {{if ne $post.AliasEN ""}}
+                            <a href="{{UrlHost}}/en/{{i18n $.Lang "menu_blog"}}/{{$post.AliasEN}}-{{$post.Id}}.html" class="dt-btn dt-btn-m">
+                                {{i18n $.Lang "view"}}
+                            </a>
+                            {{end}}
                         </div>
-
-
-                    </div>
-                </div>
-                <!--	<div class="row">
-            <div class="col-sm-6 lazy" data-original="/wp-content/uploads/2016/07/Ceres-Organics-Grocery-Half.jpg">
-                
-                <div class="css-table">
-                    <div class="css-table-cell center middle">
-                        <h2 style="text-align: center;">GROCERY</h2>
-                        <a href="/products/grocery/" class="dt-btn dt-btn-m">VIEW PRODUCTS</a>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-sm-6 lazy" data-original="/wp-content/uploads/2016/07/Ceres-Home-Health-Beauty-Op.jpg">
-                
-                <div class="css-table">
-                    <div class="css-table-cell center middle">
-                        <h2 style="text-align: center;">HEALTH &amp; BEAUTY</h2>
-                        <a href="/products/health-and-beauty/" class="dt-btn dt-btn-m">VIEW PRODUCTS</a>
-                    </div>
-                </div>
-
-            </div>
-        </div> -->
-                <div class="row">
-                    <div class="col-sm-12 lazy" data-original="/wp-content/uploads/2016/07/ceres-about-hompeage-banner.jpg">
-
-                        <div class="css-table">
-                            <div class="css-table-cell center middle">
-                                <h2 style="text-align: center;">CERES ORGANICS</h2>
-                                <h3 style="text-align: center;">CONSCIOUS LIVING THROUGH ORGANICS</h3>
-                                <a href="/our-story//" class="dt-btn dt-btn-m">EXPLORE ORGANICS</a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12 lazy" data-original="/wp-content/uploads/2016/07/Ceres-Organics-Join-Op.jpg">
-
-                        <div class="css-table">
-                            <div class="css-table-cell center middle drop-shadow">
-                                <h2 style="text-align: center;"><span style="color: #ffffff;">ARE YOU ON OUR
-                                        LIST?</span></h2>
-                                <h3 style="text-align: center;"><span style="color: #ffffff;">HEALTHY RECIPES,
-                                        PRODUCT UPDATES &amp; WELLNESS INSPIRATION FORTNIGHTLY</span></h3>
-                                <a id="ceres_home_block" href="javascript:void(0)" class="dt-btn dt-btn-m">SIGN
-                                    UP</a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12 lazy" data-original="/wp-content/uploads/2016/07/Ceres-Organics-Recipes-Op.jpg">
-
-                        <div class="css-table">
-                            <div class="css-table-cell center middle">
-                                <h2 style="text-align: center;">HEALTHY RECIPES<br class="title-br"> MADE EASY</h2>
-                                <a href="/recipes/" class="dt-btn dt-btn-m">VIEW RECIPES</a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12 lazy" data-original="/wp-content/uploads/2016/07/Ceres-Organics-Blog-Op.jpg">
-
-                        <div class="css-table">
-                            <div class="css-table-cell center middle">
-                                <h2 style="text-align: center;">HEALTH IS THE<br class="title-br"> NEW WEALTH</h2>
-                                <h3 style="text-align: center;">HEALTH &amp; WELLNESS TIPS</h3>
-                                <a href="/blog/" class="dt-btn dt-btn-m">VIEW POSTS</a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6 lazy" data-original="/wp-content/uploads/2016/07/fresh-market2.jpg">
-
-                        <div class="css-table">
-                            <div class="css-table-cell center middle">
-                                <h2 style="text-align: center;"><span style="color: #ffffff;">OUR STORES</span></h2>
-                                <a href="/locations/" class="dt-btn dt-btn-m">VIEW STORES</a>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-sm-6 lazy" data-original="/wp-content/uploads/2016/07/stockists-ceres-dark.jpg">
-
-                        <div class="css-table">
-                            <div class="css-table-cell center middle">
-                                <h2 style="text-align: center;"><span style="color: #ffffff;">STOCKISTS</span></h2>
-                                <a href="/stockists/" class="dt-btn dt-btn-m">FIND STOCKISTS</a>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
-
-
-        </main><!-- #main -->
-    </div><!-- #primary -->
+            {{end}}
+        </div>
+    </main><!-- #main -->
+</div><!-- #primary -->

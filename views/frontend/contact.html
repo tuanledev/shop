@@ -1,0 +1,82 @@
+{{if .data.Images}}
+<div class="hero-banner recipe-banner">
+    <div class="hero-blog" style="background-image: url('{{UrlHost}}/static/img/post/{{ .data.Images}}');">
+        <div class="css-table">
+            <div class="css-table-cell center middle home">
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}
+<main id="main" class="site-main contact-page" role="main">
+    <div class="row">
+        <div class="col-xs-12">
+            <header class="entry-header">
+                <h1 class="entry-title">{{i18n $.Lang "contact"}}</h1>
+            </header>
+        </div>
+        <div class="col-xs-12 center m-btm-40">
+            <p>{{if .data.ContentVN }}{{str2html .data.ContentVN}}{{end}}{{if .data.ContentEN }}{{str2html .data.ContentEN}}{{end}}</p>
+        </div>
+
+        <div id="blockContainer" class="col-xs-12 col-md-9 col-md-push-3 col-md-8 col-md-push-2" style="padding: 0;">
+            <div id="blockA" class="col-xxs-12 col-xs-12 col-sm-4 col-md-5 col-lg-5 contact-details">
+                <div id="map" style="width:100%;height:450;">
+                    {{if .data.DescriptionVN }}{{str2html .data.DescriptionVN}}{{end}}{{if .data.DescriptionEN }}{{str2html .data.DescriptionEN}}{{end}}
+                </div>
+            </div>
+
+            <div id="blockB" class="col-xxs-12 col-xs-8 col-xs-push-0 col-sm-8 col-sm-push-0 col-md-7 col-lg-7 c-form-w">
+                <div role="form" class="wpcf7" id="wpcf7-f2659-o1" lang="en-US" dir="ltr">
+                    <form action="" method="post" class="wpcf7-form" novalidate="novalidate" id="form-contact">
+                        <p>
+                            <label> {{i18n $.Lang "name"}} <span style="color: red">(*)</span>
+                                <br>
+                                <span class="">
+                                    <input id="contact-name" type="text" name="Name" value="" size="40" required >
+                                </span>
+                            </label>
+                        </p>
+                        <p>
+                            <label> {{i18n $.Lang "phone"}}
+                                <br>
+                                <span class="wpcf7-form-control-wrap your-name">
+                                    <input id="contact-phone" type="text" name="Phone" value="" size="40">
+                                </span>
+                            </label>
+                        </p>
+                        <p>
+                            <label> {{i18n $.Lang "address"}}
+                                <br>
+                                <span class="wpcf7-form-control-wrap your-name">
+                                    <input id="contact-address" type="text" name="Address" value="" size="40">
+                                </span>
+                            </label>
+                        </p>
+                        <p>
+                            <label> Email <span style="color: red">(*)</span>
+                                <br>
+                                <span class="wpcf7-form-control-wrap your-email">
+                                    <input id="contact-email" type="email" name="Email" value="" size="40" required >
+                                </span>
+                            </label>
+                        </p>
+                        <p>
+                            <label> {{i18n $.Lang "message"}}
+                                <br>
+                                <span class="wpcf7-form-control-wrap your-message">
+                                    <textarea id="contact-message" name="Message" cols="40" rows="10"></textarea>
+                                </span>
+                            </label>
+                        </p>
+                        <div class="wpcf7-form-control-wrap">
+                            <!-- <div class="g-recaptcha" data-sitekey="6LfF3n4UAAAAAOO8lCgBk1S2Yx80t9TAnfuYkPtd"></div> -->
+                        </div>
+                        <p><input type="submit" value="{{i18n $.Lang "send"}}" id="Send-Contact"></p>
+                        <input type="hidden" name="_xsrf" id="_xsrf" value="{{.xsrf_token}}">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

@@ -4,142 +4,64 @@
         <!-- #branding -->
         <div id="branding">
             <a href="{{UrlHost}}">
-                <img src="{{UrlHost}}/static/img/setting/{{.logo}}" alt="{{.logo}}" >
+                <img src="{{UrlHost}}/static/img/setting/{{.logo}}" alt="{{.logo}}">
             </a>
         </div>
 
         <!-- menu -->
         <nav id="site-navigation" class="main-navigation" role="navigation">
-
             <div class="menu-header-container">
                 <ul id="primary-menu" class="menu">
-                    <li class="menu-item"><a
-                            href="https://www.ceres.co.nz/about-organics/">About</a>
-                        <ul class="sub-menu">
-                            <li  class="menu-item"><a
-                                    href="https://www.ceres.co.nz/our-story/">Our story</a></li>
-                            <li  class="menu-item "><a
-                                    href="https://www.ceres.co.nz/our-mission-vision/">Mission &#038; Vision</a></li>
-                            <li  class="menu-item "><a
-                                    href="https://www.ceres.co.nz/our-organic-certification/">Our Organic
-                                    Certification</a></li>
-                            <li  class="menu-item "><a
-                                    href="https://www.ceres.co.nz/ge-free/">Our GE Free Policy</a></li>
-                            <li  class="menu-item "><a
-                                    href="https://www.ceres.co.nz/our-sourcing-philosophy/">Our Sourcing
-                                    Philosophy</a></li>
-                            <li  class="menu-item "><a
-                                    href="https://www.ceres.co.nz/ceres-gives-back/">Ceres Gives Back</a></li>
-                            <li  class="menu-item "><a
-                                    href="https://www.ceres.co.nz/about-food-allergies/">Food Allergies</a></li>
-                            <li  class="menu-item "><a
-                                    href="https://www.ceres.co.nz/our-new-location/">Our Green Home</a></li>
-                            <li  class="menu-item "><a
-                                    href="https://www.ceres.co.nz/disclaimer/">Disclaimer</a></li>
-                        </ul>
+                    <li class="menu-item"><a href="{{UrlHost}}/{{if eq .Lang "en-US" }}en/{{end}}{{i18n .Lang "menu_about"}}">{{i18n .Lang "about"}}</a>
+                    </li>
+                    <li class="menu-item menu-item-has-children"><a href="{{UrlHost}}/{{if eq .Lang "en-US" }}en/{{end}}{{i18n .Lang "menu_product"}}">{{i18n .Lang "product"}}</a>
+                        {{str2html .category}}
+                    </li>
+                    <li class="menu-item menu-item-has-children"><a href="{{UrlHost}}/{{if eq .Lang "en-US" }}en/{{end}}{{i18n .Lang "menu_blog"}}">{{i18n .Lang "blog"}}</a>
+                        {{str2html .catenews}}
+                    </li>
+                    <li class="menu-item "><a href="{{UrlHost}}/{{if eq .Lang "en-US" }}en/{{end}}{{i18n .Lang "menu_contact"}}">{{i18n .Lang "contact"}}</a>
                     </li>
                 </ul>
             </div>
-        </nav><!-- #site-navigation -->
+        </nav>
+        <!-- #site-navigation -->
 
-
+        <!-- menu mobile-->
         <div class="menu-toggle">
-
             <a href="javascript:void(0);" rel="nofollow" id="mobile-menu-btn">
                 <div id="navbar-corner" class="">
                     <div id="btn-lines"></div>
                 </div>
             </a>
-
+            
             <div class="menu-header-container">
                 <ul id="sidebar-menu" class="menu">
-                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-17"><a
-                            href="https://www.ceres.co.nz/about-organics/">About</a>
-                        <ul class="sub-menu">
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-270"><a href="https://www.ceres.co.nz/our-story/">Our
-                                    story</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-274"><a href="https://www.ceres.co.nz/our-mission-vision/">Mission
-                                    &#038; Vision</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-277"><a href="https://www.ceres.co.nz/our-organic-certification/">Our
-                                    Organic
-                                    Certification</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-280"><a href="https://www.ceres.co.nz/ge-free/">Our
-                                    GE Free Policy</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-283"><a href="https://www.ceres.co.nz/our-sourcing-philosophy/">Our
-                                    Sourcing
-                                    Philosophy</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3511"><a href="https://www.ceres.co.nz/ceres-gives-back/">Ceres
-                                    Gives Back</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-289"><a href="https://www.ceres.co.nz/about-food-allergies/">Food
-                                    Allergies</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-296"><a href="https://www.ceres.co.nz/our-new-location/">Our
-                                    Green Home</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-299"><a href="https://www.ceres.co.nz/disclaimer/">Disclaimer</a></li>
-                        </ul>
+                    <li class="menu-item"><a href="{{UrlHost}}/{{if eq .Lang "en-US" }}en/{{end}}{{i18n .Lang "menu_about"}}">{{i18n .Lang "about"}}</a>
                     </li>
-                    <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-345"><a>Products</a>
-                        <ul class="sub-menu">
-                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3082"><a href="https://www.ceres.co.nz/products/grocery/ceres-organics/">Ceres
-                                    Organics</a></li>
-                            <li class="menu-item menu-item-type-taxonomy menu-item-object-product-categories menu-item-3386"><a
-                                    href="https://www.ceres.co.nz/products/grocery/">GROCERY</a></li>
-                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5233"><a href="https://www.ceres.co.nz/products/health-and-beauty/natracare-health-and-beauty/">Natracare</a></li>
-                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-400"><a href="/ingredients/">Bulk
-                                    Ingredients</a></li>
-                        </ul>
+                    <li class="menu-item"><a href="#">{{i18n .Lang "product"}}</a>
+                        {{str2html .category}}
                     </li>
-                    <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-343"><a
-                            href="/recipes/">Recipes</a>
-                        <ul class="sub-menu">
-                            <li class="menu-item menu-item-type-taxonomy menu-item-object-recipe-categories menu-item-344"><a
-                                    href="https://www.ceres.co.nz/recipes/breakfast/">Breakfast</a></li>
-                            <li class="menu-item menu-item-type-taxonomy menu-item-object-recipe-categories menu-item-2283"><a
-                                    href="https://www.ceres.co.nz/recipes/cake-cookies-muffins/">Sweet Treats</a></li>
-                            <li class="menu-item menu-item-type-taxonomy menu-item-object-recipe-categories menu-item-2483"><a
-                                    href="https://www.ceres.co.nz/recipes/juices-smoothies/">Juices + Smoothies</a></li>
-                            <li class="menu-item menu-item-type-taxonomy menu-item-object-recipe-categories menu-item-2485"><a
-                                    href="https://www.ceres.co.nz/recipes/mains/">Mains</a></li>
-                            <li class="menu-item menu-item-type-taxonomy menu-item-object-recipe-categories menu-item-2484"><a
-                                    href="https://www.ceres.co.nz/recipes/raw-un-baking/">Raw Un-Baking</a></li>
-                            <li class="menu-item menu-item-type-taxonomy menu-item-object-recipe-categories menu-item-2487"><a
-                                    href="https://www.ceres.co.nz/recipes/salads-dressings/">Salads + Dressings</a></li>
-                            <li class="menu-item menu-item-type-taxonomy menu-item-object-recipe-categories menu-item-2489"><a
-                                    href="https://www.ceres.co.nz/recipes/soups/">Soups</a></li>
-                            <li class="menu-item menu-item-type-taxonomy menu-item-object-recipe-categories menu-item-2488"><a
-                                    href="https://www.ceres.co.nz/recipes/snacks/">Snacks</a></li>
-                        </ul>
+                    <li class="menu-item"><a href="#">{{i18n .Lang "blog"}}</a>
+                        {{str2html .catenews}}
                     </li>
-                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18"><a href="https://www.ceres.co.nz/blog/">Blog</a></li>
-                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-19"><a
-                            href="https://www.ceres.co.nz/contact-ceres-organics/">Contact</a>
-                        <ul class="sub-menu">
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-300"><a href="https://www.ceres.co.nz/contact-ceres-organics/">Ceres
-                                    Organics</a></li>
-                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-6845"><a href="https://careers.ceresorganics.com/">careers</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-311"><a href="https://www.ceres.co.nz/faq/">Frequently
-                                    Asked Questions</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-290"><a>Shop</a>
-                        <ul class="sub-menu">
-                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2898"><a href="https://shop.ceres.co.nz/">online
-                                    store</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-305"><a href="https://www.ceres.co.nz/locations/">Our
-                                    Stores</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4973"><a href="https://www.ceres.co.nz/stockists/">Stockists</a></li>
-                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2799"><a href="https://portal.ceres.co.nz/Auth?ReturnUrl=%2F">Trade
-                                    Portal</a></li>
-                        </ul>
+                    <li class="menu-item"><a href="{{UrlHost}}/{{if eq .Lang "en-US" }}en/{{end}}{{i18n .Lang "menu_contact"}}">{{i18n .Lang "contact"}}</a>
                     </li>
                 </ul>
             </div>
         </div>
 
         <div class="right-nav-corner">
-            <a href="{{UrlHost}}">
+            <a href="javascript:void(0);" id="search-i"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 26.9 26.4" xml:space="preserve" class="svg replaced-svg">
+                <g>
+                    <path fill="#9E2429" d="M26.4,23c-1.1-1.6-4.9-3.8-6-4.3c1.6-2,2.6-4.5,2.6-7.2C23,5.2,17.8,0,11.5,0S0,5.2,0,11.5S5.2,23,11.5,23   c2.8,0,5.3-1,7.3-2.6c0.6,1,2.9,4.8,4.9,5.7C26.2,27.3,27.7,25,26.4,23z M11.5,20C6.8,20,3,16.2,3,11.5S6.8,3,11.5,3   S20,6.8,20,11.5S16.2,20,11.5,20z"></path>
+                </g>
+                </svg>
+            </a>
+            <a href="{{UrlHost}}" id="lang-vi-VN">
                 <img src="{{UrlHost}}/static/img/vi.gif" alt="Vietnam" title="Vietnam">
             </a>
-            <a href="{{UrlHost}}/en">
+            <a href="{{UrlHost}}/en" id="lang-en-US">
                 <img src="{{UrlHost}}/static/img/en.gif" alt="En" title="En-US">
             </a>
         </div>

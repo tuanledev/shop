@@ -1,0 +1,43 @@
+{{if ne .data.Images ""}}
+<div class="hero-banner">
+    <div class="hero-blog" style="background-image: url('{{UrlHost}}/static/img/product/{{.data.Images}}');"></div>
+</div>
+{{end}}
+<div id="primary" class="content-area">
+    <main id="main" class="site-main container" role="main">
+        <div class="row">
+            <div class="col-xs-12">
+                <article id="post-8488" class="post type-post status-publish format-standard has-post-thumbnail hentry category-environment">
+                    <header class="entry-header">
+                        {{if ne .data.TitleVN ""}}
+                        <h1 class="entry-title">{{.data.TitleVN}}</h1>
+                        {{end}}
+                        {{if ne .data.TitleEN ""}}
+                        <h1 class="entry-title">{{.data.TitleEN}}</h1>
+                        {{end}}
+                        <div class="entry-meta">
+                            <span class="posted-on">
+                                <span class="price">{{i18n .Lang "price"}}: {{.data.PriceStr}} VNĐ</span></p>
+                            </span>
+                        </div>
+                    </header><!-- .entry-header -->
+                    <hr>
+                    <div class="entry-content">
+                        {{if ne .data.ContentVN ""}}
+                        {{str2html .data.ContentVN}}
+                        {{end}}
+                        {{if ne .data.ContentEN ""}}
+                        {{str2html .data.ContentEN}}
+                        {{end}}
+                    </div><!-- .entry-content -->
+
+                    <!-- <footer class="entry-footer">
+                                    <span class="cat-links">Posted in <a href="https://www.ceres.co.nz/blog/category/environment/"
+                                            rel="category tag">Environment</a></span> 
+                                        </footer>.entry-footer -->
+                </article><!-- #post-## -->
+            </div>
+
+        </div>
+    </main>
+</div>

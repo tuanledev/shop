@@ -82,9 +82,9 @@ function tinyContent(id, hostName, controller) {
         // powerpaste_html_import: 'prompt',
 
         // URL
-        relative_urls: true,
+        // relative_urls: true,
         remove_script_host: true,
-        document_base_url: "/",
+        // document_base_url: "/",
         // convert_urls: true,
 
         font_formats: 'Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n',

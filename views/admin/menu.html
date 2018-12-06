@@ -45,7 +45,7 @@
                     <a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-view-module"></i><span class="hide-menu">Danh mục</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <!-- category menu -->
-                        <li>
+                        <!-- <li>
                             <a class="has-arrow " aria-expanded="false"><i class="mdi mdi-menu"> </i><span class="hide-menu">Menu</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="{{UrlHost}}{{urlfor "MenuController.List"}}"><i class="mdi mdi-format-list-bulleted"></i>
@@ -53,7 +53,7 @@
                                 <li><a href="{{UrlHost}}{{urlfor "MenuController.Add"}}"><i class="mdi mdi-playlist-plus"></i>
                                         Thêm</a></li>
                             </ul>
-                        </li>
+                        </li> -->
                         <!-- category product -->
                         <li>
                             <a class="has-arrow " aria-expanded="false"><i class="mdi mdi-shopping"> </i><span class="hide-menu">Sản phẩm</span></a>
@@ -125,6 +125,18 @@
                                 Danh sách</a></li>
                         <li><a href="{{UrlHost}}{{urlfor "ImageController.Add"}}"><i class="mdi mdi-folder-plus"></i>
                                 Thêm</a></li>
+                    </ul>
+                </li>
+                <!-- contact -->
+                <li>
+                    <a class="has-arrow" aria-expanded="false">
+                        <span class="hide-menu">
+                            <i class="mdi mdi-email"></i>Liên hệ
+                        </span>
+                    </a>
+                    <ul aria-expanded="true" class="collapse in">
+                        <li><a href="{{UrlHost}}{{urlfor "ContactController.List"}}"><i class="mdi mdi-format-list-bulleted"></i>
+                                Danh sách</a></li>
                     </ul>
                 </li>
                 <!-- setting -->

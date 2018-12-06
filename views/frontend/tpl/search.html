@@ -1,0 +1,24 @@
+<div id="SearchModal" class="modal" style="display: none;">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close-s"></span>
+        <div class="underline-w">
+            <div class="search-icon-f">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1"
+                    x="0px" y="0px" viewBox="0 0 26.9 26.4" xml:space="preserve" class="svg replaced-svg">
+                    <g>
+                        <path fill="#9E2429" d="M26.4,23c-1.1-1.6-4.9-3.8-6-4.3c1.6-2,2.6-4.5,2.6-7.2C23,5.2,17.8,0,11.5,0S0,5.2,0,11.5S5.2,23,11.5,23   c2.8,0,5.3-1,7.3-2.6c0.6,1,2.9,4.8,4.9,5.7C26.2,27.3,27.7,25,26.4,23z M11.5,20C6.8,20,3,16.2,3,11.5S6.8,3,11.5,3   S20,6.8,20,11.5S16.2,20,11.5,20z"></path>
+                    </g>
+                </svg>
+            </div>
+            <form role="search" method="get" class="search-form" action="{{UrlHost}}/{{if eq .Lang "en-US"}}en/search{{else}}tim-kiem{{end}}">
+                <label>
+                    <span class="screen-reader-text">{{i18n .Lang "search"}}</span>
+                    <input type="search" class="search-field" placeholder="{{i18n .Lang "search"}}" value="" name="s">
+                </label>
+                <input type="submit" class="search-submit" value="{{i18n .Lang "search"}}">
+            </form>
+        </div>
+        <p class="find-it">{{i18n .Lang "search"}} {{i18n .Lang "product"}}</p>
+    </div>
+</div>

@@ -35,6 +35,8 @@ type Product struct {
 	MetaDescriptionVN string    `orm:"column(meta_description_vn)" form:"MetaDescriptionVN"`
 	MetaDescriptionEN string    `orm:"column(meta_description_en)" form:"MetaDescriptionEN"`
 	NameCategoryID    string    `orm:"-"`
+	PriceStr          string    `orm:"-"`
+	SalePriceStr      string    `orm:"-"`
 }
 
 func (m *Product) TableName() string {

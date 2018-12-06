@@ -1,7 +1,7 @@
 package frontend
 
 import (
-	"fmt"
+	"bytes"
 	"shop/helper"
 	"shop/models"
 	"strings"
@@ -20,6 +20,7 @@ type baseController struct {
 	moduleName     string
 	controllerName string
 	actionName     string
+	setting        models.Setting
 }
 
 var langTypes []string // Languages that are supported.
@@ -42,20 +43,18 @@ func init() {
 
 func (c *baseController) Prepare() {
 	// 1. Check URL arguments.
-	lang := c.Ctx.Input.Param(":lang")
-	// 2. Get language information from cookies.
-	if len(lang) == 0 {
-		lang = "vi-VN"
-		c.Ctx.SetCookie("lang", lang, 1<<31-1, "/")
-	} else {
-		if lang == "en" {
-			lang = "en-US"
-		}
-	}
-	// Check again in case someone modify on purpose.
-	if !i18n.IsExist(lang) {
-		lang = ""
-	}
+	// lang := c.Ctx.Input.Param(":lang")
+	// // 2. Get language information from cookies.
+	// if len(lang) == 0 {
+	// 	lang = "vi-VN"
+	// 	c.Ctx.SetCookie("lang", lang, 1<<31-1, "/")
+	// } else {
+	// 	if lang == "en" {
+	// 		lang = "en-US"
+	// 		c.Ctx.SetCookie("lang", lang, 1<<31-1, "/")
+	// 	}
+	// }
+	lang := ""
 	// 3. Get language information from 'Accept-Language'.
 	if len(lang) == 0 {
 		al := c.Ctx.Request.Header.Get("Accept-Language")
@@ -65,6 +64,14 @@ func (c *baseController) Prepare() {
 				lang = al
 			}
 		}
+	}
+	// get cookie
+	if c.Ctx.GetCookie("lang") != "" {
+		lang = c.Ctx.GetCookie("lang")
+	}
+	// Check again in case someone modify on purpose.
+	if !i18n.IsExist(lang) {
+		lang = ""
 	}
 	// 4. Default language is English.
 	if len(lang) == 0 {
@@ -93,13 +100,28 @@ func (c *baseController) Prepare() {
 	}
 
 	// get menu
-	cateMenu := models.Menu{}
-	cateMenus := []models.Menu{}
-	cateMenu.Query().Filter("active", 1).OrderBy("sort").All(&cateMenus)
-	// datas := []map[string]interface{}
-	// var datas []map[string]interface{}
-	datas := helper.ShowMenus(cateMenus)
-	fmt.Println("datas-------", datas)
+	category := models.Category{}
+	categorys := []models.Category{}
+	category.Query().OrderBy("id").All(&categorys)
+	categoryData := &bytes.Buffer{}
+	helper.ShowCategory(categorys, 0, c.Lang, categoryData, 0)
+	c.Data["category"] = categoryData.String()
+
+	// get news
+	cateNew := models.CateNew{}
+	cateNews := []models.CateNew{}
+	cateNew.Query().OrderBy("id").All(&cateNews)
+	cateNewData := &bytes.Buffer{}
+	helper.ShowCateNews(cateNews, 0, c.Lang, cateNewData, 0)
+	c.Data["catenews"] = cateNewData.String()
+
+	// get setting web
+	setting := models.Setting{Id: 1}
+	if setting.Read() == nil {
+		c.Data["setting"] = setting
+		c.setting = setting
+	}
+
 }
 
 func (c *baseController) display(tpl string) {
@@ -117,9 +139,9 @@ func (c *baseController) setHeadMetas(params ...string) {
 		c.Data["title"] = params[0]
 	}
 	if len(params) > 1 {
-		c.Data["keywords"] = params[1]
+		c.Data["meta_keywords"] = params[1]
 	}
 	if len(params) > 2 {
-		c.Data["description"] = params[2]
+		c.Data["meta_description"] = params[2]
 	}
 }

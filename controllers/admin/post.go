@@ -18,7 +18,7 @@ func (c *PostController) List() {
 	// get user
 	product := models.Post{}
 	productRows := []models.Post{}
-	product.Query().All(&productRows, "id", "title_vn", "title_en", "sort", "images", "id_category", "hot", "create", "new")
+	product.Query().OrderBy("-id").All(&productRows, "id", "title_vn", "title_en", "sort", "images", "id_category", "hot", "create", "new")
 	arrProduct := productRows
 	// get category
 	cate := models.CateNew{}
@@ -67,7 +67,7 @@ func (c *PostController) Add() {
 					}
 					product.Images = fileName
 					// Resize
-					helper.ResizeImg(200, 200, filePath)
+					helper.ResizeImg(1200, 500, filePath)
 				}
 			}
 			if c.GetString("Hot") == "on" {
@@ -123,6 +123,9 @@ func (c *PostController) Deletes() {
 	c.Ctx.Input.Bind(&ids, "ids")
 	if len(ids) > 0 {
 		for _, id := range ids {
+			if id == 196 || id == 197 {
+				continue
+			}
 			product := models.Post{Id: id}
 			if product.Read() == nil {
 				if product.Delete() == nil {
@@ -214,7 +217,7 @@ func (c *PostController) UploadImage() {
 						c.showmsg("error", "Lỗi", "")
 					}
 					// Resize
-					helper.ResizeImg(200, 200, filePath)
+					helper.ResizeImg(1200, 500, filePath)
 					product.Images = fileName
 					if product.Update("images") == nil {
 						c.showImg("success", "Thành công", "", filePath)

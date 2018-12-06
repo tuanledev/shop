@@ -1,0 +1,58 @@
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+<script>
+    $(document).ready(function () {
+        jQuery.validator.setDefaults({
+            debug: true,
+            success: "valid"
+        });
+        var form = $( "#form-contact" );
+        form.validate({
+            rules: {
+                Name: {
+                    required: true
+                },
+                Email: {
+                    required: true,
+                    email: true
+                }
+            },
+            messages: {
+                Name: "Vui lòng nhập họ tên",
+                Email: {
+                    required: "Vui lòng nhập email",
+                    email: "Phải là dạng email"
+                }
+            }
+        });
+        $("#Send-Contact").click(function (e) {
+            e.preventDefault();
+            var formData = new FormData();
+            var xsrf = $("#_xsrf").val();
+            formData.append("Name", $("#contact-name").val());
+            formData.append("Phone", $("#contact-phone").val());
+            formData.append("Email", $("#contact-email").val());
+            formData.append("Address", $("#contact-address").val());
+            formData.append("Message", $("#contact-message").val());
+            formData.append('_xsrf', xsrf);
+            if (form.valid()) {
+                $.ajax({
+                    url: '{{UrlHost}}/lien-he',
+                    type: 'POST',
+                    data: formData,
+                    processData: false, // tell jQuery not to process the data
+                    contentType: false, // tell jQuery not to set contentType
+                    success: function (response) {
+                        console.log(response.status);
+                        if (response.status) {
+                            alert(response.msg);
+                            window.location.replace("{{UrlHost}}/");
+                        } else {
+                            alert(response.msg);
+                        }
+                    }
+                });
+            }
+        });
+    });
+</script>

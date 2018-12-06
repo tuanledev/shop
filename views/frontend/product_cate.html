@@ -1,0 +1,40 @@
+{{if .category_product.Images}}
+<div class="hero-banner product-banner">
+    <div class="hero-blog" style="background-image: url('{{UrlHost}}/static/img/category/{{ .category_product.Images}}');">
+        <div class="css-table">
+            <div class="css-table-cell center middle home">
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}
+<div id="primary" class="content-area">
+    <main id="main" class="site-main container" role="main">
+        <div class="row">
+            <!-- header -->
+            <div class="col-sm-12">
+                <header class="page-header">
+                    <h1>{{i18n .Lang "product"}} {{if .category_product.TitleVN }}{{.category_product.TitleVN}}{{end}}{{if .category_product.TitleEN }}{{.category_product.TitleEN}}{{end}} </h1>
+                </header>
+            </div>
+            <!-- end header -->
+            <!-- item -->
+            <div class="col-sm-12" style="padding:0;">
+                {{range $post := .data }}
+                <div class="col-xs-6 col-sm-4 col-md-4 product-cat-item" >
+                    <a href="{{UrlHost}}/{{if eq $.Lang "en-US" }}en/{{end}}{{i18n $.Lang "menu_product"}}/{{if $post.AliasVN }}{{$post.AliasVN}}{{end}}{{if $post.AliasEN }}{{$post.AliasEN}}{{end}}-{{$post.Id}}.html" class="post-list-link">
+                        <div class="ceres-landing-product-image-pack">
+                            <img src="{{UrlHost}}/static/img/product/{{$post.Images}}" width="350" height="200" class="img-product">
+                        </div>
+                        <p class="ceres-product-title">{{if $post.TitleVN }}{{$post.TitleVN}}{{end}}{{if $post.TitleEN }}{{$post.TitleEN}}{{end}}</p>
+                    </a>
+                    <p class="ceres-product-title">{{i18n $.Lang "price"}}: <span class="price"> {{$post.PriceStr}} VNĐ</span></p>
+                </div>
+                {{end}}
+            </div>
+            <!-- end item -->
+            <!-- pagination -->
+            {{template "frontend/pagination.html" .}}
+        </div> <!-- end row -->
+    </main>
+</div>

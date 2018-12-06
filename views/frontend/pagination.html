@@ -1,0 +1,33 @@
+<!-- pagination -->
+{{if .paginator.HasPages}}
+<div class="col-xs-12 center" style="padding: 0;">
+    <div class="pagination">
+    <!-- first -->
+    {{if .paginator.HasPrev}}
+        <a href="{{.paginator.PageLinkFirst}}" class="inactive">&#171;</a>
+        <a href="{{.paginator.PageLinkPrev}}" class="inactive">&lsaquo;</a>
+    {{else}}
+        <a class="disabled"><<</a>
+        <a class="disabled"><</a>
+    {{end}}
+        <!-- <span class="current">1</span>
+        <a href="https://www.ceres.co.nz/blog/page/2/" class="inactive">2</a>
+        <a href="https://www.ceres.co.nz/blog/page/3/" class="inactive">3</a>
+        <a href="https://www.ceres.co.nz/blog/page/4/" class="inactive">4</a>
+        <a href="https://www.ceres.co.nz/blog/page/2/">›</a> -->
+    <!-- content -->
+    {{range $index, $page := .paginator.Pages}}
+        <a href="{{$.paginator.PageLink $page}}" {{if $.paginator.IsActive .}} class="current"{{end}}>{{$page}}</a>
+    {{end}}
+
+    <!-- end -->
+    {{if .paginator.HasNext}}
+        <a href="{{.paginator.PageLinkNext}}" class="inactive">&rsaquo;</a>
+        <a href="{{.paginator.PageLinkLast}}" class="inactive">&raquo;</a>
+    {{else}}
+        <a class="disabled">&rsaquo;</a>
+        <a class="disabled">&raquo;</a>
+    {{end}}
+    </div>
+</div>
+{{end}}

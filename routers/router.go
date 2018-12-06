@@ -9,47 +9,48 @@ import (
 )
 
 func init() {
-	// var langTypes []string // Languages that are supported.
-	// beego.AddFuncMap("i18n", i18n.Tr)
-	// // Initialize language type list.
-	// langTypes = strings.Split(beego.AppConfig.String("lang_types"), "|")
-
-	// // Load locale files according to language types.
-	// for _, lang := range langTypes {
-	// 	beego.Trace("Loading language: " + lang)
-	// 	if err := i18n.SetMessage(lang, "conf/"+"locale_"+lang+".ini"); err != nil {
-	// 		beego.Error("Fail to set message file:", err)
-	// 		return
-	// 	}
-	// }
-
 	// Login
 	beego.Router("/login", &controllers.AuthController{}, "*:Login")
 	beego.Router("/logout", &controllers.AuthController{}, "*:Logout")
-
+	// set lang
 	beego.Router("/", &frontend.IndexController{}, "*:Index")
-
-	// vi
+	// index
+	beego.Router("/set-lang", &frontend.IndexController{}, "*:SetLang")
+	// post
+	beego.Router("/tin-tuc/:urlname([a-z-0-9]+).html", &frontend.PostController{}, "*:Detail")
+	beego.Router("/tin-tuc/:idcate([0-9]+)", &frontend.PostController{}, "*:Category")
+	beego.Router("/tin-tuc/", &frontend.PostController{}, "*:CategoryAll")
+	// product
+	beego.Router("/san-pham/", &frontend.ProductController{}, "*:CategoryAll")
+	beego.Router("/san-pham/:idcate([0-9]+)", &frontend.ProductController{}, "*:Category")
+	beego.Router("/san-pham/:urlname([a-z-0-9]+).html", &frontend.ProductController{}, "*:Detail")
+	// about
+	beego.Router("/gioi-thieu/", &frontend.IndexController{}, "*:About")
+	// contact
+	beego.Router("/lien-he/", &frontend.IndexController{}, "*:Contact")
+	// search
+	beego.Router("/tim-kiem/", &frontend.IndexController{}, "*:Search")
+	// lang
 	beego.Router("/:lang([a-z]+)", &frontend.IndexController{}, "*:Index")
-	// nsEn :=
-	// 	beego.NewNamespace("/en",
-	// 		// Dashboard
-	// 		beego.NSRouter("/a", &frontend.IndexController{}, "*:Index"),
-	// 	)
 
-	// //register namespace
-	// beego.AddNamespace(nsEn)
-
-	//en
-	// beego.Router("/:lang[a-zA-Z]", &frontend.IndexController{}, "*:Index")
-	// nsEN :=
-	// 	beego.NewNamespace("/:lang[a-zA-Z]",
-	// 		// Dashboard
-	// 		beego.NSRouter("/", &frontend.IndexController{}, "*:Index"),
-	// 	)
-
-	// //register namespace
-	// beego.AddNamespace(nsEN)
+	// en
+	nsEn :=
+		beego.NewNamespace("/en",
+			// post
+			beego.NSRouter("/blog/:urlname([a-z-0-9]+).html", &frontend.PostController{}, "*:Detail"),
+			beego.NSRouter("/blog/:idcate([0-9]+)", &frontend.PostController{}, "*:Category"),
+			beego.NSRouter("/blog/", &frontend.PostController{}, "*:CategoryAll"),
+			// about
+			beego.NSRouter("/about/", &frontend.IndexController{}, "*:About"),
+			// contact
+			beego.NSRouter("/contact/", &frontend.IndexController{}, "*:Contact"),
+			// product
+			beego.NSRouter("/product/", &frontend.ProductController{}, "*:CategoryAll"),
+			beego.NSRouter("/product/:idcate([0-9]+)", &frontend.ProductController{}, "*:Category"),
+			beego.NSRouter("/product/:urlname([a-z-0-9]+).html", &frontend.ProductController{}, "*:Detail"),
+			// search
+			beego.NSRouter("/search/", &frontend.IndexController{}, "*:Search"),
+		)
 
 	//init namespace
 	ns :=
@@ -92,9 +93,13 @@ func init() {
 				// setting
 				&admin.SettingController{},
 			),
+			beego.NSAutoRouter(
+				// contact
+				&admin.ContactController{},
+			),
 		)
 
 	//register namespace
-	beego.AddNamespace(ns)
+	beego.AddNamespace(ns, nsEn)
 
 }

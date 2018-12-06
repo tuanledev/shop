@@ -169,7 +169,7 @@ $(function () {
 
 // add all ready events here
 
-/* $(document).ready(function () {
+$(document).ready(function () {
     console.log('ready');
 
 
@@ -179,7 +179,7 @@ $(function () {
 
 
 
-    $("#sidebar-menu").append("<li id='ceres_log_sidebar' class='menu-item menu-item-type-custom menu-item-object-custom'><a href='javascript:void(0);'>SIGN UP</a></li>");
+    // $("#sidebar-menu").append("<li id='ceres_log_sidebar' class='menu-item menu-item-type-custom menu-item-object-custom'><a href='javascript:void(0);'>SIGN UP</a></li>");
 
 
 
@@ -188,101 +188,98 @@ $(function () {
     });
 
 
-    var is_root = location.pathname == "/";
-    // Get the modal
-    var modal = document.getElementById('SignupModal');
+    // var is_root = location.pathname == "/";
+    // // Get the modal
+    // var modal = document.getElementById('SignupModal');
+
+
+    // // Get the button that opens the modal
+    // var btn = document.getElementById("ceres_log");
+
+    // var btn2 = document.getElementById("ceres_log_sidebar");
+
+
+
+    // String.prototype.urlParamValue = function () {
+    //     var desiredVal = null;
+    //     var paramName = this.valueOf();
+    //     window.location.search.substring(1).split('&').some(function (currentValue, _, _) {
+    //         var nameVal = currentValue.split('=');
+    //         if (decodeURIComponent(nameVal[0]) === paramName) {
+    //             desiredVal = decodeURIComponent(nameVal[1]);
+    //             return true;
+    //         }
+    //         return false;
+    //     });
+    //     return desiredVal;
+    // };
+
+    // var paramVal = "signup".urlParamValue();
+
+    // if (paramVal) {
+    //     if (paramVal === 'y') {
+    //         modal.style.display = "block";
+    //     }
+    // };
+
+
+    // if (is_root === true) {
+
+    //     console.log('root');
+
+    //     var btn4 = document.getElementById("ceres_home_block");
+
+    //     btn4.onclick = function () {
+    //         modal.style.display = "block";
+    //     }
+
+    // };
 
     var modal2 = document.getElementById('SearchModal');
 
-    // Get the button that opens the modal
-    var btn = document.getElementById("ceres_log");
-
-    var btn2 = document.getElementById("ceres_log_sidebar");
-
-
-
-    String.prototype.urlParamValue = function () {
-        var desiredVal = null;
-        var paramName = this.valueOf();
-        window.location.search.substring(1).split('&').some(function (currentValue, _, _) {
-            var nameVal = currentValue.split('=');
-            if (decodeURIComponent(nameVal[0]) === paramName) {
-                desiredVal = decodeURIComponent(nameVal[1]);
-                return true;
-            }
-            return false;
-        });
-        return desiredVal;
-    };
-
-    var paramVal = "signup".urlParamValue();
-
-    if (paramVal) {
-        if (paramVal === 'y') {
-            modal.style.display = "block";
-        }
-    };
-
-
-    if (is_root === true) {
-
-        console.log('root');
-
-        var btn4 = document.getElementById("ceres_home_block");
-
-        btn4.onclick = function () {
-            modal.style.display = "block";
-        }
-
-    };
-
-
     var btn3 = document.getElementById("search-i");
 
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
     var span2 = document.getElementsByClassName("close-s")[0];
-
-    // When the user clicks on the button, open the modal 
-    btn.onclick = function () {
-        modal.style.display = "block";
-    }
-
-    btn2.onclick = function () {
-        modal.style.display = "block";
-    }
-
-
-
     btn3.onclick = function () {
         modal2.style.display = "block";
     }
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
-        modal.style.display = "none";
-    }
-
+    // // Get the <span> element that closes the modal
+    // var span = document.getElementsByClassName("close")[0];
+    
     span2.onclick = function () {
         modal2.style.display = "none";
     }
 
-    // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-
         if (event.target == modal2) {
             modal2.style.display = "none";
         }
-
-
     }
 
+    // // When the user clicks on the button, open the modal 
+    // btn.onclick = function () {
+    //     modal.style.display = "block";
+    // }
 
-}); */
+    // btn2.onclick = function () {
+    //     modal.style.display = "block";
+    // }
+
+
+
+    
+
+    // // When the user clicks on <span> (x), close the modal
+    // span.onclick = function () {
+    //     modal.style.display = "none";
+    // }
+
+
+    // // When the user clicks anywhere outside of the modal, close it
+ 
+
+
+});
 
 // add all on load here
 

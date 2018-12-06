@@ -62,7 +62,7 @@ func (c *CatenewController) Add() {
 						c.showData("Lỗi", "Thêm hình không thành công", "")
 					}
 					// Resize
-					helper.ResizeImg(200, 200, filePath)
+					helper.ResizeImg(1200, 500, filePath)
 					category.Images = fileName
 				}
 			}
@@ -160,7 +160,7 @@ func (c *CatenewController) Edit() {
 						c.showData("Lỗi", "Thêm hình không thành công", "")
 					}
 					// Resize
-					helper.ResizeImg(200, 200, filePath)
+					helper.ResizeImg(1200, 500, filePath)
 					category.Images = fileName
 					// remove img old
 					if imgOld != "" {

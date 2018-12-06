@@ -17,6 +17,7 @@ type Setting struct {
 	Hotline         string `form:"Hotline"`
 	Hotline2        string `form:"Hotline2"`
 	Fanpage         string `form:"Fanpage"`
+	Zalo            string `form:"Zalo"`
 	Youtube         string `form:"Youtube"`
 	Twitter         string `form:"Twitter"`
 	Google          string `form:"Google"`
