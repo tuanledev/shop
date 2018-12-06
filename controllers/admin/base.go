@@ -22,9 +22,9 @@ type baseController struct {
 
 func (c *baseController) Prepare() {
 	// Check session auth
-	// if c.GetSession("username") == nil {
-	// 	c.Redirect("/login", 302)
-	// }
+	if c.GetSession("username") == nil {
+		c.Redirect("/login", 302)
+	}
 	// Get logo
 	if c.Ctx.GetCookie("logo") == "" || c.Ctx.GetCookie("icon") == "" {
 		setting := models.Setting{Id: 1}
