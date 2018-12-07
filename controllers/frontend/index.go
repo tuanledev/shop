@@ -6,6 +6,7 @@ import (
 	"shop/models"
 
 	"github.com/astaxie/beego/utils/pagination"
+	"github.com/dustin/go-humanize"
 )
 
 type IndexController struct {
@@ -140,6 +141,10 @@ func (c *IndexController) Search() {
 	}
 	if len(posts) > 0 {
 		c.Data["images"] = posts[0].Images
+		for i, product := range posts {
+			posts[i].SalePriceStr = humanize.Comma(int64(product.SalePrice))
+			posts[i].PriceStr = humanize.Comma(int64(product.Price))
+		}
 	}
 	c.Data["data"] = posts
 	c.display("search.html")
