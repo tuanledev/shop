@@ -33,7 +33,8 @@ func (c *baseController) Prepare() {
 			c.Ctx.SetCookie("icon", setting.Icon, helper.TimeYear)
 		}
 	}
-
+	c.Data["logo"] = c.Ctx.GetCookie("logo")
+	c.Data["icon"] = c.Ctx.GetCookie("icon")
 	controllerName, actionName := c.GetControllerAndAction()
 	c.moduleName = "admin"
 	c.controllerName = strings.ToLower(controllerName[0 : len(controllerName)-10])
@@ -49,8 +50,7 @@ func (c *baseController) display(tpl ...string) {
 	}
 	c.Data["userId"] = c.GetSession("userId")
 	c.Data["username"] = c.GetSession("username")
-	c.Data["logo"] = c.Ctx.GetCookie("logo")
-	c.Data["icon"] = c.Ctx.GetCookie("icon")
+
 	c.Layout = c.moduleName + "/layout.html"
 	c.TplName = tplName
 }
