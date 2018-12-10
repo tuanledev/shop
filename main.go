@@ -23,7 +23,7 @@ func init() {
 		AllowHeaders:     []string{"Origin", "Authorization", "Access-Control-Allow-Origin", "Content-Type"},
 		ExposeHeaders:    []string{"Content-Length", "Access-Control-Allow-Origin"},
 		AllowCredentials: true,
-		MaxAge:           3600,
+		MaxAge:           31536000,
 	}))
 	// Set validator
 	validation.SetDefaultMessage(map[string]string{
