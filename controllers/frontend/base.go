@@ -2,6 +2,7 @@ package frontend
 
 import (
 	"bytes"
+	"fmt"
 	"shop/helper"
 	"shop/models"
 	"strings"
@@ -42,8 +43,7 @@ func init() {
 }
 
 func (c *baseController) Prepare() {
-	// 1. Check URL arguments.
-	// lang := c.Ctx.Input.Param(":lang")
+
 	// // 2. Get language information from cookies.
 	// if len(lang) == 0 {
 	// 	lang = "vi-VN"
@@ -54,7 +54,21 @@ func (c *baseController) Prepare() {
 	// 		c.Ctx.SetCookie("lang", lang, 1<<31-1, "/")
 	// 	}
 	// }
+
 	lang := ""
+	// 1. Check URL arguments.
+	// lang := c.Ctx.Input.Param(":lang")
+	url := c.Ctx.Input.URL()
+	if len(url) > 2 {
+		arrUrl := strings.Split(url, "/")
+		fmt.Println("arrUrl ", arrUrl)
+		if strings.Compare(arrUrl[1], "en") == 0 {
+			lang = "en-US"
+		}
+	} else {
+		lang = "vi-VN"
+	}
+	fmt.Println("lang ", lang)
 	// 3. Get language information from 'Accept-Language'.
 	if len(lang) == 0 {
 		al := c.Ctx.Request.Header.Get("Accept-Language")
