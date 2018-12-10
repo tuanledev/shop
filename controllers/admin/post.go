@@ -104,6 +104,10 @@ func (c *PostController) Add() {
 
 func (c *PostController) Delete() {
 	id, _ := c.GetInt("id")
+	if id == 196 || id == 197 || id == 198 {
+		c.showmsg("error", "Lỗi", "Không thành công")
+		return
+	}
 	if id >= 0 {
 		product := models.Post{Id: id}
 		if product.Read() == nil {
@@ -115,7 +119,7 @@ func (c *PostController) Delete() {
 			}
 		}
 	}
-	c.showmsg("error", "Lỗi", "Không có id người dùng")
+	c.showmsg("error", "Lỗi", "Không thành công")
 }
 
 func (c *PostController) Deletes() {
@@ -123,7 +127,7 @@ func (c *PostController) Deletes() {
 	c.Ctx.Input.Bind(&ids, "ids")
 	if len(ids) > 0 {
 		for _, id := range ids {
-			if id == 196 || id == 197 {
+			if id == 196 || id == 197 || id == 198 {
 				continue
 			}
 			product := models.Post{Id: id}

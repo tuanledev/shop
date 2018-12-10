@@ -5,6 +5,7 @@ import (
 	"shop/helper"
 	"shop/models"
 
+	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/utils/pagination"
 	"github.com/dustin/go-humanize"
 )
@@ -72,6 +73,30 @@ func (c *IndexController) Contact() {
 		c.ParseForm(&contact)
 		dataRes := make(map[string]interface{})
 		if contact.Insert() == nil {
+			go func(contact models.Contact) {
+				email := helper.Email{}
+				email.To = append(email.To, beego.AppConfig.String("mail_to"))
+				email.Subject = "Thông tin liên hệ từ webstite"
+				fmt.Println("contact ----------------------------", contact.Name, contact.Email, contact.Phone, contact.Address, contact.Message)
+				email.Body = `
+				<table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:separate;" align="center" border="0">
+					<tbody>
+						<tr>
+							<td style="border:1px solid #353535;border-radius:5px;color:#fff;cursor:auto;padding:15px 30px;" align="center"
+								valign="middle" bgcolor="#505050">
+								<p style="text-decoration:none;line-height:100%;background:#505050;color:white;font-family:Helvetica, Arial, sans-serif;font-size:16px;font-weight:bold;text-transform:none;margin:0px;">
+									Họ tên: <b>` + contact.Name + `</b> <br>
+									Email: <b>` + contact.Email + `</b> <br>
+									Sđt: ` + contact.Phone + ` <br>
+									Địa chỉ: ` + contact.Address + ` <br>
+									Lời nhắn: ` + contact.Message + ` 
+								</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>`
+				email.Send()
+			}(contact)
 			switch c.Lang {
 			case "en-US":
 				dataRes["status"] = true

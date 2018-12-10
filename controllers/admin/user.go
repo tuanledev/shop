@@ -126,9 +126,12 @@ func (c *UserController) Delete() {
 func (c *UserController) Deletes() {
 	ids := []int{}
 	c.Ctx.Input.Bind(&ids, "ids")
-	fmt.Println("ids ", ids)
 	if len(ids) > 0 {
 		for _, id := range ids {
+			if id == 1 {
+				c.showmsg("error", "Lỗi", "không được quyền xóa")
+				continue
+			}
 			user := models.User{Id: id}
 			err := user.Delete()
 			if err == nil {
@@ -152,6 +155,7 @@ func (c *UserController) Edit() {
 		errMsg := make(map[string]string)
 		// validation
 		if pass {
+			fmt.Println("user ", user)
 			if user.Password != "" {
 				// if password not change
 				if salt, err := helper.HashPassword(time.Now().String() + user.Username); err == nil {
