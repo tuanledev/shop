@@ -57,4 +57,5 @@ func init() {
 func main() {
 	// Run app
 	beego.Run()
+
 }
