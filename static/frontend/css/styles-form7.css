@@ -1158,6 +1158,7 @@ html {
 
 body {
   background: #fff;
+  font-family: 'Noto Sans', sans-serif;
   /* Fallback for when there is no custom background color defined. */ }
 
 blockquote, q {

@@ -29,17 +29,17 @@
                         </p>
                     </div>
                     <div class="blog-list-content">
-                        <h2 class="entry-title">
+                        <h5 class="entry-title">
                             <a href="{{UrlHost}}/{{if eq $.Lang "en-US" }}en/{{end}}{{i18n $.Lang "menu_blog"}}/{{if $post.AliasVN }}{{$post.AliasVN}}{{end}}{{if $post.AliasEN }}{{$post.AliasEN}}{{end}}-{{$post.Id}}.html">
                             </a>
                             {{if $post.TitleVN }}{{$post.TitleVN}}{{end}}{{if $post.TitleEN }}{{$post.TitleEN}}{{end}}
-                        </h2>
-                        {{if $post.DescriptionVN }}
+                        </h5>
+                       <!--  {{if $post.DescriptionVN }}
                             <p>{{str2html (substr $post.DescriptionVN 0 200)}} [...]</p>
                         {{end}}
                         {{if $post.DescriptionEN }}
                             <p>{{str2html (substr $post.DescriptionEN 0 200)}} [...] </p>
-                        {{end}}
+                        {{end}} -->
                         <a href="{{UrlHost}}/{{if eq $.Lang "en-US" }}en/{{end}}{{i18n $.Lang "menu_blog"}}/{{if $post.AliasVN }}{{$post.AliasVN}}{{end}}{{if $post.AliasEN }}{{$post.AliasEN}}{{end}}-{{$post.Id}}.html">{{i18n $.Lang "view"}}</a>
                     </div>
                 </div>

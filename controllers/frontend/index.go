@@ -77,7 +77,7 @@ func (c *IndexController) Contact() {
 				email := helper.Email{}
 				email.To = append(email.To, beego.AppConfig.String("mail_to"))
 				email.Subject = "Thông tin liên hệ từ webstite"
-				fmt.Println("contact ----------------------------", contact.Name, contact.Email, contact.Phone, contact.Address, contact.Message)
+				email.Cc = append(email.Cc, beego.AppConfig.String("mail_cc"))
 				email.Body = `
 				<table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:separate;" align="center" border="0">
 					<tbody>
