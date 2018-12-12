@@ -1,10 +1,13 @@
 package frontend
 
 import (
+	"bytes"
+	"fmt"
 	"shop/helper"
 	"shop/models"
 	"strconv"
 
+	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/utils/pagination"
 	"github.com/dustin/go-humanize"
 )
@@ -46,36 +49,80 @@ func (c *ProductController) Category() {
 	if id <= 0 {
 		c.Redirect("/", 302)
 	}
-	post := models.Product{}
-	posts := []models.Product{}
-	// pagination
-	postsPerPage := 9
-	countPost, err := post.Query().Filter("id_category", id).Count()
-	if err != nil {
-		c.Redirect("/", 302)
-	}
-	paginator := pagination.SetPaginator(c.Ctx, postsPerPage, countPost)
 	// get name category
 	category := models.Category{}
-	switch c.Lang {
-	case "en-US":
-		if _, err := post.Query().Filter("id_category", id).Limit(postsPerPage, paginator.Offset()).All(&posts, "id", "title_en", "description_en", "images", "alias_en", "price"); err != nil {
+	categories := []models.Category{}
+	category.Query().All(&categories)
+
+	var products []models.Product
+	var product models.Product
+	modelOrm := orm.NewOrm()
+	// pagination
+	postsPerPage := 9
+	paginator := new(pagination.Paginator)
+	// query
+	queryStr := &bytes.Buffer{}
+	queryStr.WriteString("SELECT")
+	helper.GetCountChildProduct(categories, id, queryStr)
+	if queryStr.Len() > 6 {
+		// get all category child
+		queryStr.WriteString(fmt.Sprintf(`(SELECT count(*)
+		FROM mn_product
+		WHERE id_category = %v) as count_product`, id))
+		var maps []orm.Params
+		_, err := modelOrm.Raw(queryStr.String()).Values(&maps)
+		if err != nil {
 			c.Redirect("/", 302)
 		}
-		category.Query().Filter("id", id).One(&category, "title_en", "meta_keyword_en", "meta_description_en", "images")
-		c.setHeadMetas(category.TitleEN, category.MetaKeywordEN, category.MetaDescriptionEN)
-	default:
-		if _, err := post.Query().Filter("id_category", id).Limit(postsPerPage, paginator.Offset()).All(&posts, "id", "title_vn", "description_vn", "images", "alias_vn", "price"); err != nil {
+		countProducts, err := strconv.Atoi(maps[0]["count_product"].(string))
+		if err != nil {
 			c.Redirect("/", 302)
 		}
-		category.Query().Filter("id", id).One(&category, "title_vn", "meta_keyword_vn", "meta_description_vn", "images")
-		c.setHeadMetas(category.TitleVN, category.MetaKeywordVN, category.MetaDescriptionVN)
+		queryStr.Reset()
+		helper.GetAllChildProduct(categories, id, c.Lang, queryStr)
+		paginator = pagination.SetPaginator(c.Ctx, postsPerPage, int64(countProducts))
+		switch c.Lang {
+		case "en-US":
+			queryStr.WriteString(fmt.Sprintf(`(SELECT id, title_en, description_en, images, alias_en, price
+			FROM mn_product
+			WHERE id_category = %v) LIMIT %v,%v`, id, paginator.Offset(), postsPerPage))
+			category.Query().Filter("id", id).One(&category, "title_en", "meta_keyword_en", "meta_description_en", "images")
+			c.setHeadMetas(category.TitleEN, category.MetaKeywordEN, category.MetaDescriptionEN)
+		default:
+			queryStr.WriteString(fmt.Sprintf(`(SELECT id, title_vn, description_vn, images, alias_vn, price
+				FROM mn_product
+				WHERE id_category = %v) LIMIT %v,%v`, id, paginator.Offset(), postsPerPage))
+			category.Query().Filter("id", id).One(&category, "title_vn", "meta_keyword_vn", "meta_description_vn", "images")
+			c.setHeadMetas(category.TitleVN, category.MetaKeywordVN, category.MetaDescriptionVN)
+		}
+		modelOrm.Raw(queryStr.String()).QueryRows(&products)
+	} else {
+		// get one caterogy
+		countProduct, err := product.Query().Filter("id_category", id).Count()
+		if err != nil {
+			c.Redirect("/", 302)
+		}
+		paginator = pagination.SetPaginator(c.Ctx, postsPerPage, countProduct)
+		switch c.Lang {
+		case "en-US":
+			if _, err := product.Query().Filter("id_category", id).Limit(postsPerPage, paginator.Offset()).All(&products, "id", "title_en", "description_en", "images", "alias_en", "price"); err != nil {
+				c.Redirect("/", 302)
+			}
+			category.Query().Filter("id", id).One(&category, "title_en", "meta_keyword_en", "meta_description_en", "images")
+			c.setHeadMetas(category.TitleEN, category.MetaKeywordEN, category.MetaDescriptionEN)
+		default:
+			if _, err := product.Query().Filter("id_category", id).Limit(postsPerPage, paginator.Offset()).All(&products, "id", "title_vn", "description_vn", "images", "alias_vn", "price"); err != nil {
+				c.Redirect("/", 302)
+			}
+			category.Query().Filter("id", id).One(&category, "title_vn", "meta_keyword_vn", "meta_description_vn", "images")
+			c.setHeadMetas(category.TitleVN, category.MetaKeywordVN, category.MetaDescriptionVN)
+		}
 	}
-	for i, product := range posts {
-		posts[i].SalePriceStr = humanize.Comma(int64(product.SalePrice))
-		posts[i].PriceStr = humanize.Comma(int64(product.Price))
+	for i, product := range products {
+		products[i].SalePriceStr = humanize.Comma(int64(product.SalePrice))
+		products[i].PriceStr = humanize.Comma(int64(product.Price))
 	}
-	c.Data["data"] = posts
+	c.Data["data"] = products
 	c.Data["category_product"] = category
 	c.Data["paginator"] = paginator
 	c.display("product_cate.html")

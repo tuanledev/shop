@@ -64,11 +64,12 @@ func (c *baseController) Prepare() {
 		fmt.Println("arrUrl ", arrUrl)
 		if strings.Compare(arrUrl[1], "en") == 0 {
 			lang = "en-US"
+		} else {
+			lang = "vi-VN"
 		}
 	} else {
 		lang = "vi-VN"
 	}
-	fmt.Println("lang ", lang)
 	// 3. Get language information from 'Accept-Language'.
 	if len(lang) == 0 {
 		al := c.Ctx.Request.Header.Get("Accept-Language")
@@ -80,9 +81,9 @@ func (c *baseController) Prepare() {
 		}
 	}
 	// get cookie
-	if c.Ctx.GetCookie("lang") != "" {
-		lang = c.Ctx.GetCookie("lang")
-	}
+	// if c.Ctx.GetCookie("lang") != "" {
+	// 	lang = c.Ctx.GetCookie("lang")
+	// }
 	// Check again in case someone modify on purpose.
 	if !i18n.IsExist(lang) {
 		lang = ""
@@ -103,13 +104,13 @@ func (c *baseController) Prepare() {
 	if c.Ctx.GetCookie("logo") == "" {
 		setting := models.Setting{Id: 1}
 		if setting.Read() == nil {
-			c.Ctx.SetCookie("logo", setting.Logo, helper.TimeYear)
+			c.Ctx.SetCookie("logo", setting.Logo, helper.TimeDay)
 		}
 	}
 	if c.Ctx.GetCookie("icon") == "" {
 		setting := models.Setting{Id: 1}
 		if setting.Read() == nil {
-			c.Ctx.SetCookie("icon", setting.Icon, helper.TimeYear)
+			c.Ctx.SetCookie("icon", setting.Icon, helper.TimeDay)
 		}
 	}
 

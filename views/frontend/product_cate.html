@@ -19,6 +19,7 @@
             </div>
             <!-- end header -->
             <!-- item -->
+            {{if gt (len .data) 0 }}
             <div class="col-sm-12" style="padding:0;">
                 {{range $post := .data }}
                 <div class="col-xs-6 col-sm-4 col-md-4 product-cat-item" >
@@ -32,6 +33,11 @@
                 </div>
                 {{end}}
             </div>
+            {{else}}
+                <div class="col-sm-12" >
+                    <h3 style="color: brown">{{i18n $.Lang "category_not_item"}}</h3>
+                </div>
+            {{end}}
             <!-- end item -->
             <!-- pagination -->
             {{template "frontend/pagination.html" .}}

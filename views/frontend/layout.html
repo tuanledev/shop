@@ -123,37 +123,37 @@ type='text/css' media='all' /> -->
     <script type='text/javascript' src='{{UrlHost}}/static/frontend/js/form-submission-helpers.min.js'></script>
 
     <script>
-        $(document).ready(function () {
-            $("#lang-vi-VN").click(function (e) { 
-                e.preventDefault();
-                $.ajax({
-                    type: "GET",
-                    url: "{{UrlHost}}/set-lang",
-                    data: {lang:"vi-VN"},
-                    // dataType: "dataType",
-                    success: function (response) {
-                        if (response.redirect === true) {
-                            window.location.replace("{{UrlHost}}");
-                        }
-                    }
-                });
-            });
-            $("#lang-en-US").click(function (e) { 
-                e.preventDefault();
-                $.ajax({
-                    type: "GET",
-                    url: "{{UrlHost}}/set-lang",
-                    data: {lang:"en-US"},
-                    // dataType: "dataType",
-                    success: function (response) {
-                        if (response.redirect === true) {
-                            window.location.replace("{{UrlHost}}/"+response.lang);
-                        }
-                    }
-                });
-            });
+        // $(document).ready(function () {
+            // $("#lang-vi-VN").click(function (e) { 
+            //     e.preventDefault();
+            //     $.ajax({
+            //         type: "GET",
+            //         url: "{{UrlHost}}/set-lang",
+            //         data: {lang:"vi-VN"},
+            //         // dataType: "dataType",
+            //         success: function (response) {
+            //             if (response.redirect === true) {
+            //                 window.location.replace("{{UrlHost}}");
+            //             }
+            //         }
+            //     });
+            // });
+            // $("#lang-en-US").click(function (e) { 
+            //     e.preventDefault();
+            //     $.ajax({
+            //         type: "GET",
+            //         url: "{{UrlHost}}/set-lang",
+            //         data: {lang:"en-US"},
+            //         // dataType: "dataType",
+            //         success: function (response) {
+            //             if (response.redirect === true) {
+            //                 window.location.replace("{{UrlHost}}/"+response.lang);
+            //             }
+            //         }
+            //     });
+            // });
            
-        });
+        // });
     </script>
     <!-- <script src='https://www.google.com/recaptcha/api.js'></script> -->
     {{.Script}}

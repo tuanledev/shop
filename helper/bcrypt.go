@@ -10,6 +10,8 @@ import (
 	"time"
 
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/context"
+	"github.com/astaxie/beego/utils/pagination"
 	"github.com/disintegration/imaging"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -162,6 +164,62 @@ func ShowCateNews(menus []models.CateNew, parentID int, lang string, buffer *byt
 			}
 		}
 		buffer.WriteString("</ul>")
+	}
+}
+
+func GetItemChild(menus []models.Category, parentID int, lang string, products *[]models.Product, perPage int, paginator *pagination.Paginator, ctx *context.Context) {
+	for _, cate := range menus {
+		if cate.ParentID == parentID {
+			product := models.Product{}
+			productQuerys := []models.Product{}
+			countProduct, _ := product.Query().Filter("id_category", cate.Id).Count()
+			paginator = pagination.SetPaginator(ctx, perPage, countProduct)
+			switch lang {
+			case "en-US":
+				product.Query().Filter("id_category", cate.Id).Limit(perPage, paginator.Offset()).All(&productQuerys, "id", "title_en", "description_en", "images", "alias_en", "price")
+				*products = append(*products, productQuerys...)
+				// if len(*products) >= perPage {
+				// 	break
+				// }
+				GetItemChild(menus, cate.Id, lang, products, perPage, paginator, ctx)
+			default:
+				product.Query().Filter("id_category", cate.Id).Limit(perPage, paginator.Offset()).All(&productQuerys, "id", "title_vn", "description_vn", "images", "alias_vn", "price")
+				*products = append(*products, productQuerys...)
+				// if len(*products) >= perPage {
+				// 	break
+				// }
+				GetItemChild(menus, cate.Id, lang, products, perPage, paginator, ctx)
+			}
+		}
+	}
+}
+
+func GetAllChildProduct(menus []models.Category, parentID int, lang string, buffer *bytes.Buffer) {
+	for _, cate := range menus {
+		if cate.ParentID == parentID {
+			switch lang {
+			case "en-US":
+				fmt.Println("1")
+			default:
+				buffer.WriteString(fmt.Sprintf(`(SELECT id, title_vn, description_vn, images, alias_vn, price
+				FROM mn_product
+				WHERE id_category = %v)
+				UNION
+			`, cate.Id))
+				GetAllChildProduct(menus, cate.Id, lang, buffer)
+			}
+		}
+	}
+}
+func GetCountChildProduct(menus []models.Category, parentID int, buffer *bytes.Buffer) {
+	for _, cate := range menus {
+		if cate.ParentID == parentID {
+			buffer.WriteString(fmt.Sprintf(`(SELECT count(*)
+				FROM mn_product
+				WHERE id_category = %v) +
+			`, cate.Id))
+			GetCountChildProduct(menus, cate.Id, buffer)
+		}
 	}
 }
 
